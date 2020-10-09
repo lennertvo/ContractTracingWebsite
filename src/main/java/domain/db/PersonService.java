@@ -15,7 +15,7 @@ public class PersonService {
 		Person administrator = new Person("admin", "admin@ucll.be", "t", "Ad", "Ministrator");
 		add(administrator);
 	}
-	
+	//
 	public Person get(String personId){
 		if(personId == null){
 			throw new DbException("No id given");
