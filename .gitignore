@@ -1,0 +1,10 @@
+# Intellij
+.idea/
+#local config
+*.iml
+*.iws
+
+
+#maven
+log/
+/target/
