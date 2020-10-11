@@ -40,9 +40,14 @@ Register
 </header><main>
     <c:if test="${not empty errors}">
         <div class="alert-danger">
-            <ul>
-                <li>Fill in all the fields</li>
-            </ul>
+
+                <c:forEach var="error" items="${errors}" >
+                    <ul>
+                    <li>${error}</li>
+                </ul>
+                </c:forEach>
+
+
         </div>
 
     </c:if>

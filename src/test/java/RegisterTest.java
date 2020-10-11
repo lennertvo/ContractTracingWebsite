@@ -13,16 +13,16 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class RegisterTest {
 	private WebDriver driver;
-	private String path = "http://localhost:8080/Controller";
+	private String path = "http://localhost:8080/opdracht_web3_war_exploded/Controller";
 	
 	@Before
 	public void setUp() {
 		//System.setProperty("webdriver.chrome.driver", "/Users/.../web3pers/chromedriver");
 			// windows: gebruik dubbele \\ om pad aan te geven
 			// hint: zoek een werkende test op van web 2 ...
-		System.setProperty("webdriver.chrome.driver", "/Applications/chromedriver");
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\lenne\\2TI\\Web3\\chromedriver.exe");
 		driver = new ChromeDriver();
-		driver.get(path+"?action=signUp");
+		driver.get(path+"Controller?command=Register");
 	}
 	
 	@After
@@ -38,7 +38,7 @@ public class RegisterTest {
 		String title = driver.getTitle();
 		assertEquals("Overview",title);
 		
-		driver.get(path+"?action=overview");
+		driver.get(path+"?command=Overview");
 		
 		ArrayList<WebElement> listItems=(ArrayList<WebElement>) driver.findElements(By.cssSelector("table tr"));
 		boolean found=false;
@@ -55,7 +55,7 @@ public class RegisterTest {
 		submitForm("", "Jan", "Janssens", "jan.janssens@hotmail.com", "1234");
 		
 		String title = driver.getTitle();
-		assertEquals("Sign Up",title);
+		assertEquals("Register",title);
 		
 		WebElement errorMsg = driver.findElement(By.cssSelector("div.alert-danger ul li"));
 		assertEquals("No userid given", errorMsg.getText());
