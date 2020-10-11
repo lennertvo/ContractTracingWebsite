@@ -6,7 +6,7 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta charset="UTF-8">
-<title>Sign Up</title>
+    <title>Sign Up</title>
 <link rel="stylesheet" type="text/css" href="css/style.css">
     <script>function myFunction() {
         var x = document.getElementById("password");

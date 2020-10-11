@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Home</title>
+	<title>Home</title>
 <link rel="stylesheet" type="text/css" href="css/style.css">
 	<script>function myFunction() {
 		var x = document.getElementById("passwordLogIn");
@@ -37,11 +37,11 @@
 
 		</header>
 		<main>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam consequuntur delectus id labore minima molestias non perspiciatis, quae qui rerum?</p>
+
 			<c:choose>
 
 				<c:when test="${person != null}">
-					<h3>Welcome, ${person.firstName}</h3>
+					<h3>Welcome, ${person.firstName}. you are now logged in, you can log out again or you can change your password.</h3>
 					<form action="Controller?command=LogOut" method="post">
 						<input type="submit" value="Log Out" id="logout">
 						<td><button type="submit" formaction="Controller?command=ChangePasswordForm&userid=${person.userid}">Change password</button></td>
@@ -49,7 +49,7 @@
 					</form>
 				</c:when>
 				<c:otherwise>
-					<p>Please log in.</p>
+					<h3>This is a contact tracing app for the cafeteria "in't hofke" located in Putte. Staff members can log in here. If you are not registered yet, please go to the log in page first.</h3>
 					<c:if test="${not empty error1}">
 						<p class="alert-danger">
 								${error1}</p>
