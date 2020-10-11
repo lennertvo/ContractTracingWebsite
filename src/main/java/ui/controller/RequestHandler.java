@@ -17,8 +17,6 @@ public abstract class RequestHandler {
         this.service = personService;
     }
 
-
-
     public PersonService getService() {
         return service;
     }

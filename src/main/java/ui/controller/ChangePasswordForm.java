@@ -9,5 +9,6 @@ public class ChangePasswordForm extends RequestHandler {
         String userid = request.getParameter("userid");
         request.setAttribute("userid", userid);
         return "changePassword.jsp";
+
     }
 }

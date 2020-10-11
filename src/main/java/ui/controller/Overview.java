@@ -12,5 +12,6 @@ public class Overview extends RequestHandler {
         List<Person> persons = service.getAll();
         request.setAttribute("persons", persons);
         return "personoverview.jsp";
+
     }
 }

@@ -13,6 +13,7 @@ public class Register extends RequestHandler {
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
         return "register.jsp";
+
     }
 }
 

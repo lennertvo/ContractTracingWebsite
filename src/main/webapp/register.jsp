@@ -64,7 +64,6 @@ Register
          required>
             <input type="checkbox" onclick="myFunction()" >Show Password</p>
         <p><input type="submit" id="signUp" value="Sign Up"></p>
-        
     </form>
 </main>
 <footer>

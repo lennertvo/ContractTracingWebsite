@@ -8,5 +8,6 @@ public class LogOut extends RequestHandler{
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
         request.getSession().invalidate();
         return "index.jsp";
+
     }
 }

@@ -23,7 +23,6 @@ public class Controller extends HttpServlet {
         processRequest(request, response);
 
     }
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
 
