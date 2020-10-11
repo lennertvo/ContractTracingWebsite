@@ -18,6 +18,7 @@ public class ChangePassword extends RequestHandler {
         List<String> errors1 = new ArrayList<String>();
 
 
+
         checkOldPassword(errors1, person, oldPassword);
         checkNewPasswords(errors1, newPassword, newPassword2);
 

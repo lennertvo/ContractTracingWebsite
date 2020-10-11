@@ -10,5 +10,4 @@ public class DeletePerson extends RequestHandler{
         service.delete(userid);
         return "Controller?command=Overview";
     }
-
 }

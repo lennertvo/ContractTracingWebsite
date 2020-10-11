@@ -40,6 +40,7 @@ User Overview
         </tr>
         </thead>
 
+
             <c:forEach var="person" items="${persons}">
             <form action="Controller?command=RemoveConfirmation&userId=${person.userid}" method="post">
 

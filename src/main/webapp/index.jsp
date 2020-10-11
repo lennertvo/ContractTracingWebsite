@@ -37,6 +37,7 @@
 
 		</header>
 		<main>
+
 			<c:choose>
 
 				<c:when test="${person != null}">

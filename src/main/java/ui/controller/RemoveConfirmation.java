@@ -17,5 +17,5 @@ public class RemoveConfirmation extends RequestHandler {
         request.setAttribute("userid", userid);
         return "removeConfirmation.jsp";
     }
-
+    //
 }

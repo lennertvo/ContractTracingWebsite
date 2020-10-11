@@ -231,6 +231,7 @@ bron https://css-tricks.com/
 	table, thead, tbody, th, td, tr {
 		display: block;
 	}
+
 	/* Hide table headers (but not display: none;, for accessibility) */
 	thead tr {
 		position: absolute;

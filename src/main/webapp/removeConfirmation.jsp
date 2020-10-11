@@ -44,6 +44,7 @@
 
     </article>
 
+
 </main>
     <footer>
         &copy; Webontwikkeling 3, UC Leuven-Limburg, Lennert Van Oosterwyck

@@ -20,6 +20,7 @@ public class SignUp extends RequestHandler {
         getPassword(person, request, errors);
 
 
+
         String destination;
         if (errors.size() > 0) {
             request.setAttribute("errors", errors);
