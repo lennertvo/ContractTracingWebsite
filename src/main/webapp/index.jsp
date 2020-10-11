@@ -48,7 +48,7 @@
 					</form>
 				</c:when>
 				<c:otherwise>
-					<h3>This is a contact tracing app for the cafeteria "in't hofke" located in Putte. Staff members can log in here. If you are not registered yet, please go to the log in page first.</h3>
+					<h3>This is a contact tracing app for the cafeteria "in't hofke" located in Putte. Staff members can log in here. If you are not registered yet, please go to the sign in page first.</h3>
 					<c:if test="${not empty error1}">
 						<p class="alert-danger">
 								${error1}</p>
