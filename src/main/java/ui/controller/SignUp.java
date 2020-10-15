@@ -1,5 +1,6 @@
 package ui.controller;
 
+import domain.db.DbException;
 import domain.model.Person;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,21 +19,32 @@ public class SignUp extends RequestHandler {
         getLastName(person, request, errors);
         getEmail(person, request, errors);
         getPassword(person, request, errors);
+        addPerson(person, request, errors);
 
 
 
         String destination;
-        if (errors.size() > 0) {
+        if(errors.size() > 0) {
             request.setAttribute("errors", errors);
             destination = "register.jsp";
-        } else {
-            service.add(person);
+
+        }
+        else{
             destination = "index.jsp";
         }
+
+
         return destination;
     }
 
-
+    private void addPerson(Person person, HttpServletRequest request, List<String> errors) {
+        try {
+            service.add(person);
+        }
+        catch (Exception e){
+            errors.add(e.getMessage());
+        }
+    }
 
     private void getPassword(Person person, HttpServletRequest request, List<String> errors) {
         String password = request.getParameter("password");

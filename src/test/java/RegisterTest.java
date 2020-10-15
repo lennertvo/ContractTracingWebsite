@@ -22,7 +22,7 @@ public class RegisterTest {
 			// hint: zoek een werkende test op van web 2 ...
 		System.setProperty("webdriver.chrome.driver", "C:\\Users\\lenne\\2TI\\Web3\\chromedriver.exe");
 		driver = new ChromeDriver();
-		driver.get(path+"Controller?command=Register");
+		driver.get(path+"?command=Register");
 	}
 	
 	@After
@@ -34,16 +34,16 @@ public class RegisterTest {
 	public void test_Register_AllFieldsFilledInCorrectly_UserIsRegistered() {
 		String useridRandom = generateRandomUseridInOrderToRunTestMoreThanOnce("jakke");
 		submitForm(useridRandom, "Jan", "Janssens", "jan.janssens@hotmail.com" , "1234");
-		
+
 		String title = driver.getTitle();
-		assertEquals("Overview",title);
-		
-		driver.get(path+"?command=Overview");
+		assertEquals("Home",title);
+
+		driver.get(path +"?command=Overview");
 		
 		ArrayList<WebElement> listItems=(ArrayList<WebElement>) driver.findElements(By.cssSelector("table tr"));
 		boolean found=false;
 		for (WebElement listItem:listItems) {
-				if (listItem.getText().contains("jan.janssens@hotmail.com") &&  listItem.getText().contains(" Jan Janssens")) {
+				if (listItem.getText().contains("jan.janssens@hotmail.com") &&  listItem.getText().contains("Janssens")) {
 				    found=true;
 			}
 		}
@@ -55,7 +55,7 @@ public class RegisterTest {
 		submitForm("", "Jan", "Janssens", "jan.janssens@hotmail.com", "1234");
 		
 		String title = driver.getTitle();
-		assertEquals("Register",title);
+		assertEquals("Sign Up",title);
 		
 		WebElement errorMsg = driver.findElement(By.cssSelector("div.alert-danger ul li"));
 		assertEquals("No userid given", errorMsg.getText());
@@ -170,8 +170,8 @@ public class RegisterTest {
 	public void test_Register_UserAlreadyExists_ErrorMessageGiven(){
 		String useridRandom = generateRandomUseridInOrderToRunTestMoreThanOnce("pierke");
 		submitForm(useridRandom, "Pieter", "Pieters", "pieter.pieters@hotmail.com", "1234");
-		
-		driver.get(path+"?action=signUp");
+
+		driver.get(path+"?command=Register");
 
 		submitForm(useridRandom, "Pieter", "Pieters", "pieter.pieters@hotmail.com", "1234");
 		

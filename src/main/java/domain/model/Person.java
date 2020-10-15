@@ -15,8 +15,6 @@ public class Person {
 
 
 
-
-
 	public Person(String userid, String email, String password, String firstName, String lastName) {
 		setUserid(userid);
 		setEmail(email);
@@ -24,16 +22,10 @@ public class Person {
 		setFirstName(firstName);
 		setLastName(lastName);
 
-
 	}
-
-
-
 
 	public Person() {
 	}
-
-
 
 
 	public String getUserid() {
@@ -46,9 +38,6 @@ public class Person {
 		}
 		this.userid = userid;
 	}
-
-
-
 	public void setEmail(String email) {
 		if(email.isEmpty()){
 			throw new IllegalArgumentException("No email given");

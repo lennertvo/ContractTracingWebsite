@@ -35,10 +35,6 @@ public class ChangePassword extends RequestHandler {
         return destination;
 
 
-
-
-
-
     }
 
     private void checkNewPasswords(List<String> errors1, String newPassword, String newPassword2) {
