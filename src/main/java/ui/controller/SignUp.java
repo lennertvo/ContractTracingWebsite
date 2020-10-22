@@ -39,7 +39,7 @@ public class SignUp extends RequestHandler {
 
     private void addPerson(Person person, HttpServletRequest request, List<String> errors) {
         try {
-            service.add(person);
+            service.addPerson(person);
         }
         catch (Exception e){
             errors.add(e.getMessage());

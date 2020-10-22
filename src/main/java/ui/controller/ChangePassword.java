@@ -4,6 +4,8 @@ import domain.model.Person;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +13,7 @@ public class ChangePassword extends RequestHandler {
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
         String userid = request.getParameter("userid");
-        Person person = service.get(userid);
+        Person person = service.getPerson(userid);
         String newPassword = request.getParameter("newPassword");
         String newPassword2 = request.getParameter("newPassword2");
         String oldPassword = request.getParameter("oldPassword");
@@ -44,7 +46,7 @@ public class ChangePassword extends RequestHandler {
         }
     }
 
-    private void checkOldPassword( List<String> errors1, Person person, String oldPassword) {
+    private void checkOldPassword( List<String> errors1, Person person, String oldPassword)  {
         if(!person.isCorrectPassword(oldPassword)){
             String faultOldPassword = "The old password is not correct";
             errors1.add(faultOldPassword);

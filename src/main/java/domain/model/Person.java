@@ -1,8 +1,13 @@
 package domain.model;
 
+import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -58,16 +63,18 @@ public class Person {
 	public String getEmail() {
 		return email;
 	}
+
+
 	
-	private String getPassword() {
+	public String getPassword() {
 		return password;
 	}
 	
-	public boolean isCorrectPassword(String password) {
+	public boolean isCorrectPassword(String password){
 		if(password.isEmpty()){
 			throw new IllegalArgumentException("No password given");
 		}
-		return this.password.equals(password);
+		return this.password.equals(hashPassword(password));
 	}
 
 	public void setPassword(String password) {
@@ -76,6 +83,14 @@ public class Person {
 		}
 		this.password = password;
 	}
+	public void setPasswordHashed(String password) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+		if(password == null || password.trim().isEmpty()){
+			throw new DomainException("No password given");
+		}
+		this.password = hashPassword(password);
+	}
+
+
 
 	public String getFirstName() {
 		return firstName;
@@ -100,7 +115,34 @@ public class Person {
 	}
 
 
-	
+	private static String hashPassword(String password) {
+
+		try {
+			MessageDigest crypt = MessageDigest.getInstance("SHA-512");
+			crypt.reset();
+
+			byte[] passwordBytes = password.getBytes("UTF-8");
+			crypt.update(passwordBytes);
+
+			byte[] digest = crypt.digest();
+			BigInteger digestAsBigInteger = new BigInteger(1, digest);
+
+			return digestAsBigInteger.toString(16);
+
+		}
+		catch (NoSuchAlgorithmException | UnsupportedEncodingException e){
+			throw new DomainException(e.getMessage());
+		}
+
+	}
+
+
+
+
+
+
+
+
 	@Override
 	public String toString(){
 		return getFirstName() + " " + getLastName() + ": " + getUserid() + ", " + getEmail() + ", " ;

@@ -9,7 +9,7 @@ public class RemoveConfirmation extends RequestHandler {
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
         String userid = request.getParameter("userId");
-        Person person = getService().get(userid);
+        Person person = getService().getPerson(userid);
         String firstName = person.getFirstName();
         String lastName = person.getLastName();
         request.setAttribute("fName", firstName);

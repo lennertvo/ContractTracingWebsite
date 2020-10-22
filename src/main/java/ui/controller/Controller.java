@@ -1,7 +1,7 @@
 package ui.controller;
 
 
-import domain.db.PersonService;
+import domain.service.PersonService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

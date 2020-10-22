@@ -1,7 +1,7 @@
 package domain.model;
 
 
-import domain.db.PersonService;
+import domain.service.PersonService;
 
 import java.util.List;
 
@@ -12,15 +12,15 @@ public class ContactTracingService {
     }
 
     public Person getPerson(String personId) {
-        return getPersonDb().get(personId);
+        return getPersonDb().getPerson(personId);
     }
 
     public List<Person> getPersons() {
-        return getPersonDb().getAll();
+        return getPersonDb().getPersons();
     }
 
     public void addPerson(Person person) {
-        getPersonDb().add(person);
+        getPersonDb().addPerson(person);
     }
 
     public void updatePersons(Person person) {
