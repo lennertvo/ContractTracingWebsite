@@ -1,5 +1,6 @@
 package ui.controller;
 
+
 import domain.db.DbException;
 import domain.model.Person;
 
@@ -19,38 +20,32 @@ public class SignUp extends RequestHandler {
         getLastName(person, request, errors);
         getEmail(person, request, errors);
         getPassword(person, request, errors);
-        addPerson(person, request, errors);
 
+        if(errors.size() == 0){
+            try {
+                service.addPerson(person);
+                return"Controller?command=Overview";
 
-
-        String destination;
-        if(errors.size() > 0) {
+            }
+            catch (DbException e) {
+                errors.add(e.getMessage());
+            }
+            }
             request.setAttribute("errors", errors);
-            destination = "register.jsp";
-
-        }
-        else{
-            destination = "index.jsp";
+            return "register.jsp";
         }
 
 
-        return destination;
-    }
 
-    private void addPerson(Person person, HttpServletRequest request, List<String> errors) {
-        try {
-            service.addPerson(person);
-        }
-        catch (Exception e){
-            errors.add(e.getMessage());
-        }
-    }
+
+
 
     private void getPassword(Person person, HttpServletRequest request, List<String> errors) {
         String password = request.getParameter("password");
         try {
-            person.setPassword(password);
+            person.setPasswordHashed(password);
             request.setAttribute("passwordClass", "has-succes");
+            System.out.println("okeeeee");
         }
         catch (Exception e) {
             request.setAttribute("passwordClass", "has-error");

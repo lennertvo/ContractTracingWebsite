@@ -12,32 +12,17 @@
 <head>
 <body>
 <div id="container">
-    <header>
-        <figure class="hero-image">
-        </figure>
-
-        <h1>
-            <span>Contact Tracing App</span>
-        </h1>
-        <nav>
-            <ul>
-                <li><a href="Controller">Home</a></li>
-                <li><a href="Controller?command=Overview">Users</a></li>
-                <li id="actual"><a href="Controller?command=Register">Sign Up</a></li>
-            </ul>
-        </nav>
-        <h2>
-
-        </h2>
-
-    </header><main>
+    <jsp:include page="header.jsp">
+        <jsp:param name="page" value="Remove Confirmation"/>
+    </jsp:include>
+   <main>
 
     <article>
         <h2>Are you sure you want to delete ${fName} ${lName}?</h2>
 
 
 
-        <form action="Controller?command=DeletePerson&userid=${userid}" method="post">
+        <form action="Controller?command=DeletePerson&userId=${userid}" method="post">
             <button type="submit">Yes</button>
             <button type="submit" formaction="Controller?command=Overview">No</button>
         </form>

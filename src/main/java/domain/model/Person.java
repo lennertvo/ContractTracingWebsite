@@ -4,12 +4,11 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 import java.time.format.DateTimeFormatter;
-import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 
 public class Person {
 	private String userid;
@@ -20,7 +19,7 @@ public class Person {
 
 
 
-	public Person(String userid, String email, String password, String firstName, String lastName) {
+	public Person(String userid, String email, String firstName, String lastName,  String password) {
 		setUserid(userid);
 		setEmail(email);
 		setPassword(password);
@@ -43,21 +42,22 @@ public class Person {
 		}
 		this.userid = userid;
 	}
+
 	public void setEmail(String email) {
 		if(email.isEmpty()){
 			throw new IllegalArgumentException("No email given");
 		}
-		String USERID_PATTERN = 
+		String USERID_PATTERN =
 				"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-				+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+						+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 		Pattern p = Pattern.compile(USERID_PATTERN);
 		Matcher m = p.matcher(email);
 		if (!m.matches()) {
 			throw new IllegalArgumentException("Email not valid");
 		}
+
 		this.email = email;
 	}
-
 	
 	
 	public String getEmail() {
@@ -71,19 +71,19 @@ public class Person {
 	}
 	
 	public boolean isCorrectPassword(String password){
-		if(password.isEmpty()){
+		if(password.isEmpty() || password.trim().isEmpty()){
 			throw new IllegalArgumentException("No password given");
 		}
 		return this.password.equals(hashPassword(password));
 	}
 
 	public void setPassword(String password) {
-		if(password.isEmpty()){
+		if(password.isEmpty() || password.trim().isEmpty()){
 			throw new IllegalArgumentException("No password given");
 		}
 		this.password = password;
 	}
-	public void setPasswordHashed(String password) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+	public void setPasswordHashed(String password) {
 		if(password == null || password.trim().isEmpty()){
 			throw new DomainException("No password given");
 		}
@@ -118,22 +118,22 @@ public class Person {
 	private static String hashPassword(String password) {
 
 		try {
+			//create MessageDigest
 			MessageDigest crypt = MessageDigest.getInstance("SHA-512");
+			//reset
 			crypt.reset();
-
+			//update
 			byte[] passwordBytes = password.getBytes("UTF-8");
 			crypt.update(passwordBytes);
-
+			//digest
 			byte[] digest = crypt.digest();
+			//convert to String
 			BigInteger digestAsBigInteger = new BigInteger(1, digest);
-
+			//return hashed password
 			return digestAsBigInteger.toString(16);
-
-		}
-		catch (NoSuchAlgorithmException | UnsupportedEncodingException e){
+		} catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
 			throw new DomainException(e.getMessage());
 		}
-
 	}
 
 

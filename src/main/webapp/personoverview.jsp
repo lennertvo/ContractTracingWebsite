@@ -9,23 +9,11 @@
 </head>
 <body>
 <div id="container">
-<header>
-    <figure class="hero-image">
-    </figure>
 
-    <h1>
-        <span>Contact Tracing App</span>
-    </h1>
-<nav>
-<ul>
-<li><a href="Controller">Home</a></li>
-<li id="actual"><a href="Controller?command=Overview">Users</a></li>
-<li><a href="Controller?command=Register">Sign Up</a></li>
-</ul>
-</nav>
-<h2>
-User Overview
-</h2>
+    <jsp:include page="header.jsp">
+        <jsp:param name="page" value="Overview"/>
+    </jsp:include>
+    <h2>User Overview</h2>
 
 </header><main>
     <table role="table">
@@ -35,7 +23,9 @@ User Overview
             <th role="columnheader">E-mail</th>
             <th role="columnheader">First Name</th>
             <th role="columnheader">Last Name</th>
-            <th role="columnheader">Delete Person</th>
+                <th role="columnheader">Delete Person</th>
+
+
 
         </tr>
         </thead>
@@ -51,6 +41,8 @@ User Overview
                     <td role="cell">${person.firstName}</td>
                     <td role="cell">${person.lastName}</td>
                     <td role="cell"><button type="submit">Delete person</button></td>
+
+
 
                 </tr>
 

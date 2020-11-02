@@ -6,11 +6,6 @@ import domain.db.PersonDBSQL;
 import domain.model.Person;
 
 
-import java.io.UnsupportedEncodingException;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
 import java.util.*;
 
 public class PersonService {
@@ -24,6 +19,8 @@ public class PersonService {
 
 
 	public void addPerson(Person person){
+		if(person == null) throw new DbException("No person given");
+		if(db.personAlreadyInDb(person.getUserid())) throw new DbException("User already in DB");
 		db.add(person);
 	}
 
@@ -42,11 +39,14 @@ public class PersonService {
 
 	public void delete(String userid){
 		if(userid == null || userid.trim().isEmpty()){
-			throw new DbException("No id given");
+			throw new DbException("No userid given");
 		}
 		db.remove(userid);
 	}
 	public Person getPerson(String userId) {
+		if(userId == null || userId.trim().isEmpty()) throw new DbException("No userid given");
+		if(!db.personAlreadyInDb(userId)) throw new DbException("Person not in database");
+
 		return db.get(userId);
 	}
 	public Person findPerson(String userId){

@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 public class DeletePerson extends RequestHandler{
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
-        String userid = request.getParameter("userid");
+        String userid = request.getParameter("userId");
         service.delete(userid);
         return "Controller?command=Overview";
     }

@@ -1,8 +1,8 @@
 package util;
 
 import java.sql.Connection;
-import java.sql.Driver;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Properties;
 
@@ -23,7 +23,7 @@ public class DBconnectionManager {
 
         dbProperties.setProperty("ssl", "true");
         dbProperties.setProperty("sslfactory", "org.postgresql.ssl.NonValidatingFactory");
-        dbProperties.setProperty("sslmode", "true");
+        //dbProperties.setProperty("sslmode", "true");
         dbProperties.setProperty("sslmode", "require");
 
 

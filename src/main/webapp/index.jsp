@@ -19,23 +19,10 @@
 </head>
 <body>
 	<div id="container">
-		<header>
-			<figure class="hero-image">
-			</figure>
+		<jsp:include page="header.jsp">
+			<jsp:param name="page" value="Home"/>
+		</jsp:include>
 
-			<h1>
-				<span>Contact Tracing App</span>
-			</h1>
-			<nav>
-				<ul>
-					<li id="actual"><a href="Controller">Home</a></li>
-					<li><a href="Controller?command=Overview">Users</a></li>
-					<li><a href="Controller?command=Register">Sign Up</a></li>
-				</ul>
-			</nav>
-			<h2>Home</h2>
-
-		</header>
 		<main>
 
 

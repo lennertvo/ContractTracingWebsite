@@ -19,25 +19,14 @@
 </head>
 <body>
 <div id="container">
-<header>
-    <figure class="hero-image">
-    </figure>
+    <jsp:include page="header.jsp">
+        <jsp:param name="page" value="Register"/>
+    </jsp:include>
+    <h2>
+        Staff can create an account here.
+    </h2>
 
-    <h1>
-        <span>Contact Tracing App</span>
-    </h1>
-<nav>
-<ul>
-<li><a href="Controller">Home</a></li>
-<li><a href="Controller?command=Overview">Users</a></li>
-<li id="actual"><a href="Controller?command=Register">Sign Up</a></li>
-</ul>
-</nav>
-<h2>
-Register
-</h2>
-
-</header><main>
+<main>
     <c:if test="${not empty errors}">
         <div class="alert-danger">
 

@@ -12,6 +12,9 @@ public interface PersonDB {
     List<Person> getAll();
 
 
+    boolean personAlreadyInDb(String userid);
+
+
 
     void remove(String userid);
 

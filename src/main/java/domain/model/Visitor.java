@@ -1,31 +1,29 @@
 package domain.model;
 
-import javax.swing.text.DateFormatter;
-import java.time.LocalDate;
+
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
+
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Visitor {
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy, HH:mm:ss");
-    String visitorid;
     String firstName;
     String LastName;
     String email;
-    int phoneNumber;
+    String  phoneNumber;
     LocalDateTime arrivalTime;
 
 
-    public Visitor(String visitorid, String firstName, String lastName, String email, int phoneNumber){
-        setVisitorid(visitorid);
+    public Visitor(String firstName, String lastName, String email, String phoneNumber, LocalDateTime arrivalTime){
         setFirstName(firstName);
         setLastName(lastName);
         setEmail(email);
         setPhoneNumber(phoneNumber);
-        setArrivalTime();
+        setArrivalTime(arrivalTime);
 
     }
 
@@ -37,17 +35,19 @@ public class Visitor {
         if(phoneNumber == 0) return null;
         return Integer.toString(phoneNumber);
     }
-    private String formatDateTimeToString(LocalDate date){
-        if(date == null) return null;
-        return date.format(formatter);
+    private String formatDateTimeToString(LocalDateTime dateTime){
+        if(dateTime == null) return null;
+        return dateTime.format(formatter);
     }
 
-    public void setVisitorid(String visitorid) {
-        if(visitorid == null || visitorid.trim().isEmpty()) {
-            throw new DomainException("No visitorid given");
+    private LocalDateTime formatStringToDateTime(String localdateString) {
+        if(localdateString.isEmpty() || localdateString.trim().isEmpty()) {
+            throw new DomainException("Localdate String can not be empty");
         }
-        this.visitorid = visitorid;
+        return LocalDateTime.parse(localdateString, formatter);
     }
+
+
 
     public void setFirstName(String firstName) {
         if(firstName == null || firstName.trim().isEmpty()){
@@ -78,8 +78,8 @@ public class Visitor {
         this.email = email;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
-        if(phoneNumber == 0){
+    public void setPhoneNumber(String phoneNumber) {
+        if(phoneNumber == null || phoneNumber.trim().isEmpty()){
             throw new DomainException("No phonenumber given");
         }
         this.phoneNumber = phoneNumber;
@@ -87,13 +87,14 @@ public class Visitor {
 
 
 
-    public void setArrivalTime() {
-        this.arrivalTime = LocalDateTime.now();
+    public void setArrivalTime(LocalDateTime arrivaltime) {
+        if(arrivaltime == null) {
+            this.arrivalTime = LocalDateTime.now();
+        }
+        this.arrivalTime = arrivaltime;
     }
 
-    public String getVisitorid() {
-        return visitorid;
-    }
+
 
     public String getFirstName() {
         return firstName;
@@ -107,7 +108,7 @@ public class Visitor {
         return email;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
@@ -117,15 +118,17 @@ public class Visitor {
         return arrivalTime;
     }
 
+    public String getArrivalTimeInString() {
+        return formatDateTimeToString(arrivalTime);
+    }
+
     @Override
     public String toString() {
         return "Visitor{" +
-                "formatter=" + formatter +
-                ", visitorid='" + visitorid + '\'' +
-                ", firstName='" + firstName + '\'' +
+                "firstName='" + firstName + '\'' +
                 ", LastName='" + LastName + '\'' +
                 ", email='" + email + '\'' +
-                ", phoneNumber=" + phoneNumber +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 ", arrivalTime=" + arrivalTime +
                 '}';
     }

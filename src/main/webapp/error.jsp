@@ -10,24 +10,12 @@
 </head>
 <body>
 <div id="container">
-    <header>
-            <figure class="hero-image">
-            </figure>
-
-            <h1>
-                <span>Contact Tracing App</span>
-            </h1>
-
-        <nav>
-            <ul>
-                <li id="actual"><a href="Controller">Home</a></li>
-                <li><a href="Controller?command=Overview">Users</a></li>
-                <li><a href="Controller?command=Register">Sign Up</a></li>
-            </ul>
-        </nav>
+    <jsp:include page="header.jsp">
+        <jsp:param name="page" value="Error"/>
+    </jsp:include>
         <h2>Error!</h2>
 
-    </header>
+
     <main>
     <article>
         <p>${error}</p>

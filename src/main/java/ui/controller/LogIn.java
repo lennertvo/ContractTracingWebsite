@@ -11,7 +11,9 @@ public class LogIn extends RequestHandler {
     public String handleRequest(HttpServletRequest request, HttpServletResponse response){
         String userId = request.getParameter("useridLogIn");
         String password = request.getParameter("passwordLogIn");
+        System.out.println("oke");
         Person person = getService().getPersonIfAuthenticated(userId, password);
+
         if(person == null) {
             request.setAttribute("error1", "No matching user Id and password");
             return "index.jsp";
