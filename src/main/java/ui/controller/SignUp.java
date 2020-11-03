@@ -41,7 +41,7 @@ public class SignUp extends RequestHandler {
 
 
     private void getPassword(Person person, HttpServletRequest request, List<String> errors) {
-        String password = request.getParameter("password");
+        String password = request.getParameter("password").trim();
         try {
             person.setPasswordHashed(password);
             request.setAttribute("passwordClass", "has-succes");

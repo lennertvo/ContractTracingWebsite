@@ -54,10 +54,10 @@
 
 
         </c:forEach>
+    </table>
 
 
 
-<caption>Users Overview</caption>
 </table>
 </main>
 <footer>

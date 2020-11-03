@@ -5,6 +5,7 @@ import domain.db.VisitorDB;
 import domain.db.VisitorDBSQL;
 import domain.model.Visitor;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -35,20 +36,20 @@ public class VisitorService {
         addVisitor(visitor);
     }
 
-    public void delete(String firstname, String lastname, LocalDateTime arrivaltime) {
+    public void delete(String firstname, String lastname, Timestamp arrivaltime) {
         if(firstname == null || firstname.trim().isEmpty() || lastname == null || lastname.trim().isEmpty()) {
             throw new DbException("No visitorid given");
         }
         db.remove(firstname, lastname, arrivaltime);
     }
 
-    public Visitor getVisitor(String firstname, String lastname, LocalDateTime arrivaltime){
+    public Visitor getVisitor(String firstname, String lastname, Timestamp arrivaltime){
         if(firstname == null || firstname.trim().isEmpty() || lastname == null || lastname.trim().isEmpty()) throw new DbException("No visitorid given");
         if(!db.visitorAlreadyInDb(firstname, lastname, arrivaltime)) throw new DbException("visitor not in database");
         return db.get(firstname, lastname, arrivaltime);
     }
 
-    public Visitor findVisitor(String firstname, String lastname, LocalDateTime arrivaltime) {
+    public Visitor findVisitor(String firstname, String lastname, Timestamp arrivaltime) {
         if(firstname == null || firstname.trim().isEmpty() || lastname == null || lastname.trim().isEmpty()) throw new DbException("No visitor to find with that visitor id");
         return db.get(firstname, lastname, arrivaltime);
     }

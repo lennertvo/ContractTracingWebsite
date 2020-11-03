@@ -37,7 +37,7 @@ public class VisitorDBSQL implements VisitorDB {
             statementSql.setString(2, visitor.getLastName());
             statementSql.setString(3, visitor.getEmail());
             statementSql.setString(4, visitor.getPhoneNumber());
-            statementSql.setString(5, visitor.getArrivalTimeInString());
+            statementSql.setObject(5, visitor.getArrivalTime());
             statementSql.execute();
         }
         catch (SQLException e) {
@@ -54,14 +54,8 @@ public class VisitorDBSQL implements VisitorDB {
             PreparedStatement statementSql = connection.prepareStatement(sql);
             ResultSet result = statementSql.executeQuery();
             while (result.next()) {
-                String firstname = result.getString("firstname");
-                String lastname = result.getString("lastname");
-                String email = result.getString("email");
-                String phonenumber = result.getString("phonenumber");
-                String arrivaltime = result.getString("arrivaltime");
-                LocalDateTime arrivalTime = LocalDateTime.parse(arrivaltime);
-                Visitor visitor = new Visitor(firstname, lastname, email, phonenumber, arrivalTime);
-                visitors.add(visitor);
+               Visitor visitor = createVisitor(result);
+               visitors.add(visitor);
             }
         }
         catch (SQLException e) {
@@ -71,7 +65,7 @@ public class VisitorDBSQL implements VisitorDB {
     }
 
     @Override
-    public boolean visitorAlreadyInDb(String firstname, String lastname, LocalDateTime arrivaltime) {
+    public boolean visitorAlreadyInDb(String firstname, String lastname, Timestamp arrivaltime) {
         String sql = String.format("SELECT * FROM %s.bezoeker where firstname = ? and lastname = ? and arrivaltime = ?", this.schema);
 
         try {
@@ -79,7 +73,7 @@ public class VisitorDBSQL implements VisitorDB {
             statementSql.setString(1, firstname);
             statementSql.setString(2, lastname);
 
-            statementSql.setString(3, arrivaltime.format(formatter));
+            statementSql.setObject(3, arrivaltime);
             ResultSet result = statementSql.executeQuery();
             return result.next();
         }
@@ -90,15 +84,14 @@ public class VisitorDBSQL implements VisitorDB {
 
 
     @Override
-    public void remove(String firstname, String lastname, LocalDateTime arrivaltime) {
+    public void remove(String firstname, String lastname, Timestamp arrivaltime) {
         String sql = String.format("SELECT * FROM %s.bezoeker where firstname = ? and lastname = ? and arrivaltime = ?)", this.schema);
 
         try {
             PreparedStatement statementSql = connection.prepareStatement(sql);
             statementSql.setString(1, firstname);
             statementSql.setString(2, lastname);
-            statementSql.setTimestamp(3, Timestamp.valueOf(arrivaltime));
-            statementSql.setString(3, arrivaltime.format(formatter));
+            statementSql.setObject(3, arrivaltime);
             statementSql.execute();
         }
         catch (SQLException  e) {
@@ -108,14 +101,14 @@ public class VisitorDBSQL implements VisitorDB {
     }
 
     @Override
-    public Visitor get(String firstname, String lastname, LocalDateTime arrivaltime) {
+    public Visitor get(String firstname, String lastname, Timestamp arrivaltime) {
         String sql = String.format("SELECT * FROM %s.bezoeker where firstname = ? and lastname = ? and arrivaltime = ?)", this.schema);
 
         try {
             PreparedStatement statementSql = connection.prepareStatement(sql);
             statementSql.setString(1, firstname);
             statementSql.setString(2, lastname);
-            statementSql.setString(3, arrivaltime.format(formatter));
+            statementSql.setObject(3, arrivaltime);
             ResultSet result = statementSql.executeQuery();
             result.next();
             String email = result.getString("email");
@@ -127,5 +120,15 @@ public class VisitorDBSQL implements VisitorDB {
         catch (SQLException e) {
             throw new DbException(e);
         }
+    }
+
+    private Visitor createVisitor(ResultSet result) throws SQLException{
+        String firstname = result.getString("firstname");
+        String lastname = result.getString("lastname");
+        String email = result.getString("email");
+        String phonenumber = result.getString("phonenumber");
+        Timestamp arrivaltime = result.getObject("arrivaltime", Timestamp.class);
+
+        return new Visitor(firstname, lastname, email, phonenumber, arrivaltime);
     }
 }

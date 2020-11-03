@@ -1,10 +1,12 @@
 package ui.controller;
-
+import domain.db.DbException;
+import domain.model.Person;
 import domain.model.Visitor;
 import domain.service.VisitorService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -14,6 +16,8 @@ public class AddVisitor extends RequestHandler {
 
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
+
+
         Visitor visitor = new Visitor();
 
 
@@ -23,43 +27,40 @@ public class AddVisitor extends RequestHandler {
         getEmail(visitor, request, errors);
         getPhoneNumber(visitor, request, errors);
         getArrivalTime(visitor, request, errors);
-        addVisitor(visitor, request, errors);
 
-        String destination;
-        if(errors.size() > 0) {
-            request.setAttribute("errors", errors);
-            destination = "addVisitor.jsp";
+
+
+
+
+        if(errors.size() == 0){
+            try {
+                visitorService.addVisitor(visitor);
+                System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                return "visitorOverview.jsp";
+            }
+            catch (DbException e){
+                errors.add(e.getMessage());
+            }
         }
-        else{
-            destination = "visitorOverview";
-        }
-        return destination;
-
-
+        request.setAttribute("errors", errors);
+        return "addVisitor.jsp";
 
     }
 
-    private void addVisitor(Visitor visitor, HttpServletRequest request, List<String> errors) {
-        try {
-            visitorService.addVisitor(visitor);
-        }
-        catch (Exception e) {
-            errors.add(e.getMessage());
-        }
 
-    }
 
     private void getArrivalTime(Visitor visitor, HttpServletRequest request, List<String> errors) {
-        String arrivalTime = request.getParameter("ArrivalTime");
-        LocalDateTime arrivaltime =LocalDateTime.parse(arrivalTime);
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        System.out.println(timestamp.toString());
         try {
-            visitor.setArrivalTime(arrivaltime);
+            visitor.setArrivalTime(timestamp);
         }
         catch (Exception e) {
             errors.add(e.getMessage());
         }
 
     }
+
 
     private void getPhoneNumber(Visitor visitor, HttpServletRequest request, List<String> errors) {
         String phoneNumber = request.getParameter("phoneNumber");

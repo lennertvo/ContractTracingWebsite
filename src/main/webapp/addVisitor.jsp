@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -15,29 +16,37 @@
 
 <div id="container">
     <jsp:include page="header.jsp">
-        <jsp:param name="page" value="Visitors overview"/>
+        <jsp:param name="page" value="Add Visitor"/>
     </jsp:include>
 
 
         <h2>
             Leave your personal data here
         </h2>
-
-
-
     <main>
+        <c:if test="${not empty errors}">
+            <div class="alert-danger">
 
-        <form method="post" action="Controller?command=addVisitor" novalidate="novalidate">
+                <c:forEach var="error" items="${errors}" >
+                    <ul>
+                        <li>${error}</li>
+                    </ul>
+                </c:forEach>
+
+
+            </div>
+
+        </c:if>
+
+        <form method="post" action="Controller?command=AddVisitor" novalidate="novalidate">
             <p><label for="firstName">Fistname</label><input type="text" id="firstName" name="firstName" required></p>
             <p><label for="lastName">Lastname</label><input type="text" id="lastName" name="lastName" required></p>
             <p><label for="email">E-mail</label><input type="email" id="email" name="email" required></p>
             <p><label for="phoneNumber">phonenumber</label><input type="tel" id="phoneNumber" name="phoneNumber" required></p>
-            <p><label for="arrivalTime">Arrivaltime</label><input type="datetime-local" id="arrivalTime" name="arrivalTime" required></p>
             <p><input type="submit" id="addVisitor" value="Add visitor"></p>
 
-
-
         </form>
+
     </main>
 </div>
 

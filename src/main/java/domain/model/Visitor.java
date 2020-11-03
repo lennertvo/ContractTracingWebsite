@@ -1,6 +1,8 @@
 package domain.model;
 
 
+import domain.db.DbException;
+
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
@@ -15,10 +17,10 @@ public class Visitor {
     String LastName;
     String email;
     String  phoneNumber;
-    LocalDateTime arrivalTime;
+    Timestamp arrivalTime;
 
 
-    public Visitor(String firstName, String lastName, String email, String phoneNumber, LocalDateTime arrivalTime){
+    public Visitor(String firstName, String lastName, String email, String phoneNumber, Timestamp arrivalTime){
         setFirstName(firstName);
         setLastName(lastName);
         setEmail(email);
@@ -31,10 +33,7 @@ public class Visitor {
 
     }
 
-    private String formatPhoneNumberToString(int phoneNumber){
-        if(phoneNumber == 0) return null;
-        return Integer.toString(phoneNumber);
-    }
+
     private String formatDateTimeToString(LocalDateTime dateTime){
         if(dateTime == null) return null;
         return dateTime.format(formatter);
@@ -87,9 +86,9 @@ public class Visitor {
 
 
 
-    public void setArrivalTime(LocalDateTime arrivaltime) {
+    public void setArrivalTime(Timestamp arrivaltime) {
         if(arrivaltime == null) {
-            this.arrivalTime = LocalDateTime.now();
+            throw new DomainException("No arrivaltime given");
         }
         this.arrivalTime = arrivaltime;
     }
@@ -114,13 +113,10 @@ public class Visitor {
 
 
 
-    public LocalDateTime getArrivalTime() {
+    public Timestamp getArrivalTime() {
         return arrivalTime;
     }
 
-    public String getArrivalTimeInString() {
-        return formatDateTimeToString(arrivalTime);
-    }
 
     @Override
     public String toString() {

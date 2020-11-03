@@ -1,5 +1,6 @@
 package ui.controller;
 
+import domain.db.DbException;
 import domain.model.Person;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,36 +16,28 @@ public class ChangePassword extends RequestHandler {
         String userid = request.getParameter("userid");
         Person person = service.getPerson(userid);
         String newPassword = request.getParameter("newPassword");
-        String newPassword2 = request.getParameter("newPassword2");
         String oldPassword = request.getParameter("oldPassword");
         List<String> errors1 = new ArrayList<String>();
 
 
 
         checkOldPassword(errors1, person, oldPassword);
-        checkNewPasswords(errors1, newPassword, newPassword2);
+        getAndSetNewPassword(person, request, errors1);
 
-        String destination;
-        if(errors1.size() > 0) {
-            request.setAttribute("errors1", errors1);
-            destination = "changePassword.jsp";
-        }
-        else{
-            person.setPassword(newPassword);
-            destination = "index.jsp";
 
+
+        if(errors1.size() == 0) {
+
+                return "index.jsp";
         }
-        return destination;
+        request.setAttribute("errors1", errors1);
+        return "changePassword.jsp";
+
 
 
     }
 
-    private void checkNewPasswords(List<String> errors1, String newPassword, String newPassword2) {
-        if(!newPassword.equals(newPassword2)){
-            String newPassword1NotNewPassword2 = "The new passwords do not match";
-            errors1.add(newPassword1NotNewPassword2);
-        }
-    }
+
 
     private void checkOldPassword( List<String> errors1, Person person, String oldPassword)  {
         if(!person.isCorrectPassword(oldPassword)){
@@ -52,7 +45,19 @@ public class ChangePassword extends RequestHandler {
             errors1.add(faultOldPassword);
         }
     }
-    //test2
+
+    private void getAndSetNewPassword(Person person, HttpServletRequest request, List<String> errors1){
+        String newPassword = request.getParameter("newPassword");
+        try {
+            person.setPasswordHashed(newPassword);
+            service.update(person);
+            request.getSession().invalidate();
+        }
+        catch (Exception e) {
+            errors1.add(e.getMessage());
+        }
+    }
+
 
 
 }
