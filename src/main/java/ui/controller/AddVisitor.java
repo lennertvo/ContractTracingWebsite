@@ -35,7 +35,6 @@ public class AddVisitor extends RequestHandler {
         if(errors.size() == 0){
             try {
                 visitorService.addVisitor(visitor);
-                System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
                 return "visitorOverview.jsp";
             }
             catch (DbException e){
