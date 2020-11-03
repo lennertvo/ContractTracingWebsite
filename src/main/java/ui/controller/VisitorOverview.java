@@ -11,7 +11,6 @@ public class VisitorOverview extends RequestHandler{
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
         List<Visitor> visitors = visitorService.getVisitors();
         request.setAttribute("visitors", visitors);
-
         return "visitorOverview.jsp";
     }
 }

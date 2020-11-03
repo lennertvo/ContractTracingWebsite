@@ -35,7 +35,8 @@ public class AddVisitor extends RequestHandler {
         if(errors.size() == 0){
             try {
                 visitorService.addVisitor(visitor);
-                return "visitorOverview.jsp";
+                return "Controller?command=VisitorOverview";
+
             }
             catch (DbException e){
                 errors.add(e.getMessage());

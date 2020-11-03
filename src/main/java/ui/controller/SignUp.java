@@ -24,6 +24,7 @@ public class SignUp extends RequestHandler {
         if(errors.size() == 0){
             try {
                 service.addPerson(person);
+
                 return"Controller?command=Overview";
 
             }

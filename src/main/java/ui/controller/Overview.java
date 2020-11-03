@@ -11,7 +11,6 @@ public class Overview extends RequestHandler {
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
         List<Person> persons = service.getPersons();
         request.setAttribute("persons", persons);
-        System.out.println("werkt dit?");
         return "personoverview.jsp";
     }
 }

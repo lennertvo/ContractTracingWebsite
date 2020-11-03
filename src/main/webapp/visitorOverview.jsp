@@ -12,7 +12,7 @@
 <div id="container">
 
     <jsp:include page="header.jsp">
-        <jsp:param name="page" value="VisitorOverview"/>
+        <jsp:param name="page" value="Visitor Overview"/>
     </jsp:include>
     <h2>Visitor Overview</h2>
 
@@ -21,9 +21,9 @@
         <thead role="rowgroup">
 
         <tr role="row">
-            <th role="columnheader">ArrivalTime</th>
             <th role="columnheader">Firstname</th>
             <th role="columnheader">Lastname</th>
+            <th role="columnheader">ArrivalTime</th>
 
         </tr>
         </thead>
@@ -31,17 +31,14 @@
 
 
 
-    </table>
+
     <c:forEach var="visitor" items="${visitors}">
         <tbody role="rowgroup">
         <tr role="row">
 
-
-
-
-            <td role="cell"><fmt:formatDate pattern="dd/MM/YYYY HH:mm:ss" value="${visitor.arrivalTime}"/></td>
             <td role="cell">${visitor.firstName}</td>
             <td role="cell">${visitor.lastName}</td>
+            <td role="cell"><fmt:formatDate pattern="dd/MM/YYYY HH:mm" value="${visitor.arrivalTime}"/></td>
 
         </tr>
         </tbody>

@@ -30,7 +30,7 @@ public class VisitorDBSQL implements VisitorDB {
         if(visitor == null){
             throw new DbException("Nothing to add.");
         }
-        String sql = String.format("Insert into %s.bezoeker( firstname, lastname, email, phonenumber, arrivaltime) values( ?, ?, ?, ?, ?");
+        String sql = String.format("Insert into %s.bezoeker( firstname, lastname, email, phonenumber, arrivaltime) values( ?, ?, ?, ?, ?)",  this.schema);
         try {
             PreparedStatement statementSql = connection.prepareStatement(sql);
             statementSql.setString(1, visitor.getFirstName());
