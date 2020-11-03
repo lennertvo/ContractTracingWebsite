@@ -10,8 +10,8 @@
             <li ${param.page eq 'Register'?'id="actual"':""}><a href="Controller?command=Register">Sign Up</a></li>
 
 
-                <li ${param.page eq 'Add Visitor'?'id="actual"':""}><a href="Controller?command=AddVisitorForm">Add Contacts</a></li>
-            <li ${param.page eq 'Visitor Overview'?' id="actual"': ""}><a href="Controller?command=VisitorOverview">Contacts</a></li>
+                <li ${param.page eq 'Add Visitor'?'id="actual"':""}><a href="Controller?command=VisitorOverview">Contacts</a></li>
+
 
         </ul>
     </nav>

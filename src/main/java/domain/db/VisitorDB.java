@@ -24,4 +24,7 @@ public interface VisitorDB {
 
 
     Visitor get(String firstname, String lastname, Timestamp arrivaltime);
+
+
+    List<Visitor> getWithFnameAndLname(String firstname, String lastname);
 }

@@ -21,9 +21,9 @@
     </jsp:include>
 
 
-        <h2>
-            Leave your personal data here
-        </h2>
+    <h2>
+        Leave your personal data here
+    </h2>
     <main>
         <c:if test="${not empty errors}">
             <div class="alert-danger">
@@ -39,13 +39,9 @@
 
         </c:if>
 
-        <form method="post" action="Controller?command=AddVisitor" novalidate="novalidate">
+        <form method="post" action="Controller?command=SearchVisitor" novalidate="novalidate">
             <p><label for="firstName">Fistname</label><input type="text" id="firstName" name="firstName" required></p>
             <p><label for="lastName">Lastname</label><input type="text" id="lastName" name="lastName" required></p>
-            <p><label for="email">E-mail</label><input type="email" id="email" name="email" required></p>
-            <p><label for="phoneNumber">phonenumber</label><input type="tel" id="phoneNumber" name="phoneNumber" required></p>
-            <p><input type="submit" id="addVisitor" value="Add visitor"></p>
-
         </form>
         <c:if test="${not empty user}">
 
@@ -57,13 +53,12 @@
                 <tr role="row">
                     <th role="columnheader">Firstname</th>
                     <th role="columnheader">Lastname</th>
+                    <th role="columnheader">Email</th>
+                    <th role="columnheader">Phonenumber</th>
                     <th role="columnheader">ArrivalTime</th>
 
                 </tr>
                 </thead>
-
-
-
 
 
                 <c:forEach var="visitor" items="${visitors}">
@@ -72,6 +67,8 @@
 
                         <td role="cell">${visitor.firstName}</td>
                         <td role="cell">${visitor.lastName}</td>
+                        <td role="cell">${visitor.email}</td>
+                        <td role="cell">${visitor.phoneNumber}</td>
                         <td role="cell"><fmt:formatDate pattern="dd/MM/YYYY HH:mm" value="${visitor.arrivalTime}"/></td>
 
                     </tr>

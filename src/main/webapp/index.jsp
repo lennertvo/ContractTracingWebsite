@@ -28,11 +28,11 @@
 
 			<c:choose>
 
-				<c:when test="${person != null}">
-					<h3>Welcome, ${person.firstName}. you are now logged in, you can log out again or you can change your password.</h3>
+				<c:when test="${user != null}">
+					<h3>Welcome, ${user.firstName}. you are now logged in, you can log out again or you can change your password.</h3>
 					<form action="Controller?command=LogOut" method="post">
 						<input type="submit" value="Log Out" id="logout">
-						<td><button type="submit" formaction="Controller?command=ChangePasswordForm&userid=${person.userid}">Change password</button></td>
+						<td><button type="submit" formaction="Controller?command=ChangePasswordForm&userid=${user.userid}">Change password</button></td>
 
 					</form>
 				</c:when>

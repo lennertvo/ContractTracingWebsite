@@ -1,5 +1,6 @@
 package ui.controller;
 
+import domain.model.Visitor;
 import domain.service.PersonService;
 import domain.service.VisitorService;
 
@@ -8,13 +9,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 
 public abstract class RequestHandler {
 
     protected PersonService service;
     protected VisitorService visitorService;
-
 
     public abstract String handleRequest (HttpServletRequest request, HttpServletResponse response);
     public void setModel (PersonService personService, VisitorService visitorService) {

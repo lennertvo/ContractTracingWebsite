@@ -63,6 +63,28 @@ public class VisitorDBSQL implements VisitorDB {
         }
         return visitors;
     }
+    @Override
+    public List<Visitor> getWithFnameAndLname(String firstname, String lastname) {
+        List<Visitor> visitorss = new ArrayList<Visitor>();
+        String sql = String.format("Select * from %s.bezoeker where firstname = ? and lastname = ?)", this.schema);
+
+        try {
+            PreparedStatement statementSql = connection.prepareStatement(sql);
+            statementSql.setString(1, firstname);
+            statementSql.setString(2, lastname);
+            ResultSet result = statementSql.executeQuery();
+            while(result.next()){
+                Visitor visitor = createVisitor(result);
+                visitorss.add(visitor);
+            }
+        }
+        catch (SQLException e) {
+            throw new DbException(e);
+        }
+        return visitorss;
+    }
+
+
 
     @Override
     public boolean visitorAlreadyInDb(String firstname, String lastname, Timestamp arrivaltime) {
@@ -121,6 +143,9 @@ public class VisitorDBSQL implements VisitorDB {
             throw new DbException(e);
         }
     }
+
+
+
 
     private Visitor createVisitor(ResultSet result) throws SQLException{
         String firstname = result.getString("firstname");

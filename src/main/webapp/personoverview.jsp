@@ -23,7 +23,10 @@
             <th role="columnheader">E-mail</th>
             <th role="columnheader">First Name</th>
             <th role="columnheader">Last Name</th>
+            <c:if test="${user.userid eq 'admin'}">
                 <th role="columnheader">Delete Person</th>
+            </c:if>
+
 
 
 
@@ -32,7 +35,7 @@
 
 
             <c:forEach var="person" items="${persons}">
-            <form action="Controller?command=RemoveConfirmation&userId=${person.userid}" method="post">
+
 
 
                 <tbody role="rowgroup">
@@ -40,17 +43,15 @@
                     <td role="cell">${person.email}</td>
                     <td role="cell">${person.firstName}</td>
                     <td role="cell">${person.lastName}</td>
-                    <td role="cell"><button type="submit">Delete person</button></td>
-
-
+                    <c:if test="${user.userid eq 'admin'}">
+                    <form action="Controller?command=RemoveConfirmation&userId=${person.userid}" method="post">
+                        <td role="cell"><button type="submit">Delete person</button></td>
+                    </form>
+                    </c:if>
 
                 </tr>
 
-
             </tbody>
-
-
-            </form>
 
 
         </c:forEach>

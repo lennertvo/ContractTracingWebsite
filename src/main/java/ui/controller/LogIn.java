@@ -11,7 +11,7 @@ public class LogIn extends RequestHandler {
     public String handleRequest(HttpServletRequest request, HttpServletResponse response){
         String userId = request.getParameter("useridLogIn");
         String password = request.getParameter("passwordLogIn");
-        System.out.println("oke");
+
         Person person = getService().getPersonIfAuthenticated(userId, password);
 
         if(person == null) {
@@ -19,7 +19,7 @@ public class LogIn extends RequestHandler {
             return "index.jsp";
         }
         else{
-            request.getSession().setAttribute("person", person);
+            request.getSession().setAttribute("user", person);
 
         }
         return "index.jsp";
