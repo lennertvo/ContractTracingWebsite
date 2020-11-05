@@ -1,8 +1,11 @@
 package ui.controller;
 
 
+import domain.model.Visitor;
 import domain.service.PersonService;
 import domain.service.VisitorService;
+
+import java.util.ArrayList;
 
 public class HandlerFactory{
     public RequestHandler getHandler(String handlerName, PersonService model, VisitorService visitorModel) {

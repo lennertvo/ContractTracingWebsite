@@ -43,7 +43,7 @@ public class AddVisitor extends RequestHandler {
             }
         }
         request.setAttribute("errors", errors);
-        return "addVisitor.jsp";
+        return "Controller?command=AddVisitorForm";
 
     }
 

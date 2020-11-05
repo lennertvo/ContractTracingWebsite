@@ -8,9 +8,9 @@
             <li ${param.page eq 'Home'?'id="actual"':""}><a href="Controller">Home</a></li>
             <li ${param.page eq 'Overview'?'id="actual"':""}><a href="Controller?command=Overview">Users</a></li>
             <li ${param.page eq 'Register'?'id="actual"':""}><a href="Controller?command=Register">Sign Up</a></li>
+            <li ${param.page eq 'Add Visitor'?'id="actual"':""}><a href="Controller?command=VisitorOverview">Contacts</a></li>
 
 
-                <li ${param.page eq 'Add Visitor'?'id="actual"':""}><a href="Controller?command=VisitorOverview">Contacts</a></li>
 
 
         </ul>

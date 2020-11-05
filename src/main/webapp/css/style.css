@@ -230,6 +230,7 @@ bron https://css-tricks.com/
 	/* Force table to not be like tables anymore */
 	table, thead, tbody, th, td, tr {
 		display: block;
+		max-width: 100%;
 	}
 
 	/* Hide table headers (but not display: none;, for accessibility) */
@@ -237,6 +238,7 @@ bron https://css-tricks.com/
 		position: absolute;
 		top: -9999px;
 		left: -9999px;
+
 	}
 
 	tr {
@@ -253,6 +255,7 @@ bron https://css-tricks.com/
 		border-bottom: 1px solid #eee;
 		position: relative;
 		padding-left: 50%;
+		max-width: 100%;
 	}
 
 	td:before {
@@ -281,6 +284,18 @@ bron https://css-tricks.com/
 	td:nth-of-type(4):before {
 		content: "Delete Person";
 	}
+
+	#myTr td:nth-of-type(1):before{
+		content: "Firstname";
+	}
+	#myTr td:nth-of-type(2):before{
+		content: "Lastname";
+	}
+	#myTr td:nth-of-type(3):before{
+		content: "Arrivaltime";
+	}
+
+
 
 
 }

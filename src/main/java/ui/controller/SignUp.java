@@ -25,7 +25,7 @@ public class SignUp extends RequestHandler {
             try {
                 service.addPerson(person);
 
-                return"Controller?command=Overview";
+                return"index.jsp";
 
             }
             catch (DbException e) {

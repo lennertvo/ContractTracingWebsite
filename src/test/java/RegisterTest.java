@@ -176,7 +176,7 @@ public class RegisterTest {
 		submitForm(useridRandom, "Pieter", "Pieters", "pieter.pieters@hotmail.com", "1234");
 		
 		WebElement errorMsg = driver.findElement(By.cssSelector("div.alert-danger ul li"));
-		assertEquals("User already exists", errorMsg.getText());
+		assertEquals("User already in DB", errorMsg.getText());
 
 		WebElement fieldUserid=driver.findElement(By.id("userid"));
 		assertEquals(useridRandom,fieldUserid.getAttribute("value"));

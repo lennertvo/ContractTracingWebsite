@@ -12,7 +12,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Visitor {
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy, HH:mm:ss");
     String firstName;
     String LastName;
     String email;
@@ -34,19 +33,6 @@ public class Visitor {
     }
 
 
-    private String formatDateTimeToString(LocalDateTime dateTime){
-        if(dateTime == null) return null;
-        return dateTime.format(formatter);
-    }
-
-    private LocalDateTime formatStringToDateTime(String localdateString) {
-        if(localdateString.isEmpty() || localdateString.trim().isEmpty()) {
-            throw new DomainException("Localdate String can not be empty");
-        }
-        return LocalDateTime.parse(localdateString, formatter);
-    }
-
-
 
     public void setFirstName(String firstName) {
         if(firstName == null || firstName.trim().isEmpty()){
@@ -63,7 +49,7 @@ public class Visitor {
     }
 
     public void setEmail(String email) {
-        if(email.isEmpty()){
+        if(email.isEmpty() || email.trim().isEmpty()){
             throw new IllegalArgumentException("No email given");
         }
         String USERID_PATTERN =
@@ -79,7 +65,14 @@ public class Visitor {
 
     public void setPhoneNumber(String phoneNumber) {
         if(phoneNumber == null || phoneNumber.trim().isEmpty()){
-            throw new DomainException("No phonenumber given");
+            throw new IllegalArgumentException("No phonenumber given");
+        }
+        String PHONENUMBER_PATTERN =
+                "^(?:(?:\\+|00)32[\\s.-]{0,3}(?:\\(0\\)[\\s.-]{0,3})?|0)[1-9](?:(?:[\\s.-]?\\d{2}){4}|\\d{2}(?:[\\s.-]?\\d{3}){2})$";
+        Pattern p = Pattern.compile(PHONENUMBER_PATTERN);
+        Matcher m = p.matcher(phoneNumber);
+        if(!m.matches()){
+            throw new IllegalArgumentException("Phonenumber not valid");
         }
         this.phoneNumber = phoneNumber;
     }

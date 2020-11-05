@@ -1,8 +1,10 @@
 package ui.controller;
 
 
+import domain.model.Visitor;
 import domain.service.PersonService;
 import domain.service.VisitorService;
+import org.checkerframework.checker.units.qual.A;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 
 @WebServlet("/Controller")
 public class Controller extends HttpServlet {
@@ -17,6 +20,7 @@ public class Controller extends HttpServlet {
     private PersonService PersonService = new PersonService();
     private VisitorService visitorService = new VisitorService();
     private HandlerFactory handlerFactory = new HandlerFactory();
+    private ArrayList<Visitor> visitors = new ArrayList<Visitor>();
 
     public Controller() {
         super();
