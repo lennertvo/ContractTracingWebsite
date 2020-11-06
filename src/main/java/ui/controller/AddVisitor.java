@@ -35,10 +35,16 @@ public class AddVisitor extends RequestHandler {
         if(errors.size() == 0){
             try {
                 visitorService.addVisitor(visitor);
+
+                request.setAttribute("phoneNumberPreviousValue", "");
+                request.setAttribute("emailPreviousValue", "");
+                request.setAttribute("lastNamePreviousValue", "");
+                request.setAttribute("firstNamePreviousValue", "");
+
                 return "Controller?command=VisitorOverview";
 
             }
-            catch (DbException e){
+            catch (Exception e){
                 errors.add(e.getMessage());
             }
         }

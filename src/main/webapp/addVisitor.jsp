@@ -70,7 +70,7 @@
         <c:if test="${not empty user}">
 
             <h2>Visitor Overview</h2>
-            <input type="text" id="search" onkeyup="mySearchFunction()" placeholder="Search for names..." title="Type in a name">
+            <input type="text" id="search" name="search" onkeyup="mySearchFunction()" placeholder="Search for names..." title="Type in a name">
 
             <table id="myTable" role="table">
                 <thead role="rowgroup">
