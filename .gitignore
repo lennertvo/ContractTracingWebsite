@@ -4,7 +4,6 @@
 *.iml
 *.iws
 
-
 #maven
 log/
 /target/
