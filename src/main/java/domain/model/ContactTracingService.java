@@ -11,6 +11,7 @@ public class ContactTracingService {
     public ContactTracingService() {
     }
 
+
     public Person getPerson(String personId) {
         return getPersonDb().getPerson(personId);
     }

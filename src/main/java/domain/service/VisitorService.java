@@ -54,7 +54,6 @@ public class VisitorService {
         return db.get(firstname, lastname, arrivaltime);
     }
 
-
     public int getNumberOfVisitors() {
         return db.getAll().size();
     }

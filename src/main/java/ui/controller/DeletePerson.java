@@ -9,5 +9,6 @@ public class DeletePerson extends RequestHandler{
         String userid = request.getParameter("userId");
         service.delete(userid);
         return "Controller?command=Overview";
+
     }
 }

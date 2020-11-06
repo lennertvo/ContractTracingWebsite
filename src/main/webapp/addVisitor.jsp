@@ -86,7 +86,6 @@
 
 
 
-
                 <c:forEach var="visitor" items="${visitors}">
                     <tbody role="rowgroup">
                     <tr id="myTr" role="row">

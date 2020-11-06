@@ -59,6 +59,46 @@ public class AddContactTest {
     }
 
     @Test
+    public void test_Register_AllFieldsFilledInCorrectly_VisitorIsRegisteredAndFielsAreBackEmpty(){
+        submitForm("Jan", "Janssens", "jan.janssens@hotmail.com" , "0412345678");
+
+        String title = driver.getTitle();
+        assertEquals("Add Visitor",title);
+
+        driver.get("http://localhost:8080/opdracht_web3_war_exploded/index.jsp");
+        fillOutField("useridLogIn", "admin");
+        fillOutField("passwordLogIn", "t");
+        WebElement button=driver.findElement(By.id("login"));
+        button.click();
+
+        driver.get(path +"?command=VisitorOverview");
+
+        WebElement fieldFirstName=driver.findElement(By.id("firstName"));
+        assertEquals("",fieldFirstName.getAttribute("value"));
+
+        WebElement fieldLastName=driver.findElement(By.id("lastName"));
+        assertEquals("",fieldLastName.getAttribute("value"));
+
+
+        WebElement fieldEmail=driver.findElement(By.id("email"));
+        assertEquals("",fieldEmail.getAttribute("value"));
+
+
+        WebElement fieldPhoneNumber=driver.findElement(By.id("phoneNumber"));
+        assertEquals("", fieldPhoneNumber.getAttribute("value"));
+
+
+        ArrayList<WebElement> listItems=(ArrayList<WebElement>) driver.findElements(By.cssSelector("table tr"));
+        boolean found=false;
+        for (WebElement listItem:listItems) {
+            if (listItem.getText().contains("Jan") &&  listItem.getText().contains("Janssens")) {
+                found=true;
+            }
+        }
+        assertTrue(found);
+    }
+
+    @Test
     public void test_Register_FirstNameFilledIn_ErrorMessageGivenForFirstNameAndOtherFieldsValueKept() {
         submitForm("", "Janssens", "jan.janssens@hotmail.com", "0412345678");
 

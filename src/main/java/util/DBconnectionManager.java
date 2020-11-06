@@ -27,7 +27,6 @@ public class DBconnectionManager {
         dbProperties.setProperty("sslmode", "require");
 
 
-
         try {
             System.out.println("connection to database ...");
             Class.forName("org.postgresql.Driver");

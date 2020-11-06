@@ -49,7 +49,6 @@
 
 
 
-
         <form action="Controller?command=ChangePassword&userid=${userid}" method="post" novalidate>
             <p><label for="oldPassword">Old Password</label><input type="password" id="oldPassword" name="oldPassword" required > </p>
             <p><label for="newPassword">New Password</label><input type="password" id="newPassword" name="newPassword" required> </p>

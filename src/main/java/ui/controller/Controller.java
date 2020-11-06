@@ -51,6 +51,5 @@ public class Controller extends HttpServlet {
 
         request.getRequestDispatcher(destination).forward(request, response);
 
-
     }
 }

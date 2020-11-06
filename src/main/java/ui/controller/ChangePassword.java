@@ -20,7 +20,6 @@ public class ChangePassword extends RequestHandler {
         List<String> errors1 = new ArrayList<String>();
 
 
-
         checkOldPassword(errors1, person, oldPassword);
         getAndSetNewPassword(person, request, errors1);
 

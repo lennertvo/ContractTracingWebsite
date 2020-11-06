@@ -9,4 +9,5 @@ public class LogOut extends RequestHandler{
         request.getSession().invalidate();
         return "index.jsp";
     }
+
 }

@@ -14,7 +14,6 @@ public class AppContextListener implements ServletContextListener {
         DbConnectionService.connect(dbUrl, schema);
     }
 
-
     public void contextDestroyed(ServletContextEvent sce) {
         DbConnectionService.disconnect();
     }

@@ -7,5 +7,6 @@ public class AddVisitorForm extends  RequestHandler{
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
        return "addVisitor.jsp";
+
     }
 }

@@ -23,6 +23,7 @@ public class HandlerFactory{
             throw new RuntimeException("Deze pagina bestaat niet!!!!");
         }
 
+
         return handler;
     }
 

@@ -25,6 +25,7 @@
         <form action="Controller?command=DeletePerson&userId=${userid}" method="post">
             <button type="submit">Yes</button>
             <button type="submit" formaction="Controller?command=Overview">No</button>
+
         </form>
 
     </article>

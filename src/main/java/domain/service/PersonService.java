@@ -24,6 +24,7 @@ public class PersonService {
 		db.add(person);
 	}
 
+
 	public List<Person> getPersons() {
 		return db.getAll();
 	}

@@ -110,7 +110,6 @@ public class PersonDBSQL implements PersonDB {
         }
     }
 
-
     private Person createPerson(ResultSet result) throws SQLException{
         String userid = result.getString("userid");
         String email = result.getString("email");

@@ -78,7 +78,6 @@ public class Visitor {
     }
 
 
-
     public void setArrivalTime(Timestamp arrivaltime) {
         if(arrivaltime == null) {
             throw new DomainException("No arrivaltime given");

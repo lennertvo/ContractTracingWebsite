@@ -15,7 +15,6 @@ public interface PersonDB {
     boolean personAlreadyInDb(String userid);
 
 
-
     void remove(String userid);
 
 

@@ -27,7 +27,6 @@ public abstract class RequestHandler {
     }
 
 
-
     public PersonService getService() {
         System.out.println("dit is ook oke");
         return service;

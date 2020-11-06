@@ -15,7 +15,6 @@
     </jsp:include>
         <h2>Error!</h2>
 
-
     <main>
     <article>
         <p>${error}</p>

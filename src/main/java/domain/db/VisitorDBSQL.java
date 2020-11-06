@@ -17,7 +17,6 @@ public class VisitorDBSQL implements VisitorDB {
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy, HH:mm:ss");
 
 
-
     public VisitorDBSQL() {
         this.connection= DbConnectionService.getDbConnection();
         this.schema = DbConnectionService.getSchema();

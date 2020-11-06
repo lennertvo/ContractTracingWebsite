@@ -19,7 +19,6 @@ public interface VisitorDB {
     boolean visitorAlreadyInDb(String firstname, String lastname, Timestamp arrivaltime);
 
 
-
     void remove(String firstname, String lastname, Timestamp arrivaltime);
 
 
