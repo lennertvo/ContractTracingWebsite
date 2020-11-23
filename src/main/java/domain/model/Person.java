@@ -16,21 +16,33 @@ public class Person {
 	private String password;
 	private String firstName;
 	private String lastName;
+	private Role role;
 
 
 
-	public Person(String userid, String email, String firstName, String lastName,  String password) {
+	public Person(String userid, String email, String firstName, String lastName,  String password, Role role) {
 		setUserid(userid);
 		setEmail(email);
 		setPassword(password);
 		setFirstName(firstName);
 		setLastName(lastName);
+		setRole(role);
 
 	}
 
 	public Person() {
 	}
 
+	public void setRole(Role role) {
+		if(role == null){
+			throw new DomainException("Role can't be empty");
+		}
+		this.role = role;
+	}
+
+	public Role getRole() {
+		return role;
+	}
 
 	public String getUserid() {
 		return userid;
@@ -136,14 +148,15 @@ public class Person {
 	}
 
 
-
-
-
-
-
-
 	@Override
-	public String toString(){
-		return getFirstName() + " " + getLastName() + ": " + getUserid() + ", " + getEmail() + ", " ;
-	}	
+	public String toString() {
+		return "Person{" +
+				"userid='" + userid + '\'' +
+				", email='" + email + '\'' +
+				", password='" + password + '\'' +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", role=" + role +
+				'}';
+	}
 }

@@ -2,6 +2,8 @@ package domain.db;
 
 
 
+import domain.model.Person;
+import domain.model.PositiveTest;
 import domain.model.Visitor;
 
 import java.sql.Timestamp;
@@ -16,6 +18,9 @@ public interface VisitorDB {
     List<Visitor> getAll();
 
 
+    List<Visitor> getAllWithUserid(String userid);
+
+
     boolean visitorAlreadyInDb(String firstname, String lastname, Timestamp arrivaltime);
 
 
@@ -26,4 +31,6 @@ public interface VisitorDB {
 
 
     List<Visitor> getWithFnameAndLname(String firstname, String lastname);
+
+    List<Visitor> getAllContactsFromPersonWhenPositiveTest(PositiveTest positiveTest);
 }

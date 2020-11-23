@@ -61,7 +61,7 @@
 </table>
 </main>
 <footer>
-&copy; Webontwikkeling 3, UC Leuven-Limburg, Lennert Van Oosterwyck
+&copy;Lennert Van Oosterwyck
 </footer>
 </div>
 </body>

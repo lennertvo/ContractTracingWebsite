@@ -2,7 +2,9 @@ package ui.controller;
 
 
 import domain.model.Visitor;
+import domain.service.ContactTracingService;
 import domain.service.PersonService;
+import domain.service.PositiveTestService;
 import domain.service.VisitorService;
 import org.checkerframework.checker.units.qual.A;
 
@@ -17,10 +19,8 @@ import java.util.ArrayList;
 @WebServlet("/Controller")
 public class Controller extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private PersonService PersonService = new PersonService();
-    private VisitorService visitorService = new VisitorService();
-    private HandlerFactory handlerFactory = new HandlerFactory();
-    private ArrayList<Visitor> visitors = new ArrayList<Visitor>();
+    private final ContactTracingService contactTracingService = new ContactTracingService();
+    private final HandlerFactory handlerFactory = new HandlerFactory();
 
     public Controller() {
         super();
@@ -40,9 +40,9 @@ public class Controller extends HttpServlet {
         String destination = "index.jsp";
         if (command != null) {
             try {
-                RequestHandler handler = handlerFactory.getHandler(command, PersonService, visitorService);
+                RequestHandler handler = handlerFactory.getHandler(command, contactTracingService);
                 destination = handler.handleRequest(request, response);
-                handler.setModel(PersonService, visitorService);
+                handler.setModel(contactTracingService);
             } catch (Exception e) {
                 request.setAttribute("error", e.getMessage());
                 destination = "error.jsp";

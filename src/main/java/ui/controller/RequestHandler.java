@@ -1,7 +1,9 @@
 package ui.controller;
 
 import domain.model.Visitor;
+import domain.service.ContactTracingService;
 import domain.service.PersonService;
+import domain.service.PositiveTestService;
 import domain.service.VisitorService;
 
 
@@ -14,21 +16,19 @@ import java.util.List;
 
 
 public abstract class RequestHandler {
+    protected ContactTracingService contactTracingService;
 
-    protected PersonService service;
-    protected VisitorService visitorService;
 
 
     public abstract String handleRequest (HttpServletRequest request, HttpServletResponse response);
-    public void setModel (PersonService personService, VisitorService visitorService) {
-        this.service = personService;
-        this.visitorService = visitorService;
+    public void setModel (ContactTracingService contactTracingService) {
+        this.contactTracingService = contactTracingService;
 
     }
 
 
-    public PersonService getService() {
+    public ContactTracingService getService() {
         System.out.println("dit is ook oke");
-        return service;
+        return contactTracingService;
     }
 }

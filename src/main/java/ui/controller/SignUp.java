@@ -3,6 +3,7 @@ package ui.controller;
 
 import domain.db.DbException;
 import domain.model.Person;
+import domain.model.Role;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,10 +21,12 @@ public class SignUp extends RequestHandler {
         getLastName(person, request, errors);
         getEmail(person, request, errors);
         getPassword(person, request, errors);
+        getRole(person, request, errors);
 
         if(errors.size() == 0){
             try {
-                service.addPerson(person);
+                contactTracingService.addPerson(person);
+                request.getSession().setAttribute("user", person);
                 return"index.jsp";
 
             }
@@ -37,8 +40,28 @@ public class SignUp extends RequestHandler {
 
 
 
+        private void getRole(Person person, HttpServletRequest request, List<String> errors) {
+            String userId = request.getParameter("userid");
+            if (userId.equals("admin")) {
+                try {
+                    person.setRole(Role.ADMIN);
+                }
+                catch (Exception e) {
+                    errors.add(e.getMessage());
+                }
+            }
+            else{
 
+                try {
+                    person.setRole(Role.USER);
+                }
+                catch (Exception e) {
+                    errors.add(e.getMessage());
+                }
 
+            }
+
+        }
 
     private void getPassword(Person person, HttpServletRequest request, List<String> errors) {
         String password = request.getParameter("password").trim();

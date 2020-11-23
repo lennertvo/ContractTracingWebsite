@@ -1,4 +1,5 @@
 package ui.controller;
+
 import domain.db.DbException;
 import domain.model.Person;
 import domain.model.Visitor;
@@ -27,12 +28,12 @@ public class AddVisitor extends RequestHandler {
         getEmail(visitor, request, errors);
         getPhoneNumber(visitor, request, errors);
         getArrivalTime(visitor, request, errors);
+        getUserid(visitor, request, errors);
 
 
-
-        if(errors.size() == 0){
+        if (errors.size() == 0) {
             try {
-                visitorService.addVisitor(visitor);
+                contactTracingService.addVisitor(visitor);
 
                 request.setAttribute("phoneNumberPreviousValue", "");
                 request.setAttribute("emailPreviousValue", "");
@@ -41,8 +42,7 @@ public class AddVisitor extends RequestHandler {
 
                 return "Controller?command=VisitorOverview";
 
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 errors.add(e.getMessage());
             }
         }
@@ -52,14 +52,24 @@ public class AddVisitor extends RequestHandler {
     }
 
 
+    private void getUserid(Visitor visitor, HttpServletRequest request, List<String> errors) {
+        Person person = (Person) request.getSession().getAttribute("user");
+        String userid = person.getUserid();
+        System.out.println(userid);
+        try {
+            visitor.setUserid(userid);
+        } catch (Exception e) {
+            errors.add(e.getMessage());
+        }
+    }
+
 
     private void getArrivalTime(Visitor visitor, HttpServletRequest request, List<String> errors) {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         System.out.println(timestamp.toString());
         try {
             visitor.setArrivalTime(timestamp);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             errors.add(e.getMessage());
         }
 
@@ -73,8 +83,7 @@ public class AddVisitor extends RequestHandler {
         try {
             visitor.setPhoneNumber(phoneNumber);
             request.setAttribute("phoneNumberClass", "has-success");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             request.setAttribute("phoneNumberClass", "has-error");
             errors.add(e.getMessage());
         }
@@ -86,8 +95,7 @@ public class AddVisitor extends RequestHandler {
         try {
             visitor.setEmail(email);
             request.setAttribute("emailClass", "has-succes");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             request.setAttribute("emailClass", "has-error");
             errors.add(e.getMessage());
         }
@@ -100,8 +108,7 @@ public class AddVisitor extends RequestHandler {
         try {
             visitor.setLastName(lastName);
             request.setAttribute("lastNameClass", "has-succes");
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             request.setAttribute("lastNameClass", "has-error");
             errors.add(e.getMessage());
         }
@@ -113,13 +120,11 @@ public class AddVisitor extends RequestHandler {
         try {
             visitor.setFirstName(firstName);
             request.setAttribute("firstNamePreviousValue", firstName);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             request.setAttribute("firstNameClass", "has-succes");
             errors.add(e.getMessage());
         }
     }
-
 
 
 }

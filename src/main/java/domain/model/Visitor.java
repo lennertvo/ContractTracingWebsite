@@ -17,14 +17,16 @@ public class Visitor {
     String email;
     String  phoneNumber;
     Timestamp arrivalTime;
+    String userid;
 
 
-    public Visitor(String firstName, String lastName, String email, String phoneNumber, Timestamp arrivalTime){
+    public Visitor(String firstName, String lastName, String email, String phoneNumber, Timestamp arrivalTime, String userid){
         setFirstName(firstName);
         setLastName(lastName);
         setEmail(email);
         setPhoneNumber(phoneNumber);
         setArrivalTime(arrivalTime);
+        setUserid(userid);
 
     }
 
@@ -32,7 +34,13 @@ public class Visitor {
 
     }
 
+    public String getUserid() {
+        return userid;
+    }
 
+    public void setUserid(String userid) {
+        this.userid = userid;
+    }
 
     public void setFirstName(String firstName) {
         if(firstName == null || firstName.trim().isEmpty()){

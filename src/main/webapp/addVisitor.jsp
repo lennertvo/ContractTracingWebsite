@@ -13,26 +13,7 @@
     <title>Add Visitor</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
-<script>
-    function mySearchFunction() {
-        var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("search");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("myTable");
-        tr = table.getElementsByTagName("tr");
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[0];
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
-        }
-    }
-</script>
+
 <body>
 
 <div id="container">
@@ -41,14 +22,14 @@
     </jsp:include>
 
 
-        <h2>
-            Leave your personal data here
-        </h2>
+    <h2>
+        Leave your personal data here
+    </h2>
     <main>
         <c:if test="${not empty errors}">
             <div class="alert-danger">
 
-                <c:forEach var="error" items="${errors}" >
+                <c:forEach var="error" items="${errors}">
                     <ul>
                         <li>${error}</li>
                     </ul>
@@ -60,17 +41,22 @@
         </c:if>
 
         <form method="post" action="Controller?command=AddVisitor" novalidate="novalidate">
-            <p><label for="firstName">Fistname</label><input type="text" id="firstName" name="firstName" value="${firstNamePreviousValue}" required></p>
-            <p><label for="lastName">Lastname</label><input type="text" id="lastName" name="lastName" value="${lastNamePreviousValue}" required></p>
-            <p><label for="email">E-mail</label><input type="email" id="email" name="email" value="${emailPreviousValue}" required></p>
-            <p><label for="phoneNumber">phonenumber</label><input type="tel" id="phoneNumber" name="phoneNumber" value="${phoneNumberPreviousValue}" required></p>
+            <p><label for="firstName">Fistname</label><input type="text" id="firstName" name="firstName"
+                                                             value="${firstNamePreviousValue}" required></p>
+            <p><label for="lastName">Lastname</label><input type="text" id="lastName" name="lastName"
+                                                            value="${lastNamePreviousValue}" required></p>
+            <p><label for="email">E-mail</label><input type="email" id="email" name="email"
+                                                       value="${emailPreviousValue}" required></p>
+            <p><label for="phoneNumber">phonenumber</label><input type="tel" id="phoneNumber" name="phoneNumber"
+                                                                  value="${phoneNumberPreviousValue}" required></p>
             <p><input type="submit" id="addVisitor" value="Add visitor"></p>
 
         </form>
         <c:if test="${not empty user}">
 
             <h2>Visitor Overview</h2>
-            <input type="text" id="search" name="search" onkeyup="mySearchFunction()" placeholder="Search for names..." title="Type in a name">
+            <input type="text" id="search" name="search" onkeyup="mySearchFunction()" placeholder="Search for names..."
+                   title="Type in a name">
 
             <table id="myTable" role="table">
                 <thead role="rowgroup">
@@ -82,8 +68,6 @@
 
                 </tr>
                 </thead>
-
-
 
 
                 <c:forEach var="visitor" items="${visitors}">
@@ -99,18 +83,37 @@
                 </c:forEach>
 
 
-
             </table>
-
 
 
         </c:if>
 
 
-
-
-
     </main>
+    <footer>
+        &copy;Lennert Van Oosterwyck
+    </footer>
+
+    <script>
+        function mySearchFunction() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("search");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
 </div>
 
 </body>

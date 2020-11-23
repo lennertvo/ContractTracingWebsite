@@ -3,6 +3,8 @@ package domain.service;
 import domain.db.DbException;
 import domain.db.VisitorDB;
 import domain.db.VisitorDBSQL;
+import domain.model.DomainException;
+import domain.model.PositiveTest;
 import domain.model.Visitor;
 
 import java.sql.Timestamp;
@@ -26,6 +28,10 @@ public class VisitorService {
 
     public List<Visitor> getVisitors(){
         return db.getAll();
+    }
+
+    public List<Visitor> getVisitorsWithUserid(String userid) {
+        return db.getAllWithUserid(userid);
     }
 
     public void update(Visitor visitor) {
@@ -52,6 +58,12 @@ public class VisitorService {
     public Visitor findVisitor(String firstname, String lastname, Timestamp arrivaltime) {
         if(firstname == null || firstname.trim().isEmpty() || lastname == null || lastname.trim().isEmpty()) throw new DbException("No visitor to find with that visitor id");
         return db.get(firstname, lastname, arrivaltime);
+    }
+    public List<Visitor> getAllContactsFromPersonWhenPositiveTest(PositiveTest positiveTest) {
+        if(positiveTest == null){
+            throw new DomainException("No positive test given");
+        }
+        return db.getAllContactsFromPersonWhenPositiveTest(positiveTest);
     }
 
     public int getNumberOfVisitors() {

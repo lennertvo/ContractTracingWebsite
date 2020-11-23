@@ -1,6 +1,7 @@
 package domain.db;
 
 import domain.model.Person;
+import domain.model.PositiveTest;
 import domain.model.Visitor;
 
 import util.DbConnectionService;
@@ -29,7 +30,7 @@ public class VisitorDBSQL implements VisitorDB {
         if(visitor == null){
             throw new DbException("Nothing to add.");
         }
-        String sql = String.format("Insert into %s.bezoeker( firstname, lastname, email, phonenumber, arrivaltime) values( ?, ?, ?, ?, ?)",  this.schema);
+        String sql = String.format("Insert into %s.bezoeker( firstname, lastname, email, phonenumber, arrivaltime, userid) values( ?, ?, ?, ?, ?, ?)",  this.schema);
         try {
             PreparedStatement statementSql = connection.prepareStatement(sql);
             statementSql.setString(1, visitor.getFirstName());
@@ -37,6 +38,7 @@ public class VisitorDBSQL implements VisitorDB {
             statementSql.setString(3, visitor.getEmail());
             statementSql.setString(4, visitor.getPhoneNumber());
             statementSql.setObject(5, visitor.getArrivalTime());
+            statementSql.setString(6, visitor.getUserid());
             statementSql.execute();
         }
         catch (SQLException e) {
@@ -62,6 +64,26 @@ public class VisitorDBSQL implements VisitorDB {
         }
         return visitors;
     }
+
+    @Override
+    public List<Visitor> getAllWithUserid(String userid) {
+        List<Visitor> visitors = new ArrayList<Visitor>();
+        String sql = String.format("SELECT * FROM %s.bezoeker where userid = ?", this.schema);
+        try {
+            PreparedStatement statementSql = connection.prepareStatement(sql);
+            statementSql.setString(1, userid);
+            ResultSet result = statementSql.executeQuery();
+            while (result.next()) {
+                Visitor visitor = createVisitor(result);
+                visitors.add(visitor);
+            }
+        }
+        catch (SQLException e) {
+            throw new DbException(e.getMessage(), e);
+        }
+        return visitors;
+    }
+
     @Override
     public List<Visitor> getWithFnameAndLname(String firstname, String lastname) {
         List<Visitor> visitorss = new ArrayList<Visitor>();
@@ -83,6 +105,25 @@ public class VisitorDBSQL implements VisitorDB {
         return visitorss;
     }
 
+    @Override
+    public List<Visitor> getAllContactsFromPersonWhenPositiveTest(PositiveTest positiveTest) {
+       List<Visitor> visitors = new ArrayList<Visitor>();
+       String sql = String.format("SELECT * FROM %s.bezoeker where userid = ? and arrivaltime >= ? order by lastname, firstname, arrivaltime", this.schema);
+       try {
+           PreparedStatement statementSql = connection.prepareStatement(sql);
+           statementSql.setString(1, positiveTest.getUserid());
+           statementSql.setDate(2, positiveTest.getDate());
+           ResultSet result = statementSql.executeQuery();
+
+           while (result.next()) {
+               Visitor visitor = createVisitor(result);
+               visitors.add(visitor);
+           }
+       }catch (SQLException e) {
+           throw new DbException(e.getMessage(), e);
+       }
+       return visitors;
+    }
 
 
     @Override
@@ -134,7 +175,8 @@ public class VisitorDBSQL implements VisitorDB {
             result.next();
             String email = result.getString("email");
             String phonenumber = result.getString("phonenumber");
-            Visitor visitor = new Visitor(firstname, lastname, email, phonenumber, arrivaltime);
+            String userid = result.getString("userid");
+            Visitor visitor = new Visitor(firstname, lastname, email, phonenumber, arrivaltime, userid);
             return visitor;
 
         }
@@ -151,8 +193,9 @@ public class VisitorDBSQL implements VisitorDB {
         String lastname = result.getString("lastname");
         String email = result.getString("email");
         String phonenumber = result.getString("phonenumber");
+        String userid = result.getString("userid");
         Timestamp arrivaltime = result.getObject("arrivaltime", Timestamp.class);
 
-        return new Visitor(firstname, lastname, email, phonenumber, arrivaltime);
+        return new Visitor(firstname, lastname, email, phonenumber, arrivaltime, userid);
     }
 }

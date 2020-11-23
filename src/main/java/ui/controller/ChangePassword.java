@@ -14,7 +14,7 @@ public class ChangePassword extends RequestHandler {
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
         String userid = request.getParameter("userid");
-        Person person = service.getPerson(userid);
+        Person person = contactTracingService.getPerson(userid);
         String newPassword = request.getParameter("newPassword");
         String oldPassword = request.getParameter("oldPassword");
         List<String> errors1 = new ArrayList<String>();
@@ -24,39 +24,34 @@ public class ChangePassword extends RequestHandler {
         getAndSetNewPassword(person, request, errors1);
 
 
+        if (errors1.size() == 0) {
 
-        if(errors1.size() == 0) {
-
-                return "index.jsp";
+            return "index.jsp";
         }
         request.setAttribute("errors1", errors1);
         return "changePassword.jsp";
 
 
-
     }
 
 
-
-    private void checkOldPassword( List<String> errors1, Person person, String oldPassword)  {
-        if(!person.isCorrectPassword(oldPassword)){
+    private void checkOldPassword(List<String> errors1, Person person, String oldPassword) {
+        if (!person.isCorrectPassword(oldPassword)) {
             String faultOldPassword = "The old password is not correct";
             errors1.add(faultOldPassword);
         }
     }
 
-    private void getAndSetNewPassword(Person person, HttpServletRequest request, List<String> errors1){
+    private void getAndSetNewPassword(Person person, HttpServletRequest request, List<String> errors1) {
         String newPassword = request.getParameter("newPassword");
         try {
             person.setPasswordHashed(newPassword);
-            service.update(person);
+            contactTracingService.update(person);
             request.getSession().invalidate();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             errors1.add(e.getMessage());
         }
     }
-
 
 
 }

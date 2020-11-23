@@ -9,7 +9,7 @@ import java.util.List;
 public class Overview extends RequestHandler {
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
-        List<Person> persons = service.getPersons();
+        List<Person> persons = contactTracingService.getPersons();
         request.setAttribute("persons", persons);
         return "personoverview.jsp";
     }

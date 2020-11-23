@@ -1,6 +1,7 @@
 package domain.db;
 
 import domain.model.Person;
+import domain.model.Role;
 import util.DbConnectionService;
 
 
@@ -26,7 +27,7 @@ public class PersonDBSQL implements PersonDB {
         if(person == null){
             throw new DbException("Nothing to add.");
         }
-        String sql = String.format("Insert into %s.gebruiker(userid, email, firstname, lastname, password) VALUES(?, ?, ?, ?, ?)", schema);
+        String sql = String.format("Insert into %s.gebruiker(userid, email, firstname, lastname, password, role) VALUES(?, ?, ?, ?, ?, ?)", schema);
 
 
         try {
@@ -36,6 +37,7 @@ public class PersonDBSQL implements PersonDB {
             statementSQL.setString(3, person.getFirstName());
             statementSQL.setString(4, person.getLastName());
             statementSQL.setString(5, person.getPassword());
+            statementSQL.setString(6, person.getRole().toString());
             statementSQL.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -116,8 +118,10 @@ public class PersonDBSQL implements PersonDB {
         String firstname = result.getString("firstname");
         String lastname = result.getString("lastname");
         String password = result.getString("password");
+        String roleAsString = result.getString("role");
+        Role role = Role.valueOf(roleAsString);
 
-        return new Person(userid, email, firstname, lastname, password);
+        return new Person(userid, email, firstname, lastname, password, role);
     }
 
 }
