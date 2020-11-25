@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,7 +46,7 @@
 					</c:if>
 					<form novalidate method="post" action="Controller?command=LogIn">
 						<p><label for="useridLogIn">User id</label><input type="text" id="useridLogIn" name="useridLogIn"
-																	 required > </p>
+																	value="${fn:escapeXml(param.useridLogIn)}" required > </p>
 						<p><label for="passwordLogIn">Password</label><input type="password" id="passwordLogIn"  name="passwordLogIn"
 																		required>
 							<input type="checkbox" onclick="myFunction()" >Show Password</p>

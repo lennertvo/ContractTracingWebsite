@@ -2,12 +2,14 @@ package ui.controller;
 
 import domain.model.Person;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 public class RemoveConfirmation extends RequestHandler {
     @Override
-    public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
+    public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String userid = request.getParameter("userId");
 
@@ -24,7 +26,8 @@ public class RemoveConfirmation extends RequestHandler {
         System.out.println("userid:" + userid);
 
 
-        return "removeConfirmation.jsp";
+        //return "removeConfirmation.jsp";
+        request.getRequestDispatcher("removeConfirmation.jsp").forward(request, response);
 
     }
     //

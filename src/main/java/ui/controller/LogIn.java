@@ -1,15 +1,17 @@
 package ui.controller;
 
 import domain.model.Person;
-import domain.model.Visitor;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 public class LogIn extends RequestHandler {
 
     @Override
-    public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
+    public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         String userId = request.getParameter("useridLogIn");
         String password = request.getParameter("passwordLogIn");
 
@@ -17,7 +19,8 @@ public class LogIn extends RequestHandler {
 
         if (person == null) {
             request.setAttribute("error1", "No matching user Id and password");
-            return "index.jsp";
+            //return "index.jsp";
+            request.getRequestDispatcher("index.jsp").forward(request, response);
         } else {
             request.getSession().setAttribute("user", person);
 
@@ -25,7 +28,10 @@ public class LogIn extends RequestHandler {
         Person person1 = (Person) request.getSession().getAttribute("user");
         String userid = person1.getUserid();
         System.out.println(userid);
-        return "index.jsp";
+        //return "index.jsp";
+        request.getRequestDispatcher("index.jsp").forward(request, response);
+
     }
+
 
 }

@@ -3,10 +3,11 @@ package ui.controller;
 import domain.db.DbException;
 import domain.model.Person;
 import domain.model.PositiveTest;
-import domain.service.PositiveTestService;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class AddPositiveTest extends RequestHandler {
 
 
     @Override
-    public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
+    public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<String> errors = new ArrayList<String>();
 
         PositiveTest positiveTest = new PositiveTest();
@@ -29,13 +30,19 @@ public class AddPositiveTest extends RequestHandler {
                 contactTracingService.addPositiveTest(positiveTest);
                 System.out.println("het is gelukt !!!");
 
-                return "Controller?command=VisitorOverview";
+                //return "Controller?command=VisitorOverview";
+                //request.getRequestDispatcher("Controller?command=VisitorOverview").forward(request, response);
+                response.sendRedirect( "Controller?command=VisitorOverview");
             } catch (DbException e) {
                 errors.add(e.getMessage());
             }
+        } else{
+            request.setAttribute("errors", errors);
+            //return "Controller?command=ShowAddTest";
+            request.getRequestDispatcher("Controller?command=ShowAddTest").forward(request, response);
         }
-        request.setAttribute("errors", errors);
-        return "Controller?command=ShowAddTest";
+
+
 
 
     }

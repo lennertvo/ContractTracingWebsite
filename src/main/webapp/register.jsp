@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,12 +50,12 @@
     <form novalidate="novalidate" method="post" action="Controller?command=SignUp">
     	<!-- novalidate in order to be able to run tests correctly -->
         <p><label for="userid">User id</label><input type="text" id="userid" name="userid"
-          value="${userIdPreviousValue}" required > </p>
+          value="${fn:escapeXml(param.userid)}" required > </p>
         <p><label for="firstName">First Name</label><input type="text" id="firstName" name="firstName"
-          value="${firstNamePreviousValue}" required> </p>
+          value="${fn:escapeXml(param.firstName)}" required> </p>
         <p><label for="lastName">Last Name</label><input type="text" id="lastName" name="lastName"
-         value="${lastNamePreviousValue}" required> </p>
-        <p><label for="email">Email</label><input type="email" id="email" name="email" value="${emailPreviousValue}" required></p>
+         value="${fn:escapeXml(param.lastName)}" required> </p>
+        <p><label for="email">Email</label><input type="email" id="email" name="email" value="${fn:escapeXml(param.email)}" required></p>
         <p><label for="password">Password</label><input type="password" id="password"  name="password"
          required>
             <input type="checkbox" onclick="myFunction()" >Show Password</p>

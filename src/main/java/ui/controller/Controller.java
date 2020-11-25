@@ -37,19 +37,27 @@ public class Controller extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
         String command = request.getParameter("command");
-        String destination = "index.jsp";
+        //String destination = "index.jsp";
         if (command != null) {
             try {
                 RequestHandler handler = handlerFactory.getHandler(command, contactTracingService);
-                destination = handler.handleRequest(request, response);
+                handler.handleRequest(request, response);
                 handler.setModel(contactTracingService);
+                //request.getRequestDispatcher(command).forward(request, response);
+
             } catch (Exception e) {
                 request.setAttribute("error", e.getMessage());
-                destination = "error.jsp";
+                //destination = "error.jsp";
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+
+
             }
         }
+        else{
+            request.getRequestDispatcher("index.jsp").forward(request, response);
+        }
 
-        request.getRequestDispatcher(destination).forward(request, response);
+
 
     }
 }

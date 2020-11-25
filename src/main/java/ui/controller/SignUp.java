@@ -5,14 +5,16 @@ import domain.db.DbException;
 import domain.model.Person;
 import domain.model.Role;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SignUp extends RequestHandler {
     @Override
-    public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
+    public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Person person = new Person();
 
         List<String> errors = new ArrayList<String>();
@@ -27,7 +29,8 @@ public class SignUp extends RequestHandler {
             try {
                 contactTracingService.addPerson(person);
                 request.getSession().setAttribute("user", person);
-                return"index.jsp";
+                //return "index.jsp";
+                request.getRequestDispatcher("index.jsp").forward(request, response);
 
             }
             catch (DbException e) {
@@ -35,7 +38,8 @@ public class SignUp extends RequestHandler {
             }
             }
             request.setAttribute("errors", errors);
-            return "register.jsp";
+            //return "register.jsp";
+            request.getRequestDispatcher("register.jsp").forward(request, response);
         }
 
 

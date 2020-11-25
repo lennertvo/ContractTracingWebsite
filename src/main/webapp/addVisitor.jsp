@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 
 <!doctype html>
@@ -42,13 +43,15 @@
 
         <form method="post" action="Controller?command=AddVisitor" novalidate="novalidate">
             <p><label for="firstName">Fistname</label><input type="text" id="firstName" name="firstName"
-                                                             value="${firstNamePreviousValue}" required></p>
+                                                             value="${fn:escapeXml(param.firstName)}" required></p>
             <p><label for="lastName">Lastname</label><input type="text" id="lastName" name="lastName"
-                                                            value="${lastNamePreviousValue}" required></p>
+                                                            value="${fn:escapeXml(param.lastName)}" required></p>
             <p><label for="email">E-mail</label><input type="email" id="email" name="email"
-                                                       value="${emailPreviousValue}" required></p>
+                                                       value="${fn:escapeXml(param.email)}" required></p>
             <p><label for="phoneNumber">phonenumber</label><input type="tel" id="phoneNumber" name="phoneNumber"
-                                                                  value="${phoneNumberPreviousValue}" required></p>
+                                                                  value="${fn:escapeXml(param.phoneNumber)}"
+
+                                                                  required></p>
             <p><input type="submit" id="addVisitor" value="Add visitor"></p>
 
         </form>

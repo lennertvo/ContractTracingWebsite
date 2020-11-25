@@ -1,22 +1,20 @@
 package ui.controller;
 
-import domain.db.DbException;
 import domain.model.Person;
 import domain.model.Visitor;
-import domain.service.VisitorService;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AddVisitor extends RequestHandler {
 
     @Override
-    public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
+    public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
         Visitor visitor = new Visitor();
@@ -35,19 +33,26 @@ public class AddVisitor extends RequestHandler {
             try {
                 contactTracingService.addVisitor(visitor);
 
-                request.setAttribute("phoneNumberPreviousValue", "");
+                /*request.setAttribute("phoneNumberPreviousValue", "");
                 request.setAttribute("emailPreviousValue", "");
                 request.setAttribute("lastNamePreviousValue", "");
-                request.setAttribute("firstNamePreviousValue", "");
+                request.setAttribute("firstNamePreviousValue", "")*/
 
-                return "Controller?command=VisitorOverview";
+                //return "Controller?command=VisitorOverview";
+                //request.getRequestDispatcher("Controller?command=VisitorOverview").forward(request, response);
+                response.sendRedirect("Controller?command=VisitorOverview");
 
             } catch (Exception e) {
                 errors.add(e.getMessage());
             }
         }
-        request.setAttribute("errors", errors);
-        return "Controller?command=AddVisitorForm";
+
+            request.setAttribute("errors", errors);
+            //return "Controller?command=AddVisitorForm";
+            request.getRequestDispatcher("Controller?command=AddVisitorForm").forward(request, response);
+
+
+
 
     }
 
