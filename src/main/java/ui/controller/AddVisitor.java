@@ -46,10 +46,13 @@ public class AddVisitor extends RequestHandler {
                 errors.add(e.getMessage());
             }
         }
-
+        else{
             request.setAttribute("errors", errors);
             //return "Controller?command=AddVisitorForm";
             request.getRequestDispatcher("Controller?command=AddVisitorForm").forward(request, response);
+        }
+
+
 
 
 
