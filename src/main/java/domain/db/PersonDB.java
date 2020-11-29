@@ -2,7 +2,6 @@ package domain.db;
 
 import domain.model.Person;
 
-import java.sql.Date;
 import java.util.List;
 
 public interface PersonDB {
@@ -11,10 +10,6 @@ public interface PersonDB {
 
 
     List<Person> getAll();
-
-    List<Person> getAllPersonsWhoAlsoInPositiveTest();
-
-    List<Person> getAllPositiveUserOnSpecificDate(Date date);
 
 
     boolean personAlreadyInDb(String userid);

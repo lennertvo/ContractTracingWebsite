@@ -14,10 +14,6 @@
         <jsp:param name="page" value="Error"/>
     </jsp:include>
         <h2>Error!</h2>
-    <c:if test="${notAuthorized != null}">
-        <p>${notAuthorized}</p>
-    </c:if>
-
 
     <main>
     <article>

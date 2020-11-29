@@ -30,21 +30,16 @@ public class SignUp extends RequestHandler {
                 contactTracingService.addPerson(person);
                 request.getSession().setAttribute("user", person);
                 //return "index.jsp";
-                request.getRequestDispatcher("Controller?command=Home").forward(request, response);
-                //response.sendRedirect("Controller?command=Home");
+                request.getRequestDispatcher("index.jsp").forward(request, response);
 
             }
             catch (DbException e) {
                 errors.add(e.getMessage());
             }
             }
-        else{
             request.setAttribute("errors", errors);
             //return "register.jsp";
             request.getRequestDispatcher("register.jsp").forward(request, response);
-
-        }
-
         }
 
 

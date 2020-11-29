@@ -8,7 +8,6 @@ import domain.model.PositiveTest;
 import domain.model.Visitor;
 import domain.service.PersonService;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -28,13 +27,6 @@ public class ContactTracingService {
 
     public List<Person> getPersons() {
         return personService.getPersons();
-    }
-
-    public List<Person> getAllPersonsWhoAlsoInPositiveTest(){
-        return personService.getAllPersonsWhoAlsoInPositiveTest();
-    }
-    public List<Person> getAllPositiveUserOnSpecificDate(Date date) {
-        return personService.getAllPositiveUserOnSpecificDate(date);
     }
 
     public void update(Person person) {

@@ -1,8 +1,6 @@
 package domain.db;
 
-import domain.model.Person;
 import domain.model.PositiveTest;
-import domain.model.Visitor;
 import util.DbConnectionService;
 
 import java.sql.*;
@@ -76,46 +74,6 @@ public class PositiveTestDBSQL implements PositiveTestDB {
             throw new DbException(e.getMessage(), e);
         }
     }
-
-    @Override
-    public List<PositiveTest> getAllPositiveTests() {
-        List<PositiveTest> positiveTests = new ArrayList<PositiveTest>();
-        String sql = String.format("Select * from %s.positieve_test", this.schema);
-
-        try {
-            PreparedStatement statementSql = connection.prepareStatement(sql);
-            ResultSet result = statementSql.executeQuery();
-           while(result.next()) {
-               PositiveTest pt = createPositiveTest(result);
-               positiveTests.add(pt);
-           }
-        }
-        catch (SQLException e) {
-            throw new DbException(e.getMessage(), e);
-        }
-        return positiveTests;
-    }
-
-    @Override
-    public List<PositiveTest> getAllPositiveTestsOnSpecificDate(Date date) {
-        List<PositiveTest> positiveTests = new ArrayList<PositiveTest>();
-        String sql = String.format("Select * from %s.positieve_test where date = ?", this.schema);
-
-        try {
-            PreparedStatement statementSql = connection.prepareStatement(sql);
-            statementSql.setDate(1, date);
-            ResultSet result = statementSql.executeQuery();
-            while(result.next()) {
-                PositiveTest pt = createPositiveTest(result);
-                positiveTests.add(pt);
-            }
-        }
-        catch (SQLException e) {
-            throw new DbException(e.getMessage(), e);
-        }
-        return positiveTests;
-    }
-
 
     @Override
     public void deleteTestWithUserid(String userid) {

@@ -25,16 +25,13 @@
 		</jsp:include>
 
 		<main>
-			<c:if test="${notAuthorized != null}">
-				<p class="alert-danger">${notAuthorized}</p>
-			</c:if>
 
 
 
 			<c:choose>
 
-				<c:when test="${not empty user}">
-					<h3>Welcome, <c:out value="${user.firstName}"/>  you are now logged in, you can log out again or you can change your password.</h3>
+				<c:when test="${user != null}">
+					<h3>Welcome, ${user.firstName}. you are now logged in, you can log out again or you can change your password.</h3>
 					<form action="Controller?command=LogOut" method="post">
 						<input type="submit" value="Log Out" id="logout">
 						<td><button type="submit" formaction="Controller?command=ChangePasswordForm&userid=${user.userid}">Change password</button></td>
@@ -43,7 +40,6 @@
 				</c:when>
 				<c:otherwise>
 					<h3>This is a contact tracing app for the cafeteria "in't hofke" located in Putte. Staff members can log in here. If you are not registered yet, please go to the sign up page first.</h3>
-
 					<c:if test="${not empty error1}">
 						<p class="alert-danger">
 								${error1}</p>

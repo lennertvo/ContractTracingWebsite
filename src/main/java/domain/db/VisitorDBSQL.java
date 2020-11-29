@@ -4,15 +4,12 @@ import domain.model.Person;
 import domain.model.PositiveTest;
 import domain.model.Visitor;
 
-
-import org.asynchttpclient.util.DateUtils;
 import util.DbConnectionService;
 
 import java.sql.*;
-import java.time.*;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class VisitorDBSQL implements VisitorDB {
@@ -111,20 +108,11 @@ public class VisitorDBSQL implements VisitorDB {
     @Override
     public List<Visitor> getAllContactsFromPersonWhenPositiveTest(PositiveTest positiveTest) {
        List<Visitor> visitors = new ArrayList<Visitor>();
-       String sql = String.format("SELECT * FROM %s.bezoeker where userid = ? and  arrivaltime >= ? order by lastname, firstname, arrivaltime", this.schema);
+       String sql = String.format("SELECT * FROM %s.bezoeker where userid = ? and arrivaltime >= ? order by lastname, firstname, arrivaltime", this.schema);
        try {
            PreparedStatement statementSql = connection.prepareStatement(sql);
-
-           //LocalDate d = LocalDate.of(positiveTest.getDate().getYear(), positiveTest.getDate().getMonth(),positiveTest.getDate().getDay());
-           LocalDate s = LocalDate.of(positiveTest.getDate().getYear(), positiveTest.getDate().getMonth(), positiveTest.getDate().getDay());
-           System.out.println(s);
-           LocalDate date = s.minusDays(3);
-           Date realDate = java.sql.Date.valueOf(date);
-           System.out.println(positiveTest.getDate());
            statementSql.setString(1, positiveTest.getUserid());
-           statementSql.setDate(2, realDate);
-           //statementSql.setObject(2, d);
-           //statementSql.setDate(1, da);
+           statementSql.setDate(2, positiveTest.getDate());
            ResultSet result = statementSql.executeQuery();
 
            while (result.next()) {

@@ -23,38 +23,20 @@
 
 
     <main>
-        <c:if test="${notAuthorized != null}">
-            <p class="alert-danger">${notAuthorized}</p>
-        </c:if>
 
-        <c:if test="${not empty error1}">
-            <div class="alert-danger">
+            <c:if test="${not empty error}">
+                <div class="alert-danger">
 
-                <ul>
-                    <li>${error1}</li>
-                </ul>
+                    <ul>
+                        <li>${error}</li>
+                    </ul>
 
-            </div>
-        </c:if>
-        <c:if test="${not empty error2}">
-            <div class="alert-danger">
-
-                <ul>
-                    <li>${error2}</li>
-                </ul>
-
-            </div>
-        </c:if>
+                </div>
+            </c:if>
 
 
 
-        <c:if test="${empty error1}">
-            <p>Your last positve test was on ${positiveTest.date}</p>
-        </c:if>
-
-
-
-            <c:if test="${empty error1 and empty error2}">
+            <c:if test="${empty error}">
                 <h2>here are all your contacts since your last positive test</h2>
                 <table id="MyTable2" role="table">
                     <thead role="rowgroup">
