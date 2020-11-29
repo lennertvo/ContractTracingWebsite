@@ -6,6 +6,8 @@ import domain.db.PersonDBSQL;
 import domain.model.Person;
 
 
+
+import java.sql.Date;
 import java.util.*;
 
 public class PersonService {
@@ -27,6 +29,13 @@ public class PersonService {
 
 	public List<Person> getPersons() {
 		return db.getAll();
+	}
+
+	public List<Person> getAllPersonsWhoAlsoInPositiveTest(){
+		return db.getAllPersonsWhoAlsoInPositiveTest();
+	}
+	public List<Person> getAllPositiveUserOnSpecificDate(Date date) {
+		return db.getAllPositiveUserOnSpecificDate(date);
 	}
 
 	public void update(Person person){

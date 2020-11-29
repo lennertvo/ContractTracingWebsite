@@ -7,14 +7,16 @@
         <ul>
             <li ${param.page eq 'Home'?'id="actual"':""}><a href="Controller">Home</a></li>
             
-            <c:if test="${user.role eq 'ADMIN'}">
+            <c:if test="${user.role == 'ADMIN'}">
                 <li ${param.page eq 'Overview'?'id="actual"':""}><a href="Controller?command=Overview">Users</a></li>
+                <li ${param.page eq 'Positive users'?'id="actual"':""}><a href="Controller?command=AllPositiveUsers">Positive users</a></li>
+
             </c:if>
 
             <c:if test="${empty user}">
                 <li ${param.page eq 'Register'?'id="actual"':""}><a href="Controller?command=Register">Sign Up</a></li>
             </c:if>
-            <c:if test="${not empty user}">
+            <c:if test="${user.role == 'ADMIN' || user.role == 'USER'}">
                 <li ${param.page eq 'Add Visitor'?'id="actual"':""}><a href="Controller?command=VisitorOverview">Contacts</a></li>
                 <li ${param.page eq 'Add Positive Test'?'id="actual"':""}><a href="Controller?command=ShowAddTest">Add Test</a></li>
                 <li ${param.page eq 'Search'?'id="actual"':""}><a href="Controller?command=SearchPositiveTests">Search</a></li>

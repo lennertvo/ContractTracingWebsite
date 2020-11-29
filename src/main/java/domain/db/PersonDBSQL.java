@@ -64,6 +64,49 @@ public class PersonDBSQL implements PersonDB {
     }
 
     @Override
+    public List<Person> getAllPersonsWhoAlsoInPositiveTest() {
+        List<Person> persons = new ArrayList<Person>();
+        String sql = String.format("SELECT * from %s.gebruiker where userid in (select userid from %s.positieve_test);", this.schema, this.schema);
+        //String sql = String.format("SELECT * FROM %s.gebruiker ge cross join web3_project_r0782485.positieve_test pt where ge.userid = pt.userid ", schema);
+        System.out.println("Dit lukt");
+        try {
+            PreparedStatement statementSql = connection.prepareStatement(sql);
+            ResultSet result = statementSql.executeQuery();
+            while (result.next()){
+                Person person = createPerson(result);
+                persons.add(person);
+            }
+        }
+        catch (SQLException e) {
+
+            throw new DbException(e.getMessage(), e);
+
+        }
+        System.out.println(persons);
+        return persons;
+    }
+
+    @Override
+    public List<Person> getAllPositiveUserOnSpecificDate(Date date) {
+        List<Person> persons = new ArrayList<Person>();
+        String sql = String.format("SELECT * FROM %s.gebruiker ge cross join web3_project_r0782485.positieve_test pt where ge.userid = pt.userid and pt.date = ?", schema);
+        try {
+            PreparedStatement statementSql = connection.prepareStatement(sql);
+            statementSql.setDate(1,date );
+            ResultSet result = statementSql.executeQuery();
+            while (result.next()) {
+                Person person = createPerson(result);
+                persons.add(person);
+            }
+        }
+        catch (SQLException e) {
+            throw new DbException(e.getMessage(), e);
+        }
+        return persons;
+    }
+
+
+    @Override
     public boolean personAlreadyInDb(String userid) {
         String sql = String.format("SELECT * from %s.gebruiker where userid = ?", this.schema);
 
