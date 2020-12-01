@@ -13,11 +13,16 @@
     <jsp:include page="header.jsp">
         <jsp:param name="page" value="Error"/>
     </jsp:include>
-        <h2>Error!</h2>
+
+
+    <c:if test="${notAuthorized != null}">
+        <p>${notAuthorized}</p>
+    </c:if>
+
 
     <main>
     <article>
-        <p>${error}</p>
+        <p class="alert-danger">${error}</p>
     </article>
     </main>
 

@@ -23,20 +23,35 @@
 
 
     <main>
+        <c:if test="${notAuthorized != null}">
+            <p class="alert-danger">${notAuthorized}</p>
+        </c:if>
 
-            <c:if test="${not empty error}">
-                <div class="alert-danger">
-
-                    <ul>
-                        <li>${error}</li>
-                    </ul>
-
-                </div>
-            </c:if>
+        <c:if test="${not empty errorr}">
+            <p class="alert-danger">${errorr}</p>
+        </c:if>
 
 
 
-            <c:if test="${empty error}">
+
+
+
+
+
+        <c:if test="${empty errorr}">
+            <h3>Your last positve test was on ${positiveTest.date}</h3>
+
+
+        </c:if>
+
+        <c:if test="${not empty error2}">
+            <p class="alert-danger">${error2}</p>
+
+        </c:if>
+
+
+
+            <c:if test="${empty error2}">
                 <h2>here are all your contacts since your last positive test</h2>
                 <table id="MyTable2" role="table">
                     <thead role="rowgroup">
@@ -48,23 +63,21 @@
                     </thead>
 
 
-
                     <c:forEach var="visitor" items="${visitors}">
-                    <tbody role="rowgroup">
+                        <tbody role="rowgroup">
                         <tr id="mySecondTr" role="row">
                             <td role="cell">${visitor.firstName} ${visitor.lastName}</td>
                             <td role="cell">${visitor.phoneNumber}</td>
                             <td role="cell">${visitor.email}</td>
 
                         </tr>
-                    </tbody>
+                        </tbody>
                     </c:forEach>
 
 
                 </table>
 
             </c:if>
-
 
 
 

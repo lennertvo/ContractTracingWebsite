@@ -7,6 +7,7 @@ import domain.model.Visitor;
 import util.DbConnectionService;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -108,11 +109,19 @@ public class VisitorDBSQL implements VisitorDB {
     @Override
     public List<Visitor> getAllContactsFromPersonWhenPositiveTest(PositiveTest positiveTest) {
        List<Visitor> visitors = new ArrayList<Visitor>();
-       String sql = String.format("SELECT * FROM %s.bezoeker where userid = ? and arrivaltime >= ? order by lastname, firstname, arrivaltime", this.schema);
+        String sql = String.format("SELECT * FROM %s.bezoeker where userid = ? and arrivaltime >= ? and arrivaltime <= ? order by lastname, firstname, arrivaltime", this.schema);
        try {
            PreparedStatement statementSql = connection.prepareStatement(sql);
+            LocalDate s = positiveTest.getDate().toLocalDate();
+           System.out.println(s);
+           LocalDate dateMin3Days = s.minusDays(3);
+           Date dateMin3 = java.sql.Date.valueOf(dateMin3Days);
+           System.out.println(dateMin3);
+           System.out.println(positiveTest.getDate());
+           System.out.println(positiveTest.getDate());
            statementSql.setString(1, positiveTest.getUserid());
-           statementSql.setDate(2, positiveTest.getDate());
+           statementSql.setDate(2, dateMin3);
+           statementSql.setDate(3, positiveTest.getDate());
            ResultSet result = statementSql.executeQuery();
 
            while (result.next()) {

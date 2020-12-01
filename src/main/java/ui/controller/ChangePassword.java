@@ -1,6 +1,9 @@
 package ui.controller;
 
 import domain.model.Person;
+import domain.model.Role;
+import ui.authorization.NotAuthorizedException;
+import ui.authorization.Utility;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +14,7 @@ import java.util.List;
 
 public class ChangePassword extends RequestHandler {
     @Override
-    public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws NotAuthorizedException, ServletException, IOException {
         String userid = request.getParameter("userid");
         Person person = contactTracingService.getPerson(userid);
         String newPassword = request.getParameter("newPassword");
@@ -30,6 +33,8 @@ public class ChangePassword extends RequestHandler {
         }
         else{
             request.setAttribute("errors1", errors1);
+            Role[] roles = {Role.ADMIN, Role.USER};
+            Utility.checkRole(request, roles);
             //return "changePassword.jsp";
             request.getRequestDispatcher("changePassword.jsp").forward(request, response);
 

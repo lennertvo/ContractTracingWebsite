@@ -35,11 +35,21 @@ public class SignUp extends RequestHandler {
             }
             catch (DbException e) {
                 errors.add(e.getMessage());
+
             }
-            }
+
+            }else{
             request.setAttribute("errors", errors);
-            //return "register.jsp";
             request.getRequestDispatcher("register.jsp").forward(request, response);
+        }
+
+
+            //return "register.jsp";
+
+
+
+        //request.setAttribute("errors", errors);
+
         }
 
 
@@ -121,7 +131,9 @@ public class SignUp extends RequestHandler {
 
     private void getUserId (Person person, HttpServletRequest request, List<String> errors){
         String userId = request.getParameter("userid");
-        request.setAttribute("userIdPreviousValue", userId);
+        if(contactTracingService.personAlreadyInDb(userId)) {
+            errors.add("Person is already in database");
+        }
         try {
             person.setUserid(userId);
             request.setAttribute("userIdClass", "has-success");

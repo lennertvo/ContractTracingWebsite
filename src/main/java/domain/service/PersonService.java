@@ -6,6 +6,7 @@ import domain.db.PersonDBSQL;
 import domain.model.Person;
 
 
+import java.sql.Date;
 import java.util.*;
 
 public class PersonService {
@@ -22,6 +23,15 @@ public class PersonService {
 		if(person == null) throw new DbException("No person given");
 		if(db.personAlreadyInDb(person.getUserid())) throw new DbException("User already in DB");
 		db.add(person);
+	}
+	public List<Person> getAllPersonsWhoAlsoInPositiveTest(){
+		return db.getAllPersonsWhoAlsoInPositiveTest();
+	}
+	public List<Person> getAllPositiveUserOnSpecificDate(Date date) {
+		return db.getAllPositiveUserOnSpecificDate(date);
+	}
+	public boolean personAlreadyInDb(String userid) {
+		return db.personAlreadyInDb(userid);
 	}
 
 

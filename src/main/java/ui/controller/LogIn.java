@@ -23,13 +23,9 @@ public class LogIn extends RequestHandler {
             request.getRequestDispatcher("index.jsp").forward(request, response);
         } else {
             request.getSession().setAttribute("user", person);
+            request.getRequestDispatcher("index.jsp").forward(request, response);
 
         }
-        Person person1 = (Person) request.getSession().getAttribute("user");
-        String userid = person1.getUserid();
-        System.out.println(userid);
-        //return "index.jsp";
-        request.getRequestDispatcher("index.jsp").forward(request, response);
 
     }
 

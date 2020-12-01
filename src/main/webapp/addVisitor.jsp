@@ -27,6 +27,11 @@
         Leave your personal data here
     </h2>
     <main>
+
+        <c:if test="${notAuthorized != null}">
+            <p class="alert-danger">${notAuthorized}</p>
+        </c:if>
+
         <c:if test="${not empty errors}">
             <div class="alert-danger">
 

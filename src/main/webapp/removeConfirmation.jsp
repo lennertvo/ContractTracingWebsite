@@ -16,8 +16,12 @@
         <jsp:param name="page" value="Remove Confirmation"/>
     </jsp:include>
    <main>
+       <c:if test="${notAuthorized != null}">
+           <p>${notAuthorized}</p>
+       </c:if>
 
-    <article>
+
+       <article>
         <h2>Are you sure you want to delete ${fName} ${lName}?</h2>
 
 

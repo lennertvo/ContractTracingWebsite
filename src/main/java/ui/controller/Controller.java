@@ -7,6 +7,7 @@ import domain.service.PersonService;
 import domain.service.PositiveTestService;
 import domain.service.VisitorService;
 import org.checkerframework.checker.units.qual.A;
+import ui.authorization.NotAuthorizedException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -42,6 +43,13 @@ public class Controller extends HttpServlet {
             try {
                 RequestHandler handler = handlerFactory.getHandler(command, contactTracingService);
                 handler.handleRequest(request, response);
+                try {
+                    handler.setModel(contactTracingService);
+                }
+                catch (NotAuthorizedException e) {
+                    request.setAttribute("notAuthorized", "You have insufficient right to have a look a the requested page.");
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                }
                 handler.setModel(contactTracingService);
                 //request.getRequestDispatcher(command).forward(request, response);
 

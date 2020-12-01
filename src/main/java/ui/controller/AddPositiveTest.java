@@ -3,6 +3,9 @@ package ui.controller;
 import domain.db.DbException;
 import domain.model.Person;
 import domain.model.PositiveTest;
+import domain.model.Role;
+import ui.authorization.NotAuthorizedException;
+import ui.authorization.Utility;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +20,7 @@ public class AddPositiveTest extends RequestHandler {
 
 
     @Override
-    public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws NotAuthorizedException, ServletException, IOException {
         List<String> errors = new ArrayList<String>();
 
         PositiveTest positiveTest = new PositiveTest();
@@ -38,6 +41,8 @@ public class AddPositiveTest extends RequestHandler {
             }
         } else{
             request.setAttribute("errors", errors);
+            Role[] roles = {Role.ADMIN, Role.USER};
+            Utility.checkRole(request, roles);
             //return "Controller?command=ShowAddTest";
             request.getRequestDispatcher("Controller?command=ShowAddTest").forward(request, response);
         }
@@ -53,11 +58,15 @@ public class AddPositiveTest extends RequestHandler {
         try {
             Date date = Date.valueOf(LocalDate.parse(dateAsString));
             positiveTest.setDate(date);
+            request.setAttribute("date", date);
         } catch (Exception e) {
+            if (dateAsString == null) {
+                errors.add("Date value is empty");
+            }
             errors.add(e.getMessage());
+
+
         }
-
-
     }
 
     private void getUserid(PositiveTest positiveTest, HttpServletRequest request, List<String> errors) {

@@ -25,12 +25,15 @@
 		</jsp:include>
 
 		<main>
+			<c:if test="${notAuthorized != null}">
+				<p class="alert-danger">${notAuthorized}</p>
+			</c:if>
 
 
 
 			<c:choose>
 
-				<c:when test="${user != null}">
+				<c:when test="${not empty user}">
 					<h3>Welcome, ${user.firstName}. you are now logged in, you can log out again or you can change your password.</h3>
 					<form action="Controller?command=LogOut" method="post">
 						<input type="submit" value="Log Out" id="logout">

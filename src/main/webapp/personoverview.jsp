@@ -16,6 +16,11 @@
     <h2>User Overview</h2>
 
 </header><main>
+
+    <c:if test="${notAuthorized != null}">
+        <p class="alert-danger">${notAuthorized}</p>
+    </c:if>
+
     <table role="table">
         <thead role="rowgroup">
 

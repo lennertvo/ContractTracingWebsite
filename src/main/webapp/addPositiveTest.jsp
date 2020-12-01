@@ -22,6 +22,11 @@
     </jsp:include>
 
 
+    <c:if test="${notAuthorized != null}">
+        <p class="alert-danger">${notAuthorized}</p>
+    </c:if>
+
+
     <main>
         <c:if test="${not empty errors}">
             <div class="alert-danger">
