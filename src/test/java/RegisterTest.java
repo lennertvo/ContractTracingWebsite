@@ -37,6 +37,13 @@ public class RegisterTest {
 
 		String title = driver.getTitle();
 		assertEquals("Home",title);
+		driver.get(path);
+		WebElement logout = driver.findElement(By.id("logout"));
+		logout.click();
+		fillOutField("useridLogIn", "admin");
+		fillOutField("passwordLogIn", "t");
+		WebElement button = driver.findElement(By.id("login"));
+		button.click();
 
 		driver.get(path +"?command=Overview");
 		
@@ -176,7 +183,7 @@ public class RegisterTest {
 		submitForm(useridRandom, "Pieter", "Pieters", "pieter.pieters@hotmail.com", "1234");
 		
 		WebElement errorMsg = driver.findElement(By.cssSelector("div.alert-danger ul li"));
-		assertEquals("User already in DB", errorMsg.getText());
+		assertEquals("Person is already in database", errorMsg.getText());
 
 		WebElement fieldUserid=driver.findElement(By.id("userid"));
 		assertEquals(useridRandom,fieldUserid.getAttribute("value"));
@@ -197,7 +204,7 @@ public class RegisterTest {
 	}
 
 	private void fillOutField(String name,String value) {
-		WebElement field=driver.findElement(By.id(name));
+		WebElement field = driver.findElement(By.id(name));
 		field.clear();
 		field.sendKeys(value);
 	}

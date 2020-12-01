@@ -24,14 +24,26 @@ public class AddContactTest {
         // hint: zoek een werkende test op van web 2 ...
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\lenne\\2TI\\Web3\\chromedriver.exe");
         driver = new ChromeDriver();
+        driver.get("http://localhost:8080/opdracht_web3_war_exploded/index.jsp");
+        fillOutField("useridLogIn", "admin");
+        fillOutField("passwordLogIn", "t");
+        WebElement button=driver.findElement(By.id("login"));
+        button.click();
+
         driver.get(path+"?command=AddVisitorForm");
     }
 
 
     @After
     public void clean() {
+
+
+        driver.get("http://localhost:8080/opdracht_web3_war_exploded/index.jsp");
+        WebElement button = driver.findElement(By.id("logout"));
+        button.click();
         driver.quit();
     }
+
 
     @Test
     public void test_Register_AllFieldsFilledInCorrectly_VisitorIsRegistered(){
@@ -40,15 +52,11 @@ public class AddContactTest {
         String title = driver.getTitle();
         assertEquals("Add Visitor",title);
 
-        driver.get("http://localhost:8080/opdracht_web3_war_exploded/index.jsp");
-        fillOutField("useridLogIn", "admin");
-        fillOutField("passwordLogIn", "t");
-        WebElement button=driver.findElement(By.id("login"));
-        button.click();
+
 
         driver.get(path +"?command=VisitorOverview");
 
-        ArrayList<WebElement> listItems=(ArrayList<WebElement>) driver.findElements(By.cssSelector("table tr"));
+        ArrayList<WebElement> listItems=(ArrayList<WebElement>) driver.findElements(By.cssSelector("#myTr"));
         boolean found=false;
         for (WebElement listItem:listItems) {
             if (listItem.getText().contains("Jan") &&  listItem.getText().contains("Janssens")) {
@@ -65,11 +73,7 @@ public class AddContactTest {
         String title = driver.getTitle();
         assertEquals("Add Visitor",title);
 
-        driver.get("http://localhost:8080/opdracht_web3_war_exploded/index.jsp");
-        fillOutField("useridLogIn", "admin");
-        fillOutField("passwordLogIn", "t");
-        WebElement button=driver.findElement(By.id("login"));
-        button.click();
+
 
         driver.get(path +"?command=VisitorOverview");
 
