@@ -1,4 +1,5 @@
 @CHARSET "UTF-8";
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css");
 * { color: #000000;
 	margin:0;
 	padding: 0;
@@ -10,6 +11,7 @@ d3bb03 green
 f3dc04 yellow
 #ADD8E6
 */
+
 
 
 
@@ -99,7 +101,7 @@ form {
 	margin: 30px 0;
 }
 
-.alert-danger {
+.alert-danger{
 	padding: 0.5em;
 	background-color: #808080;
 	border: 1px solid #b94a48;
@@ -111,6 +113,33 @@ form {
 }
 .alert-danger ul {
 	list-style-type: none;
+}
+
+.alert-success{
+	padding: 0.5em;
+	background-color: #00ff40;
+	border: 1px solid #000000;
+	color: #000000;
+	border-radius: 3px;
+	width: 100%;
+	margin-bottom: 1em;
+	box-sizing: border-box;
+}
+
+.alert-success{
+	list-style-type: none;
+}
+
+
+
+#errorFor-passwordLogIn, #errorFor-useridLogIn, #errorFor-password,
+#errorFor-firstName, #errorFor-lastName, #errorFor-email, #errorFor-userid,
+#errorFor-phoneNumber{
+	border: 1px solid #ff4db8;
+	background-color: #ffeef3;
+}
+span.hidden{
+	display: none;
 }
 label,input,textarea {
 	margin-bottom: 16px;
@@ -159,6 +188,34 @@ table  {
 	margin-bottom: 25px;
 }
 
+/*#filterForm{
+	display: flex;
+	align-items: flex-end;
+	flex-wrap: wrap;
+}*/
+#filterForm p, #filterForm label, #filterForm input{
+	display: inline;
+	margin: 1px;
+}
+#useridSelect{
+	width: 100px;
+}
+
+
+#togglePassword {
+	margin-left: -22px;
+	cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -201,6 +258,9 @@ table  {
 		text-align: right;
 	}
 	.alert-danger {
+		width: 614px;
+	}
+	.alert-success{
 		width: 614px;
 	}
 	label,input,textarea {
@@ -317,14 +377,57 @@ bron https://css-tricks.com/
 	}
 
 
+	#togglePassword {
+		margin-left: -70px;
+	}
 
-
-
-
-
-
+	meter::-webkit-meter-bar {
+		margin-left: 0px;
+	}
 
 }
+
+
+
+
+meter::-webkit-meter-bar {
+	/* Reset the default appearance */
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+
+	margin: 0 auto 1em;
+	margin-left: 110px;
+	width: 200%;
+	height: 0.5em;
+
+	/* Applicable only to Firefox */
+	background: none;
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+
+
+meter[value="1"]::-webkit-meter-optimum-value { background: red; }
+meter[value="2"]::-webkit-meter-optimum-value { background: yellow; }
+meter[value="3"]::-webkit-meter-optimum-value { background: orange; }
+meter[value="4"]::-webkit-meter-optimum-value { background: green; }
+
+meter[value="1"]::-moz-meter-bar { background: red; }
+meter[value="2"]::-moz-meter-bar { background: yellow; }
+meter[value="3"]::-moz-meter-bar { background: orange; }
+meter[value="4"]::-moz-meter-bar { background: green; }
+
+
+
+
+
+
+
+
+
+
+
 
 /*
 d3bb03 green

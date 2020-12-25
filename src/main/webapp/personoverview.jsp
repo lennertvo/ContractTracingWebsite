@@ -18,7 +18,7 @@
 </header><main>
 
     <c:if test="${notAuthorized != null}">
-        <p class="alert-danger">${notAuthorized}</p>
+        <p class="alert-danger" id="alert-danger"><c:out value="${notAuthorized}"/></p>
     </c:if>
 
     <table role="table">
@@ -44,11 +44,11 @@
 
                 <tbody role="rowgroup">
                 <tr role="row">
-                    <td role="cell">${person.email}</td>
-                    <td role="cell">${person.firstName}</td>
-                    <td role="cell">${person.lastName}</td>
+                    <td role="cell"><c:out value="${person.email}"/></td>
+                    <td role="cell"><c:out value="${person.firstName}"/></td>
+                    <td role="cell"><c:out value="${person.lastName}"/></td>
                     <c:if test="${user.userid eq 'admin'}">
-                    <form action="Controller?command=RemoveConfirmation&userId=${person.userid}" method="post">
+                    <form action="Controller?command=RemoveConfirmation&userId=<c:out value="${person.userid}"/> "method="post">
                         <td role="cell"><button type="submit">Delete person</button></td>
                     </form>
                     </c:if>

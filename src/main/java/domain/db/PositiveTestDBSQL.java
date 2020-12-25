@@ -22,7 +22,7 @@ public class PositiveTestDBSQL implements PositiveTestDB {
 
     @Override
     public void add(PositiveTest positiveTest) {
-        String sql = String.format("INSERT INTO %s.positieve_test(userid, date) values(?,?) on conflict (userid) do update set date = excluded.date;", this.schema);
+        String sql = String.format("INSERT INTO %s.positieve_test(userid, date) values(?,?) on conflict (userid) do update set date = excluded.date; " , this.schema);
 
         try {
             PreparedStatement statementSql = connection.prepareStatement(sql);

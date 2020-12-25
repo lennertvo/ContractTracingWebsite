@@ -22,18 +22,23 @@
     </jsp:include>
 
 
-    <c:if test="${notAuthorized != null}">
-        <p class="alert-danger">${notAuthorized}</p>
-    </c:if>
-
-
     <main>
-        <c:if test="${not empty errors}">
+
+        <c:if test="${notAuthorized != null}">
             <div class="alert-danger">
+                <ul>
+                    <li><c:out value="notAuthorized"/></li>
+                </ul>
+            </div>
+        </c:if>
+
+
+        <c:if test="${not empty errors}">
+            <div class="alert-danger" id="alert-danger">
 
                 <c:forEach var="error" items="${errors}">
                     <ul>
-                        <li>${error}</li>
+                        <li><c:out value="${error}"/></li>
                     </ul>
                 </c:forEach>
 
@@ -44,7 +49,7 @@
 
         <form method="post" action="Controller?command=AddPositiveTest" novalidate="novalidate">
             <p><label for="date">Date</label><input type="date" id="date" name="date"
-                                                    v required></p>
+            <c:out value="${param.date}"/> required></p>
 
             <p><input type="submit" id="addVisitor" value="Covid-19 positive"></p>
 

@@ -10,6 +10,7 @@ import domain.service.PersonService;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.List;
 
 public class ContactTracingService {
@@ -101,6 +102,14 @@ public class ContactTracingService {
 
     public int getNumberOfVisitors() {
         return visitorService.getNumberOfVisitors();
+    }
+
+    public List<Visitor> getAllContactsBetween2SpecificDates(LocalDate from, LocalDate until) {
+        return visitorService.getAllContactsBetween2SpecificDates(from, until);
+    }
+
+    public List<Visitor> getAllContactsFromUserBetween2SpecificDates(Person person, LocalDate from, LocalDate until){
+        return visitorService.getAllContactsFromUserBetween2SpecificDates(person, from, until);
     }
 
 

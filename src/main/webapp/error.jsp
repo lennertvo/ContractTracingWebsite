@@ -22,7 +22,7 @@
 
     <main>
     <article>
-        <p class="alert-danger">${error}</p>
+        <p class="alert-danger"> <c:out value="${error}"/></p>
     </article>
     </main>
 

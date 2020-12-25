@@ -21,6 +21,18 @@ public class AddPositiveTest extends RequestHandler {
 
     @Override
     public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws NotAuthorizedException, ServletException, IOException {
+        try {
+            Role[] roles = {Role.ADMIN, Role.USER};
+            Utility.checkRole(request, roles);
+
+        }
+        catch (Exception e) {
+            request.getRequestDispatcher("Controller?command=ShowAddTest").forward(request, response);
+        }
+
+
+
+
         List<String> errors = new ArrayList<String>();
 
         PositiveTest positiveTest = new PositiveTest();
@@ -41,11 +53,12 @@ public class AddPositiveTest extends RequestHandler {
             }
         } else{
             request.setAttribute("errors", errors);
-            Role[] roles = {Role.ADMIN, Role.USER};
-            Utility.checkRole(request, roles);
+
             //return "Controller?command=ShowAddTest";
             request.getRequestDispatcher("Controller?command=ShowAddTest").forward(request, response);
         }
+
+
 
 
 

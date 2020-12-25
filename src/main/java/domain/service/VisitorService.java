@@ -4,10 +4,12 @@ import domain.db.DbException;
 import domain.db.VisitorDB;
 import domain.db.VisitorDBSQL;
 import domain.model.DomainException;
+import domain.model.Person;
 import domain.model.PositiveTest;
 import domain.model.Visitor;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -64,6 +66,14 @@ public class VisitorService {
             throw new DomainException("No positive test given");
         }
         return db.getAllContactsFromPersonWhenPositiveTest(positiveTest);
+    }
+
+    public List<Visitor> getAllContactsBetween2SpecificDates(LocalDate from, LocalDate until) {
+        return db.getAllContactsBetween2SpecificDates(from, until);
+    }
+
+    public List<Visitor> getAllContactsFromUserBetween2SpecificDates(Person person, LocalDate from, LocalDate until){
+        return db.getAllContactsFromUserBetween2SpecificDates(person, from, until);
     }
 
     public int getNumberOfVisitors() {

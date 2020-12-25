@@ -17,7 +17,7 @@
 
     </header><main>
     <c:if test="${notAuthorized != null}">
-        <p class="alert-danger">${notAuthorized}</p>
+        <p class="alert-danger" id="alert-danger"><c:out value="${notAuthorized}"/></p>
     </c:if>
 
 
@@ -51,8 +51,8 @@
 
                 <tbody role="rowgroup">
                 <tr id="myThirdTr" role="row">
-                    <td role="cell">${person.firstName}</td>
-                    <td role="cell">${person.lastName}</td>
+                    <td role="cell"><c:out value="${person.firstName}"/></td>
+                    <td role="cell"><c:out value="${person.lastName}"/></td>
 
 
                 </tr>
@@ -67,7 +67,7 @@
 
 
         <c:if test="${not empty error}">
-            <p class="alert-danger">${error}</p>
+            <p class="alert-danger" id="alert-danger"><c:out value="${error}"/></p>
         </c:if>
 
 
@@ -75,14 +75,14 @@
 
         <form method="post" action="Controller?command=AllPositiveUsersOnSpecificDate" novalidate="novalidate">
             <p><label for="date">Date</label><input type="date" id="date" name="date"
-                                                    v required></p>
+                <c:out value="${param.date}"/> required></p>
 
             <p><input type="submit" id="searchPositiveUsersOnDate" value="Search"></p>
 
         </form>
         <c:if test="${not empty date}">
             <c:if test="${empty positivePersonsOnSpecificDate}">
-                <p class="alert-danger">No users tested positive on this date</p>
+                <p class="alert-danger" id="alert-danger">No users tested positive on this date</p>
             </c:if>
         </c:if>
 
@@ -121,8 +121,8 @@
 
                     <tbody role="rowgroup">
                     <tr id="my4Tr" role= row">
-                        <td role="cell">${person.firstName}</td>
-                        <td role="cell">${person.lastName}</td>
+                        <td role="cell"><c:out value="${person.firstName}"/></td>
+                        <td role="cell"><c:out value="${person.lastName}"/></td>
 
 
                     </tr>

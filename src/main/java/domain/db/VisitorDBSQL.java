@@ -51,7 +51,7 @@ public class VisitorDBSQL implements VisitorDB {
     @Override
     public List<Visitor> getAll() {
         List<Visitor> visitors = new ArrayList<Visitor>();
-        String sql = String.format("SELECT * FROM %s.bezoeker", this.schema);
+        String sql = String.format("SELECT * FROM %s.bezoeker order by arrivaltime", this.schema);
         try {
             PreparedStatement statementSql = connection.prepareStatement(sql);
             ResultSet result = statementSql.executeQuery();
@@ -69,7 +69,7 @@ public class VisitorDBSQL implements VisitorDB {
     @Override
     public List<Visitor> getAllWithUserid(String userid) {
         List<Visitor> visitors = new ArrayList<Visitor>();
-        String sql = String.format("SELECT * FROM %s.bezoeker where userid = ?", this.schema);
+        String sql = String.format("SELECT * FROM %s.bezoeker where userid = ? order by arrivaltime", this.schema);
         try {
             PreparedStatement statementSql = connection.prepareStatement(sql);
             statementSql.setString(1, userid);
@@ -88,7 +88,7 @@ public class VisitorDBSQL implements VisitorDB {
     @Override
     public List<Visitor> getWithFnameAndLname(String firstname, String lastname) {
         List<Visitor> visitorss = new ArrayList<Visitor>();
-        String sql = String.format("Select * from %s.bezoeker where firstname = ? and lastname = ?)", this.schema);
+        String sql = String.format("Select * from %s.bezoeker where firstname = ? and lastname = ? order by arrivaltime", this.schema);
 
         try {
             PreparedStatement statementSql = connection.prepareStatement(sql);
@@ -132,6 +132,49 @@ public class VisitorDBSQL implements VisitorDB {
            throw new DbException(e.getMessage(), e);
        }
        return visitors;
+    }
+
+    @Override
+    public List<Visitor> getAllContactsBetween2SpecificDates(LocalDate from, LocalDate until) {
+        List<Visitor> visitors = new ArrayList<Visitor>();
+        String sql = String.format("SELECT * FROM %s.bezoeker where arrivaltime >= ? and arrivaltime <= ? order by arrivaltime", schema);
+        try {
+            PreparedStatement statementSql = connection.prepareStatement(sql);
+            statementSql.setDate(1, Date.valueOf(from));
+            statementSql.setDate(2, Date.valueOf(until));
+            ResultSet result = statementSql.executeQuery();
+
+            while (result.next()) {
+                Visitor visitor = createVisitor(result);
+                visitors.add(visitor);
+            }
+        }
+        catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+        return visitors;
+    }
+
+    @Override
+    public List<Visitor> getAllContactsFromUserBetween2SpecificDates(Person person, LocalDate from, LocalDate until) {
+        List<Visitor> visitors = new ArrayList<Visitor>();
+        String sql = String.format("SELECT * FROM %s.bezoeker where userid = ? and arrivaltime >= ? and arrivaltime <= ? order by arrivaltime", schema);
+        try {
+            PreparedStatement statementSql = connection.prepareStatement(sql);
+            statementSql.setString(1, person.getUserid());
+            statementSql.setDate(2, Date.valueOf(from));
+            statementSql.setDate(3, Date.valueOf(until));
+            ResultSet result = statementSql.executeQuery();
+
+            while (result.next()) {
+                Visitor visitor = createVisitor(result);
+                visitors.add(visitor);
+            }
+        }
+        catch (SQLException e){
+            throw new DbException(e.getMessage());
+        }
+        return visitors;
     }
 
 

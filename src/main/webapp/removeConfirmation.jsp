@@ -22,11 +22,11 @@
 
 
        <article>
-        <h2>Are you sure you want to delete ${fName} ${lName}?</h2>
+        <h2>Are you sure you want to delete <c:out value="${fName}"/> <c:out value="${lName}"/> ?</h2>
 
 
 
-        <form action="Controller?command=DeletePerson&userId=${userid}" method="post">
+        <form action="Controller?command=DeletePerson&userId=<c:out value="${userid}"/> " method="post">
             <button type="submit">Yes</button>
             <button type="submit" formaction="Controller?command=Overview">No</button>
 

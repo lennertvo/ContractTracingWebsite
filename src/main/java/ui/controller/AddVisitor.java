@@ -51,14 +51,14 @@ public class AddVisitor extends RequestHandler {
         }
         else{
             request.setAttribute("errors", errors);
-            Role[] roles = {Role.ADMIN, Role.USER};
-            Utility.checkRole(request, roles);
+
             //return "Controller?command=AddVisitorForm";
             request.getRequestDispatcher("Controller?command=AddVisitorForm").forward(request, response);
         }
 
 
-
+        Role[] roles = {Role.ADMIN, Role.USER};
+        Utility.checkRole(request, roles);
 
 
 

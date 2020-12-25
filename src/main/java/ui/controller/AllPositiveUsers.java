@@ -16,10 +16,10 @@ import java.util.List;
 public class AllPositiveUsers extends RequestHandler {
     @Override
     public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws NotAuthorizedException, ServletException, IOException {
-        List<Person> persons = contactTracingService.getAllPersonsWhoAlsoInPositiveTest();
-        request.setAttribute("positivePersons", persons);
         Role[] roles = {Role.ADMIN};
         Utility.checkRole(request, roles);
+        List<Person> persons = contactTracingService.getAllPersonsWhoAlsoInPositiveTest();
+        request.setAttribute("positivePersons", persons);
         String date = request.getParameter("date");
         request.setAttribute("date", date);
         String error = (String) request.getAttribute("error");
@@ -28,5 +28,6 @@ public class AllPositiveUsers extends RequestHandler {
 
 
         request.getRequestDispatcher("allPositiveUsers.jsp").forward(request, response);
+
     }
 }

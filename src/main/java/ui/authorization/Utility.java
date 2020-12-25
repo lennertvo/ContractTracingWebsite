@@ -13,8 +13,9 @@ public class Utility {
         Person person = (Person) request.getSession().getAttribute("user");
         if(person != null){
             for(Role role : roles) {
-                if(person.getRole().equals(role)) {
+                if (person.getRole().equals(role)) {
                     found = true;
+                    break;
                 }
             }
         }

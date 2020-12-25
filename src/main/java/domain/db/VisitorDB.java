@@ -7,6 +7,7 @@ import domain.model.PositiveTest;
 import domain.model.Visitor;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -33,4 +34,8 @@ public interface VisitorDB {
     List<Visitor> getWithFnameAndLname(String firstname, String lastname);
 
     List<Visitor> getAllContactsFromPersonWhenPositiveTest(PositiveTest positiveTest);
+
+    List<Visitor> getAllContactsBetween2SpecificDates(LocalDate from, LocalDate until);
+
+    List<Visitor> getAllContactsFromUserBetween2SpecificDates(Person person, LocalDate from, LocalDate until);
 }

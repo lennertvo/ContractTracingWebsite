@@ -42,8 +42,9 @@ public class Controller extends HttpServlet {
         if (command != null) {
             try {
                 RequestHandler handler = handlerFactory.getHandler(command, contactTracingService);
-                handler.handleRequest(request, response);
+
                 try {
+                    handler.handleRequest(request, response);
                     handler.setModel(contactTracingService);
                 }
                 catch (NotAuthorizedException e) {

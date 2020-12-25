@@ -32,13 +32,13 @@
 
     </header><main>
     <c:if test="${notAuthorized != null}">
-        <p class="alert-danger">${notAuthorized}</p>
+        <p class="alert-danger" id="alert-danger">${notAuthorized}</p>
     </c:if>
 
     <article>
         <h2>Change your password</h2>
         <c:if test="${not empty errors1}">
-            <div class="alert-danger">
+            <div class="alert-danger" id="alert-danger">
                 <ul>
                     <c:forEach items="${errors1}" var="error">
                         <li>${error}</li>
