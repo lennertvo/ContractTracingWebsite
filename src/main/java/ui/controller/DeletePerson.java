@@ -11,14 +11,15 @@ import java.io.IOException;
 
 public class DeletePerson extends RequestHandler{
     @Override
-    public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws NotAuthorizedException,  ServletException, IOException {
-        String userid = request.getParameter("userId");
-        contactTracingService.delete(userid);
-        //return "Controller?command=Overview";
-        //request.getRequestDispatcher("Controller?command=Overview").forward(request, response);
+    public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
         Role[] roles = {Role.ADMIN};
         Utility.checkRole(request, roles);
-        response.sendRedirect("Controller?command=Overview");
+        String userid = request.getParameter("userId");
+        contactTracingService.delete(userid);
+        return "Controller?command=Overview";
+        //request.getRequestDispatcher("Controller?command=Overview").forward(request, response);
+
+        //response.sendRedirect("Controller?command=Overview");
 
     }
 }

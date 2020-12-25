@@ -13,13 +13,13 @@ import java.util.List;
 
 public class Overview extends RequestHandler {
     @Override
-    public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws NotAuthorizedException,  ServletException, IOException {
-        List<Person> persons = contactTracingService.getPersons();
-        request.setAttribute("persons", persons);
-        //return "personoverview.jsp";
+    public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
         Role[] roles = {Role.ADMIN};
         Utility.checkRole(request, roles);
-        request.getRequestDispatcher("personoverview.jsp").forward(request, response);
+        List<Person> persons = contactTracingService.getPersons();
+        request.setAttribute("persons", persons);
+        return "personoverview.jsp";
+        //request.getRequestDispatcher("personoverview.jsp").forward(request, response);
     }
 
 }

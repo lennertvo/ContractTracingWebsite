@@ -38,32 +38,42 @@ public class Controller extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
         String command = request.getParameter("command");
-        //String destination = "index.jsp";
+        String destination = "index.jsp";
         if (command != null) {
             try {
                 RequestHandler handler = handlerFactory.getHandler(command, contactTracingService);
 
                 try {
-                    handler.handleRequest(request, response);
+                    destination= handler.handleRequest(request, response);
                     handler.setModel(contactTracingService);
                 }
                 catch (NotAuthorizedException e) {
                     request.setAttribute("notAuthorized", "You have insufficient right to have a look a the requested page.");
-                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                    destination = "index.jsp";
                 }
                 handler.setModel(contactTracingService);
                 //request.getRequestDispatcher(command).forward(request, response);
 
             } catch (Exception e) {
                 request.setAttribute("error", e.getMessage());
-                //destination = "error.jsp";
-                request.getRequestDispatcher("error.jsp").forward(request, response);
+                destination = "error.jsp";
+                /*request.getRequestDispatcher("error.jsp").forward(request, response);*/
 
 
             }
         }
-        else{
+       /* else{
             request.getRequestDispatcher("index.jsp").forward(request, response);
+        }*/
+
+        if(response.isCommitted()) {
+            response.sendRedirect(destination);
+            request.getSession().removeAttribute("success");
+            request.getSession().removeAttribute("error");
+        }else{
+            request.getRequestDispatcher(destination).forward(request, response);
+            request.getSession().removeAttribute("success");
+            request.getSession().removeAttribute("error");
         }
 
 

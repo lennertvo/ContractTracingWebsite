@@ -16,7 +16,9 @@ import java.util.List;
 
 public class SearchPositiveTests extends RequestHandler {
     @Override
-    public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws NotAuthorizedException, ServletException, IOException {
+    public String handleRequest(HttpServletRequest request, HttpServletResponse response){
+        Role[] roles = {Role.ADMIN, Role.USER};
+        Utility.checkRole(request, roles);
         Person person = (Person) request.getSession().getAttribute("user");
 
         PositiveTest positiveTest = contactTracingService.getPositiveTestWithUserid(person.getUserid());
@@ -24,7 +26,8 @@ public class SearchPositiveTests extends RequestHandler {
 
         if (positiveTest == null) {
             request.setAttribute("error1", "You are not positive to Covid-19");
-            request.getRequestDispatcher("search.jsp").forward(request, response);
+            //request.getRequestDispatcher("search.jsp").forward(request, response);
+            return "search.jsp";
         }
             List<Visitor> visitors = contactTracingService.getAllContactsFromPersonWhenPositiveTest(positiveTest);
 
@@ -35,10 +38,9 @@ public class SearchPositiveTests extends RequestHandler {
             request.setAttribute("visitors", visitors);
 
 
-        //return "search.jsp";
-        Role[] roles = {Role.ADMIN, Role.USER};
-        Utility.checkRole(request, roles);
-        request.getRequestDispatcher("search.jsp").forward(request, response);
+        return "search.jsp";
+
+        //request.getRequestDispatcher("search.jsp").forward(request, response);
 
 
     }

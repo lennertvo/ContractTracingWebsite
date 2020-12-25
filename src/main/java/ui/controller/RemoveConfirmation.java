@@ -12,8 +12,9 @@ import java.io.IOException;
 
 public class RemoveConfirmation extends RequestHandler {
     @Override
-    public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws NotAuthorizedException, ServletException, IOException {
-
+    public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
+        Role[] roles = {Role.ADMIN};
+        Utility.checkRole(request, roles);
         String userid = request.getParameter("userId");
 
         Person person = getService().getPerson(userid);
@@ -29,10 +30,9 @@ public class RemoveConfirmation extends RequestHandler {
         System.out.println("userid:" + userid);
 
 
-        //return "removeConfirmation.jsp";
-        Role[] roles = {Role.ADMIN};
-        Utility.checkRole(request, roles);
-        request.getRequestDispatcher("removeConfirmation.jsp").forward(request, response);
+        return "removeConfirmation.jsp";
+
+        //request.getRequestDispatcher("removeConfirmation.jsp").forward(request, response);
 
     }
     //

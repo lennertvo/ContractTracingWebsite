@@ -20,19 +20,9 @@ public class AddPositiveTest extends RequestHandler {
 
 
     @Override
-    public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws NotAuthorizedException, ServletException, IOException {
-        try {
-            Role[] roles = {Role.ADMIN, Role.USER};
-            Utility.checkRole(request, roles);
-
-        }
-        catch (Exception e) {
-            request.getRequestDispatcher("Controller?command=ShowAddTest").forward(request, response);
-        }
-
-
-
-
+    public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws NotAuthorizedException {
+        Role[] roles = {Role.ADMIN, Role.USER};
+        Utility.checkRole(request, roles);
         List<String> errors = new ArrayList<String>();
 
         PositiveTest positiveTest = new PositiveTest();
@@ -45,22 +35,17 @@ public class AddPositiveTest extends RequestHandler {
                 contactTracingService.addPositiveTest(positiveTest);
                 System.out.println("het is gelukt !!!");
 
-                //return "Controller?command=VisitorOverview";
+                return "Controller?command=VisitorOverview";
                 //request.getRequestDispatcher("Controller?command=VisitorOverview").forward(request, response);
-                response.sendRedirect( "Controller?command=VisitorOverview");
+                //response.sendRedirect("Controller?command=VisitorOverview");
             } catch (DbException e) {
                 errors.add(e.getMessage());
             }
-        } else{
-            request.setAttribute("errors", errors);
-
-            //return "Controller?command=ShowAddTest";
-            request.getRequestDispatcher("Controller?command=ShowAddTest").forward(request, response);
         }
 
-
-
-
+        request.setAttribute("errors", errors);
+        return "Controller?command=ShowAddTest";
+        //request.getRequestDispatcher("Controller?command=ShowAddTest").forward(request, response);
 
 
     }
@@ -73,11 +58,7 @@ public class AddPositiveTest extends RequestHandler {
             positiveTest.setDate(date);
             request.setAttribute("date", date);
         } catch (Exception e) {
-            if (dateAsString == null) {
-                errors.add("Date value is empty");
-            }
             errors.add(e.getMessage());
-
 
         }
     }

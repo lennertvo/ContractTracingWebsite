@@ -17,7 +17,9 @@ import java.util.List;
 public class AddVisitor extends RequestHandler {
 
     @Override
-    public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws NotAuthorizedException,  ServletException, IOException {
+    public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws NotAuthorizedException{
+        Role[] roles = {Role.ADMIN, Role.USER};
+        Utility.checkRole(request, roles);
 
 
         Visitor visitor = new Visitor();
@@ -41,24 +43,21 @@ public class AddVisitor extends RequestHandler {
                 request.setAttribute("lastNamePreviousValue", "");
                 request.setAttribute("firstNamePreviousValue", "")*/
 
-                //return "Controller?command=VisitorOverview";
+                return "Controller?command=VisitorOverview";
                 //request.getRequestDispatcher("Controller?command=VisitorOverview").forward(request, response);
-                response.sendRedirect("Controller?command=VisitorOverview");
+                //response.sendRedirect("Controller?command=VisitorOverview");
 
             } catch (Exception e) {
                 errors.add(e.getMessage());
             }
         }
-        else{
             request.setAttribute("errors", errors);
 
-            //return "Controller?command=AddVisitorForm";
-            request.getRequestDispatcher("Controller?command=AddVisitorForm").forward(request, response);
-        }
+            return "Controller?command=AddVisitorForm";
+            //request.getRequestDispatcher("Controller?command=AddVisitorForm").forward(request, response);
 
 
-        Role[] roles = {Role.ADMIN, Role.USER};
-        Utility.checkRole(request, roles);
+
 
 
 

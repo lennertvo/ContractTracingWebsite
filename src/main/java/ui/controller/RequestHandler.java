@@ -22,7 +22,7 @@ public abstract class RequestHandler {
 
 
 
-    public abstract void handleRequest (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+    public abstract String  handleRequest (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
     public void setModel (ContactTracingService contactTracingService) {
         this.contactTracingService = contactTracingService;
 

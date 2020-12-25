@@ -15,7 +15,9 @@ import java.util.List;
 
 public class AllPositiveUsersOnSpecificDate extends RequestHandler {
     @Override
-    public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public String handleRequest(HttpServletRequest request, HttpServletResponse response){
+        Role[] roles = {Role.ADMIN};
+        Utility.checkRole(request, roles);
         String error = "";
         try {
             String dateAsString = request.getParameter("date");
@@ -34,11 +36,11 @@ public class AllPositiveUsersOnSpecificDate extends RequestHandler {
 
 
 
-        Role[] roles = {Role.ADMIN};
-        Utility.checkRole(request, roles);
+
         request.setAttribute("error", error);
-        request.getRequestDispatcher("Controller?command=AllPositiveUsers").forward(request, response);
+        //request.getRequestDispatcher("Controller?command=AllPositiveUsers").forward(request, response);
         //response.sendRedirect("Controller?command=AllPositiveUsers");
+        return "Controller?command=AllPositiveUsers";
 
     }
 

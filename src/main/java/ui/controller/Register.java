@@ -9,9 +9,9 @@ public class Register extends RequestHandler {
 
 
     @Override
-    public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //return "register.jsp";
-        request.getRequestDispatcher("register.jsp").forward(request, response);
+    public String handleRequest(HttpServletRequest request, HttpServletResponse response){
+        return "register.jsp";
+        //request.getRequestDispatcher("register.jsp").forward(request, response);
     }
 
 }

@@ -13,7 +13,9 @@ import java.util.List;
 
 public class AddVisitorForm extends RequestHandler {
     @Override
-    public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public String handleRequest(HttpServletRequest request, HttpServletResponse response){
+        Role[] roles = {Role.ADMIN, Role.USER};
+        Utility.checkRole(request, roles);
         Person person  = (Person) request.getSession().getAttribute("user");
 
         String userid = person.getUserid();
@@ -26,9 +28,9 @@ public class AddVisitorForm extends RequestHandler {
             request.setAttribute("visitors", visitorsWithUserid);
 
         }
-        Role[] roles = {Role.ADMIN, Role.USER};
-        Utility.checkRole(request, roles);
-        request.getRequestDispatcher("addVisitor.jsp").forward(request, response);
+
+        //request.getRequestDispatcher("addVisitor.jsp").forward(request, response);
+        return "addVisitor.jsp";
 
     }
 }

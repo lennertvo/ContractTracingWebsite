@@ -11,13 +11,13 @@ import java.io.IOException;
 
 public class ChangePasswordForm extends RequestHandler {
     @Override
-    public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws NotAuthorizedException, ServletException, IOException {
-        String userid = request.getParameter("userid");
-        request.setAttribute("userid", userid);
-        //return "changePassword.jsp";
+    public String  handleRequest(HttpServletRequest request, HttpServletResponse response) throws NotAuthorizedException {
         Role[] roles = {Role.ADMIN, Role.USER};
         Utility.checkRole(request, roles);
-        request.getRequestDispatcher("changePassword.jsp").forward(request, response);
+        String userid = request.getParameter("userid");
+        request.setAttribute("userid", userid);
+        return "changePassword.jsp";
+        //request.getRequestDispatcher("changePassword.jsp").forward(request, response);
 
     }
 }

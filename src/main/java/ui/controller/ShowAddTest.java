@@ -11,10 +11,10 @@ import java.io.IOException;
 
 public class ShowAddTest extends RequestHandler {
     @Override
-    public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws NotAuthorizedException, ServletException, IOException {
-        //return "addPositiveTest.jsp";
+    public String handleRequest(HttpServletRequest request, HttpServletResponse response){
         Role[] roles = {Role.ADMIN, Role.USER};
         Utility.checkRole(request, roles);
-        request.getRequestDispatcher("addPositiveTest.jsp").forward(request, response);
+        return "addPositiveTest.jsp";
+        //request.getRequestDispatcher("addPositiveTest.jsp").forward(request, response);
     }
 }

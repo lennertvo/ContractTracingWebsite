@@ -11,7 +11,7 @@ import java.io.IOException;
 public class LogIn extends RequestHandler {
 
     @Override
-    public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public String handleRequest(HttpServletRequest request, HttpServletResponse response){
         try {
             String userId = request.getParameter("useridLogIn");
             String password = request.getParameter("passwordLogIn");
@@ -36,9 +36,9 @@ public class LogIn extends RequestHandler {
 
         }
 
-        
-        request.getRequestDispatcher("index.jsp").forward(request, response);
-        request.getSession().removeAttribute("success");
+        return "index.jsp";
+        //request.getRequestDispatcher("index.jsp").forward(request, response);
+
 
 
     }

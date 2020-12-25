@@ -16,7 +16,7 @@ import java.util.List;
 
 public class VisitorOverview extends RequestHandler {
     @Override
-    public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws NotAuthorizedException, ServletException, IOException {
+    public String handleRequest(HttpServletRequest request, HttpServletResponse response){
         Role[] roles = {Role.ADMIN, Role.USER};
         Utility.checkRole(request, roles);
         Person person  = (Person) request.getSession().getAttribute("user");
@@ -72,8 +72,8 @@ public class VisitorOverview extends RequestHandler {
         request.setAttribute("visitors", visitors);
         request.setAttribute("users", users);
 
-        //return "addVisitor.jsp";
-        request.getRequestDispatcher("addVisitor.jsp").forward(request, response);
+        return "addVisitor.jsp";
+        //request.getRequestDispatcher("addVisitor.jsp").forward(request, response);
 
     }
 }

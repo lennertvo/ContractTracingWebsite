@@ -14,7 +14,9 @@ import java.util.List;
 
 public class ChangePassword extends RequestHandler {
     @Override
-    public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws NotAuthorizedException, ServletException, IOException {
+    public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
+        Role[] roles = {Role.ADMIN, Role.USER};
+        Utility.checkRole(request, roles);
         String userid = request.getParameter("userid");
         Person person = contactTracingService.getPerson(userid);
         String newPassword = request.getParameter("newPassword");
@@ -28,22 +30,14 @@ public class ChangePassword extends RequestHandler {
 
         if (errors1.size() == 0) {
 
-            //return "index.jsp";
-            request.getRequestDispatcher("index.jsp").forward(request, response);
-        }
-        else{
-            request.setAttribute("errors1", errors1);
-            Role[] roles = {Role.ADMIN, Role.USER};
-            Utility.checkRole(request, roles);
-            //return "changePassword.jsp";
-            request.getRequestDispatcher("changePassword.jsp").forward(request, response);
-
-
+            return "index.jsp";
+            //request.getRequestDispatcher("index.jsp").forward(request, response);
         }
 
-           
+        request.setAttribute("errors1", errors1);
 
-
+        return "changePassword.jsp";
+        //request.getRequestDispatcher("changePassword.jsp").forward(request, response);
 
 
     }

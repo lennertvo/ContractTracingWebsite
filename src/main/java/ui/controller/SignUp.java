@@ -14,7 +14,7 @@ import java.util.List;
 
 public class SignUp extends RequestHandler {
     @Override
-    public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
         Person person = new Person();
 
         List<String> errors = new ArrayList<String>();
@@ -29,8 +29,8 @@ public class SignUp extends RequestHandler {
             try {
                 contactTracingService.addPerson(person);
                 request.getSession().setAttribute("user", person);
-                //return "index.jsp";
-                request.getRequestDispatcher("index.jsp").forward(request, response);
+                return "index.jsp";
+                //request.getRequestDispatcher("index.jsp").forward(request, response);
 
             }
             catch (DbException e) {
@@ -38,13 +38,14 @@ public class SignUp extends RequestHandler {
 
             }
 
-            }else{
+            }
+
             request.setAttribute("errors", errors);
-            request.getRequestDispatcher("register.jsp").forward(request, response);
-        }
+            //request.getRequestDispatcher("register.jsp").forward(request, response);
+            return "register.jsp";
 
 
-            //return "register.jsp";
+
 
 
 

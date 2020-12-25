@@ -7,12 +7,12 @@ import java.io.IOException;
 
 public class LogOut extends RequestHandler{
     @Override
-    public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public String handleRequest(HttpServletRequest request, HttpServletResponse response){
         request.getSession().invalidate();
         request.getSession().setAttribute("success", "You have successfully logged out");
-        //return "index.jsp";
-        request.getRequestDispatcher("index.jsp").forward(request, response);
-        request.getSession().removeAttribute("success");
+        return "index.jsp";
+        //request.getRequestDispatcher("index.jsp").forward(request, response);
+        //request.getSession().removeAttribute("success");
     }
 
 }

@@ -15,7 +15,7 @@ import java.util.List;
 
 public class AllPositiveUsers extends RequestHandler {
     @Override
-    public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws NotAuthorizedException, ServletException, IOException {
+    public String  handleRequest(HttpServletRequest request, HttpServletResponse response) {
         Role[] roles = {Role.ADMIN};
         Utility.checkRole(request, roles);
         List<Person> persons = contactTracingService.getAllPersonsWhoAlsoInPositiveTest();
@@ -27,7 +27,8 @@ public class AllPositiveUsers extends RequestHandler {
         System.out.println(error);
 
 
-        request.getRequestDispatcher("allPositiveUsers.jsp").forward(request, response);
+        //request.getRequestDispatcher("allPositiveUsers.jsp").forward(request, response);
+        return "allPositiveUsers.jsp";
 
     }
 }
