@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import javax.servlet.annotation.WebListener;
 
@@ -24,6 +25,8 @@ public class AddContactTest {
         // hint: zoek een werkende test op van web 2 ...
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\lenne\\2TI\\Web3\\chromedriver.exe");
         driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("disable-javascript");
         driver.get("http://localhost:8080/opdracht_web3_war_exploded/index.jsp");
         fillOutField("useridLogIn", "admin");
         fillOutField("passwordLogIn", "t");

@@ -20,9 +20,9 @@
     </jsp:include>
 
     <main>
-        <%--       <c:if test="${notAuthorized != null}">
+            <c:if test="${notAuthorized != null}">
                <li class="alert-danger" id="alert-danger">${notAuthorized}</li>
-               </c:if>--%>
+               </c:if>
         
 
 

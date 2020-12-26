@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 public class SeleniumWorksWellTest {
 
@@ -19,6 +20,8 @@ public class SeleniumWorksWellTest {
 			// windows: gebruik dubbele \\ om pad aan te geven
 			// hint: zoek een werkende test op van web 2 maar houd er rekening mee dat Chrome wellicht een upgrade kreeg
 			System.setProperty("webdriver.chrome.driver", "C:\\Users\\lenne\\2TI\\Web3\\chromedriver.exe");
+			ChromeOptions options = new ChromeOptions();
+			options.addArguments("disable-javascript");
 			driver = new ChromeDriver();
 			driver.get("https://nl.wikipedia.org/wiki/Hoofdpagina");
 		}
