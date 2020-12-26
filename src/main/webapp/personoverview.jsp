@@ -15,7 +15,8 @@
     </jsp:include>
     <h2>User Overview</h2>
 
-</header><main>
+<%--</header>--%>
+<main>
 
     <c:if test="${notAuthorized != null}">
         <p class="alert-danger" id="alert-danger"><c:out value="${notAuthorized}"/></p>
@@ -44,9 +45,9 @@
 
                 <tbody role="rowgroup">
                 <tr role="row">
-                    <td role="cell"><c:out value="${person.email}"/></td>
-                    <td role="cell"><c:out value="${person.firstName}"/></td>
-                    <td role="cell"><c:out value="${person.lastName}"/></td>
+                    <td id="emailPerson" role="cell"><c:out value="${person.email}"/></td>
+                    <td id="firstnamePerson" role="cell"><c:out value="${person.firstName}"/></td>
+                    <td id="lastnamePerson" role="cell"><c:out value="${person.lastName}"/></td>
                     <c:if test="${user.userid eq 'admin'}">
                     <form action="Controller?command=RemoveConfirmation&userId=<c:out value="${person.userid}"/> "method="post">
                         <td role="cell"><button type="submit">Delete person</button></td>
@@ -63,7 +64,7 @@
 
 
 
-</table>
+<%--</table>--%>
 </main>
 <footer>
 &copy;Lennert Van Oosterwyck

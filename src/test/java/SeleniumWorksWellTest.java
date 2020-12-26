@@ -9,6 +9,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class SeleniumWorksWellTest {
 
 		private WebDriver driver;
@@ -21,8 +24,10 @@ public class SeleniumWorksWellTest {
 			// hint: zoek een werkende test op van web 2 maar houd er rekening mee dat Chrome wellicht een upgrade kreeg
 			System.setProperty("webdriver.chrome.driver", "C:\\Users\\lenne\\2TI\\Web3\\chromedriver.exe");
 			ChromeOptions options = new ChromeOptions();
-			options.addArguments("disable-javascript");
-			driver = new ChromeDriver();
+			Map<String, Object> prefs = new HashMap<String, Object>();
+			prefs.put("profile.managed_default_content_settings.javascript", 2);
+			options.setExperimentalOption("prefs", prefs);
+			driver = new ChromeDriver(options);
 			driver.get("https://nl.wikipedia.org/wiki/Hoofdpagina");
 		}
 

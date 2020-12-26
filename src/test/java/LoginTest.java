@@ -34,37 +34,37 @@ public class LoginTest {
     @Test
     public void test_login_works(){
         System.out.println("oke");
-        Login_LogoutPage login_logoutPage = PageFactory.initElements(driver, Login_LogoutPage.class);
+        HomePage homePage = PageFactory.initElements(driver, HomePage.class);
         //Login_LogoutPage login_logoutPage = PageFactory.initElements(driver, Login_LogoutPage.class);
         System.out.println("okeeeeeeeeeeeeee");
         // eerst inloggen
-        login_logoutPage.setUserid("admin");
-        login_logoutPage.setPassword("t");
-        login_logoutPage.submitLoginButton();
+        homePage.setUserid("admin");
+        homePage.setPassword("t");
+        homePage.submitLoginButton();
 
-        assertTrue(login_logoutPage.hasWelcomeMessage("Welcome Ad, you are now logged in, you can log out again or you can change your password."));
+        assertTrue(homePage.hasWelcomeMessage("Welcome Ad, you are now logged in, you can log out again or you can change your password."));
 
         // kijk of je de logout button kan zien
-        assertTrue(login_logoutPage.logOutButtonIsPresent());
+        assertTrue(homePage.logOutButtonIsPresent());
 
     }
 
     @Test
     public void test_can_not_login_when_already_logged_in() {
-        Login_LogoutPage login_logoutPage = PageFactory.initElements(driver, Login_LogoutPage.class);
+        HomePage homePage = PageFactory.initElements(driver, HomePage.class);
         boolean gelukt = false;
 
         // eerst inloggen
-        login_logoutPage.setUserid("admin");
-        login_logoutPage.setPassword("t");
-        login_logoutPage.submitLoginButton();
+        homePage.setUserid("admin");
+        homePage.setPassword("t");
+        homePage.submitLoginButton();
         // kijken of dat login button zichtbaar is
-        assertFalse(login_logoutPage.loginButtonIsPresent());
+        assertFalse(homePage.loginButtonIsPresent());
         // kijken of dat logout button niet zichtbaar is
-        assertTrue(login_logoutPage.logOutButtonIsPresent());
+        assertTrue(homePage.logOutButtonIsPresent());
 
         try {
-            login_logoutPage.submitLoginButton();
+            homePage.submitLoginButton();
             gelukt = false;
         }
         catch (NoSuchElementException e) {
@@ -75,18 +75,18 @@ public class LoginTest {
 
     @Test
     public void test_gifs_error_message_when_fault_password() {
-        Login_LogoutPage login_logoutPage = PageFactory.initElements(driver, Login_LogoutPage.class);
+        HomePage homePage = PageFactory.initElements(driver, HomePage.class);
 
         // eerst inloggen
-        login_logoutPage.setUserid("admin");
+        homePage.setUserid("admin");
         // fout password meegevene
-        login_logoutPage.setPassword("a");
-        login_logoutPage.submitLoginButton();
+        homePage.setPassword("a");
+        homePage.submitLoginButton();
         // kijken of dat login button zichtbaar is
-        assertTrue(login_logoutPage.loginButtonIsPresent());
+        assertTrue(homePage.loginButtonIsPresent());
         // kijken of dat logout button niet zichtbaar is
-        assertFalse(login_logoutPage.logOutButtonIsPresent());
-        assertTrue(login_logoutPage.hasErrorMessage("No matching user Id and password"));
+        assertFalse(homePage.logOutButtonIsPresent());
+        assertTrue(homePage.hasErrorMessage("No matching user Id and password"));
 
     }
 

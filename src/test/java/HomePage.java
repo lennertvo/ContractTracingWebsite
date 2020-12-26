@@ -7,9 +7,9 @@ import org.openqa.selenium.support.FindBy;
 import java.util.List;
 
 
-public class Login_LogoutPage extends Page {
+public class HomePage extends Page {
 
-    public Login_LogoutPage(WebDriver driver){
+    public HomePage(WebDriver driver){
         super(driver);
         this.driver.get(getPath());
     }

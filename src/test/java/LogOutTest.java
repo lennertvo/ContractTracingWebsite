@@ -37,34 +37,34 @@ public class LogOutTest {
     @Test
     public void test_logout_works_when_you_are_logged_in(){
         System.out.println("oke");
-        Login_LogoutPage login_logoutPage = PageFactory.initElements(driver, Login_LogoutPage.class);
+        HomePage homePage = PageFactory.initElements(driver, HomePage.class);
         //Login_LogoutPage login_logoutPage = PageFactory.initElements(driver, Login_LogoutPage.class);
         System.out.println("okeeeeeeeeeeeeee");
         // eerst inloggen
-        login_logoutPage.setUserid("admin");
-        login_logoutPage.setPassword("t");
-        login_logoutPage.submitLoginButton();
+        homePage.setUserid("admin");
+        homePage.setPassword("t");
+        homePage.submitLoginButton();
 
         // kijk of je de logout button kan zien
-        assertTrue(login_logoutPage.logOutButtonIsPresent());
+        assertTrue(homePage.logOutButtonIsPresent());
         // uitloggen
-        login_logoutPage.submitLogOutButton();
+        homePage.submitLogOutButton();
         // kijk of je bent uitgelogd en ook dus terug kan inloggen
-        assertTrue(login_logoutPage.loginButtonIsPresent());
+        assertTrue(homePage.loginButtonIsPresent());
 
     }
 
     @Test
     public void test_can_not_logout_when_not_logged_in() {
-        Login_LogoutPage login_logoutPage = PageFactory.initElements(driver, Login_LogoutPage.class);
+        HomePage homePage = PageFactory.initElements(driver, HomePage.class);
        boolean gelukt = false;
         // kijken of dat login button zichtbaar is
-        assertTrue(login_logoutPage.loginButtonIsPresent());
+        assertTrue(homePage.loginButtonIsPresent());
         // kijken of dat logout button niet zichtbaar is
-        assertFalse(login_logoutPage.logOutButtonIsPresent());
+        assertFalse(homePage.logOutButtonIsPresent());
 
       try {
-            login_logoutPage.submitLogOutButton();
+            homePage.submitLogOutButton();
             gelukt = false;
         }
         catch (NoSuchElementException e) {

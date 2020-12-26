@@ -49,7 +49,7 @@
 
         <form method="post" action="Controller?command=AddVisitor" novalidate="novalidate">
             <p><label for="firstName">Fistname</label><input type="text" id="firstName" name="firstName"
-                                                             value="${fn:escapeXml(param.firstname)}" required>
+                                                             value="${fn:escapeXml(param.firstName)}" required>
                 <span id="errorFor-firstName" class="hidden error"></span></p>
             <p><label for="lastName">Lastname</label><input type="text" id="lastName" name="lastName"
                                                             value="${fn:escapeXml(param.lastName)}" required>
@@ -58,7 +58,7 @@
                                                        value="${fn:escapeXml(param.email)}" required>
                 <span id="errorFor-email" class="hidden error"></span></p>
             <p><label for="phoneNumber">phonenumber</label><input type="tel" id="phoneNumber" name="phoneNumber"
-                                                                  value="${fn:escapeXml(param.phonenumber)}"
+                                                                  value="${fn:escapeXml(param.phoneNumber)}"
 
                                                                   required
                                                                   pattern="^(?:(?:\\+|00)32[\\s.-]{0,3}(?:\\(0\\)[\\s.-]{0,3})?|0)[1-9](?:(?:[\\s.-]?\\d{2}){4}|\\d{2}(?:[\\s.-]?\\d{3}){2})$">
