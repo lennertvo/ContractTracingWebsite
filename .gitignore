@@ -8,5 +8,3 @@
 log/
 /target/
 /src/main/java/util/Secret.java
-
-/src/main/java/util/Credentials.java
