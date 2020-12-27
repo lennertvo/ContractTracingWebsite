@@ -21,6 +21,9 @@ public class Page {
         return path;
     }
 
+
+
+
     public String getTitle() {
         return driver.getTitle();
     }

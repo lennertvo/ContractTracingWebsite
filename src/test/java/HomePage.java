@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -81,6 +82,15 @@ public class HomePage extends Page {
         WebElement welcomeMsg = driver.findElement(By.cssSelector("#welcomeMsg"));
         return welcomeMsg.getText().equals(message);
     }
-
+    public boolean hasNavToTestPage() {
+        ArrayList<WebElement> listItems=(ArrayList<WebElement>) driver.findElements(By.cssSelector("nav ul li a"));
+        boolean found=false;
+        for (WebElement listItem:listItems) {
+            if (listItem.getText().contains("Add Test")) {
+                found=true;
+            }
+        }
+        return found;
+    }
 
 }

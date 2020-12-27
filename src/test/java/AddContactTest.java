@@ -1,22 +1,20 @@
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.PageFactory;
 
-import javax.servlet.annotation.WebListener;
+import java.util.HashMap;
+import java.util.Map;
 
-import java.util.ArrayList;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AddContactTest {
+
+
     private WebDriver driver;
-    private String path = "http://localhost:8080/opdracht_web3_war_exploded/Controller";
 
     @Before
     public void setUp() {
@@ -24,245 +22,109 @@ public class AddContactTest {
         // windows: gebruik dubbele \\ om pad aan te geven
         // hint: zoek een werkende test op van web 2 ...
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\lenne\\2TI\\Web3\\chromedriver.exe");
-        driver = new ChromeDriver();
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("disable-javascript");
-        driver.get("http://localhost:8080/opdracht_web3_war_exploded/index.jsp");
-        fillOutField("useridLogIn", "admin");
-        fillOutField("passwordLogIn", "t");
-        WebElement button=driver.findElement(By.id("login"));
-        button.click();
+        Map<String, Object> prefs = new HashMap<String, Object>();
+        prefs.put("profile.managed_default_content_settings.javascript", 2);
+        options.setExperimentalOption("prefs", prefs);
+        driver = new ChromeDriver(options);
+        HomePage homePage = PageFactory.initElements(driver, HomePage.class);
+        homePage.setUserid("admin");
+        homePage.setPassword("t");
+        homePage.submitLoginButton();
 
-        driver.get(path+"?command=AddVisitorForm");
+
     }
-
 
     @After
     public void clean() {
-
-
-        driver.get("http://localhost:8080/opdracht_web3_war_exploded/index.jsp");
-        WebElement button = driver.findElement(By.id("logout"));
-        button.click();
         driver.quit();
     }
 
-
     @Test
-    public void test_Register_AllFieldsFilledInCorrectly_VisitorIsRegistered(){
-        submitForm("Jan", "Janssens", "jan.janssens@hotmail.com" , "0412345678");
-
-        String title = driver.getTitle();
-        assertEquals("Add Visitor",title);
+    public void test_AddContact_AllFieldsFilledInCorrectly_ContactIsAdded() {
 
 
+        //Create a contact
+        int randomId = (int) (Math.random()*100);
+        AddContactPage addContactPage = PageFactory.initElements(driver, AddContactPage.class);
+        addContactPage.setFirstName(randomId+"Jan");
+        addContactPage.setLastName("Janssens");
+        addContactPage.setEmail("jan.janssens@hotmail.com");
+        addContactPage.pressButton();
 
-        driver.get(path +"?command=VisitorOverview");
-
-        ArrayList<WebElement> listItems=(ArrayList<WebElement>) driver.findElements(By.cssSelector("#myTr"));
-        boolean found=false;
-        for (WebElement listItem:listItems) {
-            if (listItem.getText().contains("Jan") &&  listItem.getText().contains("Janssens")) {
-                found=true;
-            }
-        }
-        assertTrue(found);
+        ContactsPage overview = PageFactory.initElements(driver, ContactsPage.class);
+        assertTrue(overview.containsUserWithFirstName("Jan"));
+        assertTrue(overview.containsUserWithLastName("Janssens"));
     }
 
     @Test
-    public void test_Register_AllFieldsFilledInCorrectly_VisitorIsRegisteredAndFielsAreBackEmpty(){
-        submitForm("Jan", "Janssens", "jan.janssens@hotmail.com" , "0412345678");
+    public void test_AddContact_FirstNameNotFilledIn_ErrorMessageGivenForFirstNameAndOtherFieldsValueKept(){
 
-        String title = driver.getTitle();
-        assertEquals("Add Visitor",title);
+        AddContactPage addContactPage = PageFactory.initElements(driver, AddContactPage.class);
+        addContactPage.setFirstName("");
+        addContactPage.setLastName("Janssens");
+        addContactPage.setEmail("jan.janssens@hotmail.com");
+        addContactPage.setPhoneNumber("0468235671");
+        addContactPage.pressButton();
 
-
-
-        driver.get(path +"?command=VisitorOverview");
-
-        WebElement fieldFirstName=driver.findElement(By.id("firstName"));
-        assertEquals("",fieldFirstName.getAttribute("value"));
-
-        WebElement fieldLastName=driver.findElement(By.id("lastName"));
-        assertEquals("",fieldLastName.getAttribute("value"));
-
-
-        WebElement fieldEmail=driver.findElement(By.id("email"));
-        assertEquals("",fieldEmail.getAttribute("value"));
-
-
-        WebElement fieldPhoneNumber=driver.findElement(By.id("phoneNumber"));
-        assertEquals("", fieldPhoneNumber.getAttribute("value"));
-
-
-        ArrayList<WebElement> listItems=(ArrayList<WebElement>) driver.findElements(By.cssSelector("table tr"));
-        boolean found=false;
-        for (WebElement listItem:listItems) {
-            if (listItem.getText().contains("Jan") &&  listItem.getText().contains("Janssens")) {
-                found=true;
-            }
-        }
-        assertTrue(found);
+        assertEquals("Add Visitor", addContactPage.getTitle());
+        assertTrue(addContactPage.hasErrorMessage("No firstname given"));
+        assertTrue(addContactPage.hasEmptyFirstName());
+        assertTrue(addContactPage.hasStickyLastName("Janssens"));
+        assertTrue(addContactPage.hasStickyPhoneNumber("0468235671"));
+        assertTrue(addContactPage.hasStickyEmail("jan.janssens@hotmail.com"));
     }
 
     @Test
-    public void test_Register_FirstNameFilledIn_ErrorMessageGivenForFirstNameAndOtherFieldsValueKept() {
-        submitForm("", "Janssens", "jan.janssens@hotmail.com", "0412345678");
+    public void test_AddContact_LastNameNotFilledIn_ErrorMessageGivenForLastNameAndOtherFieldsValueKept(){
 
-        String title = driver.getTitle();
-        assertEquals("Add Visitor",title);
+        AddContactPage addContactPage = PageFactory.initElements(driver, AddContactPage.class);
+        addContactPage.setFirstName("Jan");
+        addContactPage.setLastName("");
+        addContactPage.setEmail("jan.janssens@hotmail.com");
+        addContactPage.setPhoneNumber("0468235671");
+        addContactPage.pressButton();
 
-        WebElement errorMsg = driver.findElement(By.cssSelector("div.alert-danger ul li"));
-        assertEquals("No firstname given", errorMsg.getText());
-
-        WebElement fieldFirstName=driver.findElement(By.id("firstName"));
-        assertEquals("",fieldFirstName.getAttribute("value"));
-
-        WebElement fieldLastName=driver.findElement(By.id("lastName"));
-        assertEquals("Janssens",fieldLastName.getAttribute("value"));
-
-        WebElement fieldEmail=driver.findElement(By.id("email"));
-        assertEquals("jan.janssens@hotmail.com",fieldEmail.getAttribute("value"));
-
-        WebElement fieldPhoneNumber=driver.findElement(By.id("phoneNumber"));
-        assertEquals("0412345678", fieldPhoneNumber.getAttribute("value"));
-
+        assertEquals("Add Visitor", addContactPage.getTitle());
+        assertTrue(addContactPage.hasErrorMessage("No lastname given"));
+        assertTrue(addContactPage.hasStickyFirstName("Jan"));
+        assertTrue(addContactPage.hasEmptyLastName());
+        assertTrue(addContactPage.hasStickyPhoneNumber("0468235671"));
+        assertTrue(addContactPage.hasStickyEmail("jan.janssens@hotmail.com"));
     }
 
     @Test
-    public void test_Register_LastNameNotFilledIn_ErrorMessageGivenForLastNameAndOtherFieldsValueKept(){
-        submitForm("Jan", "", "jan.janssens@hotmail.com", "0412345678");
+    public void test_AddContact_GSMNotFilledIn_ErrorMessageGivenForGSMAndOtherFieldsValueKept(){
 
-        String title = driver.getTitle();
-        assertEquals("Add Visitor",title);
+        AddContactPage addContactPage = PageFactory.initElements(driver, AddContactPage.class);
+        addContactPage.setFirstName("Jan");
+        addContactPage.setLastName("Janssens");
+        addContactPage.setPhoneNumber("");
+        addContactPage.setEmail("jan.janssens@hotmail.com");
+        addContactPage.pressButton();
 
-        WebElement errorMsg = driver.findElement(By.cssSelector("div.alert-danger ul li"));
-        assertEquals("No lastname given", errorMsg.getText());
-
-        WebElement fieldFirstName=driver.findElement(By.id("firstName"));
-        assertEquals("Jan",fieldFirstName.getAttribute("value"));
-
-        WebElement fieldLastName=driver.findElement(By.id("lastName"));
-        assertEquals("",fieldLastName.getAttribute("value"));
-
-        WebElement fieldEmail=driver.findElement(By.id("email"));
-        assertEquals("jan.janssens@hotmail.com",fieldEmail.getAttribute("value"));
-
-        WebElement fieldPhoneNumber=driver.findElement(By.id("phoneNumber"));
-        assertEquals("0412345678", fieldPhoneNumber.getAttribute("value"));
+        assertEquals("Add Visitor", addContactPage.getTitle());
+        assertTrue(addContactPage.hasErrorMessage("No phonenumber given"));
+        assertTrue(addContactPage.hasStickyFirstName("Jan"));
+        assertTrue(addContactPage.hasStickyLastName("Janssens"));
+        assertTrue(addContactPage.hasEmptyPhoneNumber());
+        assertTrue(addContactPage.hasStickyEmail("jan.janssens@hotmail.com"));
     }
 
     @Test
-    public void test_Register_EmailNotFilledIn_ErrorMessageGivenForEmailAndOtherFieldsValueKept(){
-        submitForm("Jan", "Janssens", "", "0412345678");
+    public void test_AddContact_EmailNotFilledIn_ErrorMessageGivenForEmailAndOtherFieldsValueKept(){
+        AddContactPage addContactPage = PageFactory.initElements(driver, AddContactPage.class);
+        addContactPage.setFirstName("Jan");
+        addContactPage.setLastName("Janssens");
+        addContactPage.setPhoneNumber("0468235671");
+        addContactPage.setEmail("");
+        addContactPage.pressButton();
 
-        String title = driver.getTitle();
-        assertEquals("Add Visitor",title);
-
-        WebElement errorMsg = driver.findElement(By.cssSelector("div.alert-danger ul li"));
-        assertEquals("No email given", errorMsg.getText());
-
-
-        WebElement fieldFirstName=driver.findElement(By.id("firstName"));
-        assertEquals("Jan",fieldFirstName.getAttribute("value"));
-
-        WebElement fieldLastName=driver.findElement(By.id("lastName"));
-        assertEquals("Janssens",fieldLastName.getAttribute("value"));
-
-        WebElement fieldEmail=driver.findElement(By.id("email"));
-        assertEquals("",fieldEmail.getAttribute("value"));
-
-        WebElement fieldPhoneNumber=driver.findElement(By.id("phoneNumber"));
-        assertEquals("0412345678", fieldPhoneNumber.getAttribute("value"));
+        assertEquals("Add Visitor", addContactPage.getTitle());
+        assertTrue(addContactPage.hasErrorMessage("No email given"));
+        assertTrue(addContactPage.hasStickyFirstName("Jan"));
+        assertTrue(addContactPage.hasStickyLastName("Janssens"));
+        assertTrue(addContactPage.hasStickyPhoneNumber("0468235671"));
+        assertTrue(addContactPage.hasEmptyEmail());
     }
-
-    @Test
-    public void test_Register_EmailNotFilledInCorrectly_ErrorMessageGivenForEmailAndOtherFieldsValueKept(){
-        submitForm("Jan", "Janssens", "Janssens.gmail.com", "0412345678");
-
-        String title = driver.getTitle();
-        assertEquals("Add Visitor",title);
-
-        WebElement errorMsg = driver.findElement(By.cssSelector("div.alert-danger ul li"));
-        assertEquals("Email not valid", errorMsg.getText());
-
-
-        WebElement fieldFirstName=driver.findElement(By.id("firstName"));
-        assertEquals("Jan",fieldFirstName.getAttribute("value"));
-
-        WebElement fieldLastName=driver.findElement(By.id("lastName"));
-        assertEquals("Janssens",fieldLastName.getAttribute("value"));
-
-        WebElement fieldEmail=driver.findElement(By.id("email"));
-        assertEquals("Janssens.gmail.com",fieldEmail.getAttribute("value"));
-
-        WebElement fieldPhoneNumber=driver.findElement(By.id("phoneNumber"));
-        assertEquals("0412345678", fieldPhoneNumber.getAttribute("value"));
-    }
-
-
-    @Test
-    public void test_Register_PhonenumberNotFilledIn_ErrorMessageGivenForPhonenumberAndOtherFieldsValueKept(){
-        submitForm("Jan", "Janssens", "jan.janssens@hotmail.com", "");
-
-        String title = driver.getTitle();
-        assertEquals("Add Visitor",title);
-
-        WebElement errorMsg = driver.findElement(By.cssSelector("div.alert-danger ul li"));
-        assertEquals("No phonenumber given", errorMsg.getText());
-
-        WebElement fieldFirstName=driver.findElement(By.id("firstName"));
-        assertEquals("Jan",fieldFirstName.getAttribute("value"));
-
-        WebElement fieldLastName=driver.findElement(By.id("lastName"));
-        assertEquals("Janssens",fieldLastName.getAttribute("value"));
-
-        WebElement fieldEmail=driver.findElement(By.id("email"));
-        assertEquals("jan.janssens@hotmail.com",fieldEmail.getAttribute("value"));
-
-        WebElement fieldPhoneNumber=driver.findElement(By.id("phoneNumber"));
-        assertEquals("", fieldPhoneNumber.getAttribute("value"));
-    }
-
-    @Test
-    public void test_Register_PhonenumberNotFilledInCorrectly_ErrorMessageGivenForphonenumberherFieldsValueKept(){
-        submitForm("Jan", "Janssens", "jan.janssens@hotmail.com", "123");
-
-        String title = driver.getTitle();
-        assertEquals("Add Visitor",title);
-
-        WebElement errorMsg = driver.findElement(By.cssSelector("div.alert-danger ul li"));
-        assertEquals("Phonenumber not valid", errorMsg.getText());
-
-        WebElement fieldFirstName=driver.findElement(By.id("firstName"));
-        assertEquals("Jan",fieldFirstName.getAttribute("value"));
-
-        WebElement fieldLastName=driver.findElement(By.id("lastName"));
-        assertEquals("Janssens",fieldLastName.getAttribute("value"));
-
-        WebElement fieldEmail=driver.findElement(By.id("email"));
-        assertEquals("jan.janssens@hotmail.com",fieldEmail.getAttribute("value"));
-
-        WebElement fieldPhoneNumber=driver.findElement(By.id("phoneNumber"));
-        assertEquals("123", fieldPhoneNumber.getAttribute("value"));
-    }
-
-    private void fillOutField(String name,String value) {
-        WebElement field=driver.findElement(By.id(name));
-        field.clear();
-        field.sendKeys(value);
-    }
-
-
-    private void submitForm(String firstname, String lastname,String email, String phonenumber) {
-        fillOutField("firstName", firstname);
-        fillOutField("lastName", lastname);
-        fillOutField("email",email);
-        fillOutField("phoneNumber", phonenumber);
-
-        WebElement button=driver.findElement(By.id("addVisitor"));
-        button.click();
-
-    }
-
 }

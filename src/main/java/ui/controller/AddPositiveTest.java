@@ -33,6 +33,7 @@ public class AddPositiveTest extends RequestHandler {
             try {
 
                 contactTracingService.addPositiveTest(positiveTest);
+                request.getSession().setAttribute("success", "Successfully added a positive test");
                 System.out.println("het is gelukt !!!");
 
                 return "Controller?command=VisitorOverview";
@@ -58,7 +59,7 @@ public class AddPositiveTest extends RequestHandler {
             positiveTest.setDate(date);
             request.setAttribute("date", date);
         } catch (Exception e) {
-            errors.add(e.getMessage());
+            errors.add("Please fill a date in");
 
         }
     }

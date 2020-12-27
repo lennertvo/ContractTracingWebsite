@@ -46,12 +46,22 @@
             </div>
 
         </c:if>
+        <c:if test="${not empty success}">
+            <div class="alert-success">
+
+                <ul>
+                    <li><c:out value="${success}"/></li>
+                </ul>
+
+            </div>
+
+        </c:if>
 
         <form method="post" action="Controller?command=AddPositiveTest" novalidate="novalidate">
             <p><label for="date">Date</label><input type="date" id="date" name="date"
             <c:out value="${param.date}"/> required></p>
 
-            <p><input type="submit" id="addVisitor" value="Covid-19 positive"></p>
+            <p><input type="submit" id="addPositiveTest" value="Covid-19 positive"></p>
 
         </form>
 

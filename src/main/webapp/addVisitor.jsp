@@ -47,6 +47,17 @@
 
         </c:if>
 
+        <c:if test="${not empty success}">
+            <div class="alert-success">
+
+                <ul>
+                    <li><c:out value="${success}"/></li>
+                </ul>
+
+            </div>
+
+        </c:if>
+
         <form method="post" action="Controller?command=AddVisitor" novalidate="novalidate">
             <p><label for="firstName">Fistname</label><input type="text" id="firstName" name="firstName"
                                                              value="${fn:escapeXml(param.firstName)}" required>
