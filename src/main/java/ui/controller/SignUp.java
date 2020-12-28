@@ -82,11 +82,9 @@ public class SignUp extends RequestHandler {
         String password = request.getParameter("password").trim();
         try {
             person.setPasswordHashed(password);
-            request.setAttribute("passwordClass", "has-succes");
             System.out.println("okeeeee");
         }
         catch (Exception e) {
-            request.setAttribute("passwordClass", "has-error");
             errors.add(e.getMessage());
         }
     }
@@ -96,10 +94,9 @@ public class SignUp extends RequestHandler {
         request.setAttribute("emailPreviousValue", email);
         try {
             person.setEmail(email);
-            request.setAttribute("emailClass", "has-succes");
+
         }
         catch (Exception e) {
-            request.setAttribute("emailClass", "has-error");
             errors.add(e.getMessage());
         }
     }
@@ -109,10 +106,8 @@ public class SignUp extends RequestHandler {
         request.setAttribute("lastNamePreviousValue", lastName);
         try {
             person.setLastName(lastName);
-            request.setAttribute("lastNameClass", "has-succes");
         }
         catch (Exception e) {
-            request.setAttribute("lastNameClass", "has-error");
             errors.add(e.getMessage());
         }
     }
@@ -123,9 +118,8 @@ public class SignUp extends RequestHandler {
         request.setAttribute("firstNamePreviousValue", firstName);
         try {
             person.setFirstName(firstName);
-            request.setAttribute("firstNameClass", "has-succes");
         } catch (Exception e) {
-            request.setAttribute("firstNameClass", "has-error");
+
             errors.add(e.getMessage());
         }
     }
@@ -137,9 +131,7 @@ public class SignUp extends RequestHandler {
         }
         try {
             person.setUserid(userId);
-            request.setAttribute("userIdClass", "has-success");
         } catch (Exception e) {
-            request.setAttribute("userIdClass", "has-error");
             errors.add(e.getMessage());
         }
     }
