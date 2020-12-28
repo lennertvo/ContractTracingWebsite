@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <title>Change Password</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <html>
+    <script src="scripts/formValidation.js" defer></script>
     <head>
 <body>
 <div id="container">
@@ -37,7 +37,7 @@
 
     <article>
         <h2>Change your password</h2>
-        <c:if test="${not empty errors1}">
+       <%-- <c:if test="${not empty errors1}">
             <div class="alert-danger" id="alert-danger">
                 <ul>
                     <c:forEach items="${errors1}" var="error">
@@ -47,14 +47,29 @@
                 </ul>
             </div>
 
+        </c:if>--%>
+        <c:if test="${not empty error}">
+            <div class="alert-danger">
+
+                <c:forEach var="error" items="${error}">
+                    <ul>
+                        <li><c:out value="${error}"/></li>
+                    </ul>
+                </c:forEach>
+
+
+            </div>
+
         </c:if>
 
 
 
 
         <form action="Controller?command=ChangePassword&userid=${userid}" method="post" novalidate>
-            <p><label for="oldPassword">Old Password</label><input type="password" id="oldPassword" name="oldPassword" required > </p>
-            <p><label for="newPassword">New Password</label><input type="password" id="newPassword" name="newPassword" required> </p>
+            <p><label for="oldPassword">Old Password</label><input type="password" id="oldPassword" name="oldPassword" required >
+                <span id="errorFor-oldPassword" class="hidden error"></span></p>
+            <p><label for="newPassword">New Password</label><input type="password" id="newPassword" name="newPassword" required>
+                <span id="errorFor-newPassword" class="hidden error"></span></p>
             <p><input type="submit" id="changePassword" value="Change Password"></p>
         </form>
 

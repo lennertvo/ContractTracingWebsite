@@ -5,11 +5,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import reactor.core.publisher.Flux;
 
 import javax.swing.text.Element;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -24,8 +27,16 @@ public class SearchPositiveUsersOnSpecificDateTest {
         // windows: gebruik dubbele \\ om pad aan te geven
         // hint: zoek een werkende test op van web 2 ...
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\lenne\\2TI\\Web3\\chromedriver.exe");
-        driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        Map<String, Object> prefs = new HashMap<String, Object>();
+        prefs.put("profile.managed_default_content_settings.javascript", 2);
+        options.setExperimentalOption("prefs", prefs);
+        driver = new ChromeDriver(options);
         driver.get(path);
+        fillOutField("useridLogIn", "admin");
+        fillOutField("passwordLogIn", "t");
+        WebElement button = driver.findElement(By.id("login"));
+        button.click();
     }
 
 
@@ -39,10 +50,6 @@ public class SearchPositiveUsersOnSpecificDateTest {
     @Test
     public void test_date_is_filled_in_and_gives_all_positive_users_on_given_date() {
         //eerst inloggen als admin, userid = admin, password = t
-        fillOutField("useridLogIn", "admin");
-        fillOutField("passwordLogIn", "t");
-        WebElement button = driver.findElement(By.id("login"));
-        button.click();
 
         driver.get(path+"?command=AllPositiveUsers");
 
@@ -73,10 +80,6 @@ public class SearchPositiveUsersOnSpecificDateTest {
     @Test
     public void test_date_is_not_filled_in_gives_error_message(){
         //eerst inloggen als admin, userid = admin, password = t
-        fillOutField("useridLogIn", "admin");
-        fillOutField("passwordLogIn", "t");
-        WebElement button = driver.findElement(By.id("login"));
-        button.click();
 
         driver.get(path+"?command=AllPositiveUsers");
 
@@ -90,10 +93,7 @@ public class SearchPositiveUsersOnSpecificDateTest {
     @Test
     public void test_date_is_filled_in_with_date_when_nobody_is_tested_positive(){
         //eerst inloggen als admin, userid = admin, password = t
-        fillOutField("useridLogIn", "admin");
-        fillOutField("passwordLogIn", "t");
-        WebElement button = driver.findElement(By.id("login"));
-        button.click();
+
 
         driver.get(path+"?command=AllPositiveUsers");
 

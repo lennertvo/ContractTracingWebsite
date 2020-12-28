@@ -25,16 +25,21 @@ public class ChangePassword extends RequestHandler {
 
 
         checkOldPassword(errors1, person, oldPassword);
-        getAndSetNewPassword(person, request, errors1);
+
+        if(errors1.size() == 0) {
+            getAndSetNewPassword(person, request, errors1);
+        }
+
 
 
         if (errors1.size() == 0) {
-
+            request.getSession().setAttribute("success", "You have successfuly changed your password");
             return "index.jsp";
             //request.getRequestDispatcher("index.jsp").forward(request, response);
         }
 
-        request.setAttribute("errors1", errors1);
+        request.getSession().setAttribute("error", errors1);
+        //request.setAttribute("errors1", errors1);
 
         return "changePassword.jsp";
         //request.getRequestDispatcher("changePassword.jsp").forward(request, response);
@@ -57,7 +62,7 @@ public class ChangePassword extends RequestHandler {
             contactTracingService.update(person);
             request.getSession().invalidate();
         } catch (Exception e) {
-            errors1.add(e.getMessage());
+            errors1.add("No new password given.");
         }
     }
 

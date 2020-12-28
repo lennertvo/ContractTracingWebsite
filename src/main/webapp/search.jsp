@@ -12,7 +12,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Search</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <script src="scripts/script.js" defer></script>
+    <script src="scripts/messages.js" defer></script>
 </head>
 
 <body>
@@ -28,8 +28,21 @@
             <p class="alert-danger" id="alert-danger"><c:out value="${notAuthorized}"/></p>
         </c:if>
 
-        <c:if test="${not empty errorr}">
+        <%--<c:if test="${not empty errorr}">
             <p class="alert-danger" id="alert-danger"><c:out value="${errorr}"/></p>
+        </c:if>--%>
+        <c:if test="${not empty error}">
+            <div class="alert-danger">
+
+                <c:forEach var="error" items="${error}">
+                    <ul>
+                        <li><c:out value="${error}"/></li>
+                    </ul>
+                </c:forEach>
+
+
+            </div>
+
         </c:if>
 
 

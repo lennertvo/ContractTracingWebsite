@@ -12,6 +12,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Add Positive Test</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="scripts/messages.js" defer></script>
+    <script src="scripts/formValidation.js" defer></script>
+
 </head>
 
 <body>
@@ -33,10 +36,10 @@
         </c:if>
 
 
-        <c:if test="${not empty errors}">
-            <div class="alert-danger" id="alert-danger">
+        <c:if test="${not empty error}">
+            <div class="alert-danger">
 
-                <c:forEach var="error" items="${errors}">
+                <c:forEach var="error" items="${error}">
                     <ul>
                         <li><c:out value="${error}"/></li>
                     </ul>
@@ -58,9 +61,9 @@
         </c:if>
 
         <form method="post" action="Controller?command=AddPositiveTest" novalidate="novalidate">
-            <p><label for="date">Date</label><input type="date" id="date" name="date"
-            <c:out value="${param.date}"/> required></p>
-
+            <p><label for="date">Date</label><input type="date" id="date" name="date" required></p>
+            <%--<p><label for="from">From:</label><input type="date" id="from" name="from"
+                                                     <c:out value="${fromPreviousValue}"/>required></p>--%>
             <p><input type="submit" id="addPositiveTest" value="Covid-19 positive"></p>
 
         </form>

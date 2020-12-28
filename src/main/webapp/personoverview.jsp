@@ -21,6 +21,19 @@
     <c:if test="${notAuthorized != null}">
         <p class="alert-danger" id="alert-danger"><c:out value="${notAuthorized}"/></p>
     </c:if>
+    <c:if test="${not empty error}">
+        <div class="alert-danger">
+
+            <c:forEach var="error" items="${error}">
+                <ul>
+                    <li><c:out value="${error}"/></li>
+                </ul>
+            </c:forEach>
+
+
+        </div>
+
+    </c:if>
 
     <table role="table">
         <thead role="rowgroup">

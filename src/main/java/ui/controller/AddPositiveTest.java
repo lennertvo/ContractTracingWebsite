@@ -41,10 +41,13 @@ public class AddPositiveTest extends RequestHandler {
                 //response.sendRedirect("Controller?command=VisitorOverview");
             } catch (DbException e) {
                 errors.add(e.getMessage());
+                request.getSession().setAttribute("error", errors);
+                return "Controller?command=ShowAddTest";
             }
         }
 
-        request.setAttribute("errors", errors);
+        request.getSession().setAttribute("error", errors);
+        //request.setAttribute("errors", errors);
         return "Controller?command=ShowAddTest";
         //request.getRequestDispatcher("Controller?command=ShowAddTest").forward(request, response);
 

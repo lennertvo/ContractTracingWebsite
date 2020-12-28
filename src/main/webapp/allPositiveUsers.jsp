@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <title>Positive users</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="scripts/messages.js" defer></script>
 </head>
 <body>
 <div id="container">
@@ -16,9 +17,12 @@
     <h2>All positive users</h2>
 
     </header><main>
+
     <c:if test="${notAuthorized != null}">
         <p class="alert-danger" id="alert-danger"><c:out value="${notAuthorized}"/></p>
     </c:if>
+
+
 
 
     <c:if test="${empty positivePersons}">

@@ -134,7 +134,7 @@ form {
 
 #errorFor-passwordLogIn, #errorFor-useridLogIn, #errorFor-password,
 #errorFor-firstName, #errorFor-lastName, #errorFor-email, #errorFor-userid,
-#errorFor-phoneNumber{
+#errorFor-phoneNumber, #errorFor-oldPassword, #errorFor-newPassword, #errorFor-positiveTestDate{
 	border: 1px solid #ff4db8;
 	background-color: #ffeef3;
 }

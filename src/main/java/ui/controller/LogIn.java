@@ -25,14 +25,17 @@ public class LogIn extends RequestHandler {
 
 
                 } else {
-                    request.setAttribute("error1", "Wrong password");
+                    request.getSession().setAttribute("error", "Wrong password");
+                    //request.setAttribute("error1", "Wrong password");
                 }
             } else {
-                request.setAttribute("error1", "There is no person with this userid");
+                request.getSession().setAttribute("error", "There is no person with this userid");
+                //request.setAttribute("error1", "There is no person with this userid");
             }
 
         } catch (Exception e) {
-            request.setAttribute("error1", "There is no person with this combination");
+            request.getSession().setAttribute("error","There is no person with this combination" );
+            //request.setAttribute("error1", "There is no person with this combination");
 
         }
 

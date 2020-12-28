@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -22,8 +23,15 @@ public class AllPositiveUsers extends RequestHandler {
         request.setAttribute("positivePersons", persons);
         String date = request.getParameter("date");
         request.setAttribute("date", date);
+        //ArrayList<String> errors = (ArrayList<String>) request.getAttribute("error");
         String error = (String) request.getAttribute("error");
-        request.setAttribute("error", error);
+        //String errors = (String) request.getAttribute("error");
+        //request.getSession().setAttribute("error", error);
+        request.setAttribute("error1", error);
+
+
+
+        //request.setAttribute("error", error);
         System.out.println(error);
 
 

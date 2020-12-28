@@ -51,7 +51,8 @@ public class AddVisitor extends RequestHandler {
                 errors.add(e.getMessage());
             }
         }
-            request.setAttribute("errors", errors);
+            //request.setAttribute("errors", errors);
+            request.getSession().setAttribute("error", errors);
 
             return "Controller?command=AddVisitorForm";
             //request.getRequestDispatcher("Controller?command=AddVisitorForm").forward(request, response);

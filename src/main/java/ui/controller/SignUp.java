@@ -39,8 +39,8 @@ public class SignUp extends RequestHandler {
             }
 
             }
-
-            request.setAttribute("errors", errors);
+            request.getSession().setAttribute("error", errors);
+            //request.setAttribute("errors", errors);
             //request.getRequestDispatcher("register.jsp").forward(request, response);
             return "register.jsp";
 
