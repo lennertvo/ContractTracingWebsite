@@ -38,10 +38,10 @@ public class AddVisitor extends RequestHandler {
             try {
                 contactTracingService.addVisitor(visitor);
 
-                /*request.setAttribute("phoneNumberPreviousValue", "");
+                request.setAttribute("phoneNumberPreviousValue", "");
                 request.setAttribute("emailPreviousValue", "");
                 request.setAttribute("lastNamePreviousValue", "");
-                request.setAttribute("firstNamePreviousValue", "")*/
+                request.setAttribute("firstNamePreviousValue", "");
 
                 return "Controller?command=VisitorOverview";
                 //request.getRequestDispatcher("Controller?command=VisitorOverview").forward(request, response);

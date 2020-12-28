@@ -122,6 +122,9 @@ public class PersonDBSQL implements PersonDB {
 
     @Override
     public void remove(String userid) {
+        removePositiveTestFromUser(userid);
+        removeVisitorsFromUser(userid);
+
         String sql = String.format("Delete from %s.gebruiker where userid = ?", this.schema);
 
         try {
@@ -133,6 +136,37 @@ public class PersonDBSQL implements PersonDB {
         catch (SQLException e) {
             throw new DbException(e);
         }
+    }
+
+    @Override
+    public void removePositiveTestFromUser(String userid) {
+        String sql = String.format("Delete from %s.positieve_test where userid = ?", this.schema);
+
+        try {
+            PreparedStatement statementSql = connection.prepareStatement(sql);
+            statementSql.setString(1, userid);
+            statementSql.execute();
+
+        }
+        catch (SQLException e) {
+            throw new DbException(e);
+        }
+    }
+
+    @Override
+    public void removeVisitorsFromUser(String userid) {
+        String sql = String.format("Delete from %s.bezoeker where userid = ?", this.schema);
+
+        try {
+            PreparedStatement statementSql = connection.prepareStatement(sql);
+            statementSql.setString(1, userid);
+            statementSql.execute();
+
+        }
+        catch (SQLException e) {
+            throw new DbException(e);
+        }
+
     }
 
     @Override

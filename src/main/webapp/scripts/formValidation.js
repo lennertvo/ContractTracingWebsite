@@ -60,10 +60,22 @@ function hasError(field) {
             if (field.id === "email") {
                 return "Give a valid e-mail";
             }
+            if(field.id === "password") {
+                return "Your password must contain at least 1 lowercase letter, 1 uppercase letter, a number and must be at least 8 characters"
 
+            }
+            if(field.id === "phoneNumber") {
+                return "Give a valid phonenumber";
+            }
+
+
+        }
+        if(field.type ==="password") {
+            return "Your password must contain at least 1 lowercase letter, 1 uppercase letter, a number and must be at least 8 characters long"
         }
 
     }
+
 
     //return "Please complete the form correct";
 }

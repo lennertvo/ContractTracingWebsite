@@ -61,16 +61,16 @@
 
         <form method="post" action="Controller?command=AddVisitor" novalidate="novalidate">
             <p><label for="firstName">Fistname</label><input type="text" id="firstName" name="firstName"
-                                                             value="${fn:escapeXml(param.firstName)}" required>
+                                                             value="<c:out value="${firstNamePreviousValue}"/>" required>
                 <span id="errorFor-firstName" class="hidden error"></span></p>
             <p><label for="lastName">Lastname</label><input type="text" id="lastName" name="lastName"
-                                                            value="${fn:escapeXml(param.lastName)}" required>
+                                                            value="<c:out value="${lastNamePreviousValue}"/>" required>
                 <span id="errorFor-lastName" class="hidden error"></span></p>
             <p><label for="email">E-mail</label><input type="email" id="email" name="email"
-                                                       value="${fn:escapeXml(param.email)}" required>
+                                                       value="<c:out value="${emailPreviousValue}"/>" required>
                 <span id="errorFor-email" class="hidden error"></span></p>
             <p><label for="phoneNumber">phonenumber</label><input type="tel" id="phoneNumber" name="phoneNumber"
-                                                                  value="${fn:escapeXml(param.phoneNumber)}"
+                                                                  value="<c:out value="${phoneNumberPreviousValue}"/>"
 
                                                                   required
                                                                   pattern="^(?:(?:\\+|00)32[\\s.-]{0,3}(?:\\(0\\)[\\s.-]{0,3})?|0)[1-9](?:(?:[\\s.-]?\\d{2}){4}|\\d{2}(?:[\\s.-]?\\d{3}){2})$">

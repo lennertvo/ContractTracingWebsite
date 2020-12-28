@@ -9,9 +9,8 @@
     <meta charset="UTF-8">
     <title>Sign Up</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+<%--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">--%>
     <script src="scripts/messages.js" defer></script>
-    <script src="scripts/strengthMeter.js" defer></script>
     <script src="scripts/togglePassword.js" defer></script>
     <script src="scripts/formValidation.js" defer></script>
 </head>
@@ -61,13 +60,13 @@
                                                       pattern="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$">
                 <span id="errorFor-email" class="hidden error"></span></p>
             <p><label for="password">Password</label><input type="password" id="password" name="password"
-                                                            required>
+                                                            required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" >
                 <i class="far fa-eye" id="togglePassword"></i>
 
-                <span id="errorFor-password" class="hidden error"></span></p>
+              <%-- <span id="errorFor-password" class="hidden error"></span></p>--%>
 
-            <meter max="4" id="password-strength-meter"></meter>
-            <p id="password-strength-text"></p>
+            <%--<meter max="4" min="0" id="password-strength-meter" optimum="2"></meter>--%>
+            <p id="password-strength-text"><span id="errorFor-password" class="hidden error"></span></p></p>
             <p><input type="submit" id="signUp" value="Sign Up"></p>
 
         </form>

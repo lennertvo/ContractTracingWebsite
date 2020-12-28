@@ -20,6 +20,8 @@ public interface PersonDB {
     List<Person> getAllPositiveUserOnSpecificDate(Date date);
 
     void remove(String userid);
+    void removePositiveTestFromUser(String userid);
+    void removeVisitorsFromUser(String userid);
 
 
     Person get(String userid);

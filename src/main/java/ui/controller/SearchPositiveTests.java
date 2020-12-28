@@ -25,7 +25,7 @@ public class SearchPositiveTests extends RequestHandler {
         System.out.println(positiveTest);
 
         if (positiveTest == null) {
-            request.getSession().setAttribute("error","You are not positive to Covid-19" );
+            request.setAttribute("errorr","You are not positive to Covid-19" );
             //request.setAttribute("error1", "You are not positive to Covid-19");
             //request.getRequestDispatcher("search.jsp").forward(request, response);
             return "search.jsp";
