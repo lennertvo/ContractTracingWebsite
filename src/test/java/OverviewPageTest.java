@@ -21,7 +21,7 @@ public class OverviewPageTest {
     public void Test_Logged_In_As_Admin_Shows_OverviewPage() {
         HomePage homePage = PageFactory.initElements(driver, HomePage.class);
         homePage.setUserid("admin");
-        homePage.setPassword("t");
+        homePage.setPassword("Webontwikkeling3");
 
 
         homePage.submitLoginButton();

@@ -1,6 +1,7 @@
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +32,7 @@ public class RegisterTest {
 		driver = new ChromeDriver(options);
 		driver.get(path+"?command=Register");
 	}
-	
+
 	@After
 	public void clean() {
 	    driver.quit();
@@ -40,7 +41,7 @@ public class RegisterTest {
 	@Test
 	public void test_Register_AllFieldsFilledInCorrectly_UserIsRegistered() {
 		String useridRandom = generateRandomUseridInOrderToRunTestMoreThanOnce("jakke");
-		submitForm(useridRandom, "Jan", "Janssens", "jan.janssens@hotmail.com" , "1234");
+		submitForm(useridRandom, "Jan", "Janssens", "jan.janssens@hotmail.com" , "Webontwikkeling3");
 
 		String title = driver.getTitle();
 		assertEquals("Home",title);
@@ -48,7 +49,7 @@ public class RegisterTest {
 		WebElement logout = driver.findElement(By.id("logout"));
 		logout.click();
 		fillOutField("useridLogIn", "admin");
-		fillOutField("passwordLogIn", "t");
+		fillOutField("passwordLogIn", "Webontwikkeling3");
 		WebElement button = driver.findElement(By.id("login"));
 		button.click();
 
@@ -183,11 +184,13 @@ public class RegisterTest {
 	@Test
 	public void test_Register_UserAlreadyExists_ErrorMessageGiven(){
 		String useridRandom = generateRandomUseridInOrderToRunTestMoreThanOnce("pierke");
-		submitForm(useridRandom, "Pieter", "Pieters", "pieter.pieters@hotmail.com", "1234");
-
+		submitForm(useridRandom, "Pieter", "Pieters", "pieter.pieters@hotmail.com", "Webontwikkeling3");
+		driver.get(path);
+		WebElement logout = driver.findElement(By.id("logout"));
+		logout.click();
 		driver.get(path+"?command=Register");
 
-		submitForm(useridRandom, "Pieter", "Pieters", "pieter.pieters@hotmail.com", "1234");
+		submitForm(useridRandom, "Pieter", "Pieters", "pieter.pieters@hotmail.com", "Webontwikkeling3");
 		
 		WebElement errorMsg = driver.findElement(By.cssSelector("div.alert-danger ul li"));
 		assertEquals("Person is already in database", errorMsg.getText());

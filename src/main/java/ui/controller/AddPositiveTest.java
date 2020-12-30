@@ -33,7 +33,7 @@ public class AddPositiveTest extends RequestHandler {
             try {
 
                 contactTracingService.addPositiveTest(positiveTest);
-                request.getSession().setAttribute("success", "Successfully added a positive test");
+                request.setAttribute("success", "Successfully added a positive test");
                 System.out.println("het is gelukt !!!");
 
                 return "Controller?command=VisitorOverview";

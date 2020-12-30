@@ -71,6 +71,8 @@ public class VisitorOverview extends RequestHandler {
         }
         request.setAttribute("visitors", visitors);
         request.setAttribute("users", users);
+        String success = (String) request.getAttribute("success");
+        request.getSession().setAttribute("success", success);
 
         return "addVisitor.jsp";
         //request.getRequestDispatcher("addVisitor.jsp").forward(request, response);

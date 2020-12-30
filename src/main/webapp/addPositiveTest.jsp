@@ -60,10 +60,13 @@
 
         </c:if>
 
+        <h2>
+            Let us know here if you have tested positive
+        </h2>
+
         <form method="post" action="Controller?command=AddPositiveTest" novalidate="novalidate">
             <p><label for="date">Date</label><input type="date" id="date" name="date" required></p>
-            <%--<p><label for="from">From:</label><input type="date" id="from" name="from"
-                                                     <c:out value="${fromPreviousValue}"/>required></p>--%>
+
             <p><input type="submit" id="addPositiveTest" value="Covid-19 positive"></p>
 
         </form>

@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <title>Sign Up</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
-<%--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">--%>
+    <%--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">--%>
     <script src="scripts/messages.js" defer></script>
     <script src="scripts/togglePassword.js" defer></script>
     <script src="scripts/formValidation.js" defer></script>
@@ -24,7 +24,7 @@
         <jsp:param name="page" value="Register"/>
     </jsp:include>
     <h2>
-        Staff can create an account here.
+        You can create an account here and after that you can add your contacts.
     </h2>
 
     <main>
@@ -60,12 +60,12 @@
                                                       pattern="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$">
                 <span id="errorFor-email" class="hidden error"></span></p>
             <p><label for="password">Password</label><input type="password" id="password" name="password"
-                                                            required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" >
+                                                            required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
                 <i class="far fa-eye" id="togglePassword"></i>
 
-              <%-- <span id="errorFor-password" class="hidden error"></span></p>--%>
+                <%-- <span id="errorFor-password" class="hidden error"></span></p>--%>
 
-            <%--<meter max="4" min="0" id="password-strength-meter" optimum="2"></meter>--%>
+                <%--<meter max="4" min="0" id="password-strength-meter" optimum="2"></meter>--%>
             <p id="password-strength-text"><span id="errorFor-password" class="hidden error"></span></p></p>
             <p><input type="submit" id="signUp" value="Sign Up"></p>
 
@@ -74,11 +74,6 @@
     <footer>
         &copy;Lennert Van Oosterwyck
     </footer>
-
-
-
-
-
 
 
 </body>

@@ -29,6 +29,7 @@ public class SignUp extends RequestHandler {
             try {
                 contactTracingService.addPerson(person);
                 request.getSession().setAttribute("user", person);
+                request.getSession().setAttribute("success", "You are succesfully signed up and logged in");
                 return "index.jsp";
                 //request.getRequestDispatcher("index.jsp").forward(request, response);
 

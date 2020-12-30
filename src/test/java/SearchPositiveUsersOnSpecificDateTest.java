@@ -34,7 +34,7 @@ public class SearchPositiveUsersOnSpecificDateTest {
         driver = new ChromeDriver(options);
         driver.get(path);
         fillOutField("useridLogIn", "admin");
-        fillOutField("passwordLogIn", "t");
+        fillOutField("passwordLogIn", "Webontwikkeling3");
         WebElement button = driver.findElement(By.id("login"));
         button.click();
     }
@@ -46,29 +46,29 @@ public class SearchPositiveUsersOnSpecificDateTest {
     }
 
 
-    // er zijn 3 users met een positieve test: Admin op 24/11/2020, Lennert op 27/11/2020 en Jan op 28/11/2020
+
+    // er zijn 3 users met een positieve test: Admin op 24/11/2020, Lennert op 27/11/2020 en Joske op 28/12/2020
     @Test
     public void test_date_is_filled_in_and_gives_all_positive_users_on_given_date() {
         //eerst inloggen als admin, userid = admin, password = t
 
-        driver.get(path+"?command=AllPositiveUsers");
+        driver.get(path + "?command=AllPositiveUsers");
 
         // gaan testen op datum 28/11/2020 dus alleen Jan mag nog weergegeven worden
 
         WebElement date = driver.findElement(By.id("date"));
-        date.sendKeys("28-11-2020");
+        date.sendKeys("28-12-2020");
 
         WebElement search = driver.findElement(By.id("searchPositiveUsersOnDate"));
         search.click();
 
         ArrayList<WebElement> listItems = (ArrayList<WebElement>) driver.findElements(By.cssSelector("#my4Tr"));
         boolean onlyJan = false;
-        for(WebElement listItem: listItems) {
-            if(listItem.getText().contains("Ad") && listItem.getText().contains("Ministrator") || listItem.getText().contains("Lennnert") &&
-                    listItem.getText().contains("Van Oosterwyck")){
+        for (WebElement listItem : listItems) {
+            if (listItem.getText().contains("Ad") && listItem.getText().contains("Ministrator") || listItem.getText().contains("Lennnert") &&
+                    listItem.getText().contains("Van Oosterwyck")) {
                 onlyJan = false;
-            }else if(listItem.getText().contains("Jan") && listItem.getText().contains("Janssens"))
-            {
+            } else if (listItem.getText().contains("Joske") && listItem.getText().contains("Janssens")) {
                 onlyJan = true;
             }
 
@@ -78,10 +78,10 @@ public class SearchPositiveUsersOnSpecificDateTest {
     }
 
     @Test
-    public void test_date_is_not_filled_in_gives_error_message(){
-        //eerst inloggen als admin, userid = admin, password = t
+    public void test_date_is_not_filled_in_gives_error_message() {
 
-        driver.get(path+"?command=AllPositiveUsers");
+
+        driver.get(path + "?command=AllPositiveUsers");
 
         WebElement search = driver.findElement(By.id("searchPositiveUsersOnDate"));
         search.click();
@@ -90,12 +90,12 @@ public class SearchPositiveUsersOnSpecificDateTest {
         assertEquals("Date value is empty", errorMessage);
     }
 
+
     @Test
-    public void test_date_is_filled_in_with_date_when_nobody_is_tested_positive(){
-        //eerst inloggen als admin, userid = admin, password = t
+    public void test_date_is_filled_in_with_date_when_nobody_is_tested_positive() {
 
 
-        driver.get(path+"?command=AllPositiveUsers");
+        driver.get(path + "?command=AllPositiveUsers");
 
         WebElement date = driver.findElement(By.id("date"));
         date.sendKeys("25-11-2020");
@@ -111,16 +111,11 @@ public class SearchPositiveUsersOnSpecificDateTest {
 
 
 
-
-    private void fillOutField (String name, String value){
+    private void fillOutField(String name, String value) {
         WebElement field = driver.findElement(By.id(name));
         field.clear();
         field.sendKeys(value);
     }
-
-
-
-
 
 
 }

@@ -28,23 +28,6 @@
             <p class="alert-danger" id="alert-danger"><c:out value="${notAuthorized}"/></p>
         </c:if>
 
-        <%--<c:if test="${not empty errorr}">
-            <p class="alert-danger" id="alert-danger"><c:out value="${errorr}"/></p>
-        </c:if>--%>
-        <%--     <c:if test="${not empty error}">
-                 <div class="alert-danger">
-
-                     <c:forEach var="error" items="${error}">
-                         <ul>
-                             <li><c:out value="${error}"/></li>
-                         </ul>
-                     </c:forEach>
-
-
-                 </div>
-
-             </c:if>
-     --%>
 
         <c:choose>
             <c:when test="${not empty errorr}">
@@ -101,48 +84,8 @@
                 </c:choose>
 
 
-                <%--<c:if test="${not empty error2}">
-                    <div class="alert-danger">
-                        <ul>
-                            <li><c:out value="${error2}"/></li>
-                        </ul>
-                    </div>
-                </c:if>--%>
-
-
-             <%--   <c:if test="${empty error2}">
-                    <h2>here are all your contacts since your last positive test</h2>
-
-                </c:if>--%>
             </c:otherwise>
         </c:choose>
-
-
-        <%--table id="MyTable2" role="table">
-            <thead role="rowgroup">
-            <tr role="row">
-                <th role="columnheader">Name</th>
-                <th role="columnheader">Gsm</th>
-                <th role="columnheader">E-mail</th>
-            </tr>
-            </thead>
-
-
-            <c:forEach var="visitor" items="${visitors}">
-                <tbody role="rowgroup">
-                <tr id="mySecondTr" role="row">
-                    <td role="cell"><c:out value="${visitor.firstName}"/> <c:out
-                            value="${visitor.lastName}"/></td>
-                    <td role="cell"><c:out value="${visitor.phoneNumber}"/></td>
-                    <td role="cell"><c:out value="${visitor.email}"/></td>
-
-                </tr>
-                </tbody>
-            </c:forEach>
-
-
-        </table>--%>
-
 
 
     </main>

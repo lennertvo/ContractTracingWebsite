@@ -73,13 +73,13 @@ public class HomePage extends Page {
     }
 
     public boolean hasErrorMessage (String message) {
-        WebElement errorMsg = driver.findElement(By.cssSelector("#errorMsgLogin"));
+        WebElement errorMsg = driver.findElement(By.className("alert-danger"));
         return errorMsg.getText().equals(message);
 
     }
 
     public boolean hasWelcomeMessage(String message) {
-        WebElement welcomeMsg = driver.findElement(By.cssSelector("#welcomeMsg"));
+        WebElement welcomeMsg = driver.findElement(By.className("alert-success"));
         return welcomeMsg.getText().equals(message);
     }
     public boolean hasNavToTestPage() {

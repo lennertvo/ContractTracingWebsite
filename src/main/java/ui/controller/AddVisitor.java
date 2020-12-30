@@ -42,6 +42,8 @@ public class AddVisitor extends RequestHandler {
                 request.setAttribute("emailPreviousValue", "");
                 request.setAttribute("lastNamePreviousValue", "");
                 request.setAttribute("firstNamePreviousValue", "");
+                request.setAttribute("success", "You have successfuly added a contact");
+
 
                 return "Controller?command=VisitorOverview";
                 //request.getRequestDispatcher("Controller?command=VisitorOverview").forward(request, response);

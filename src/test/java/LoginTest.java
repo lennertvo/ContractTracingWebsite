@@ -39,7 +39,7 @@ public class LoginTest {
         System.out.println("okeeeeeeeeeeeeee");
         // eerst inloggen
         homePage.setUserid("admin");
-        homePage.setPassword("t");
+        homePage.setPassword("Webontwikkeling3");
         homePage.submitLoginButton();
 
         assertTrue(homePage.hasWelcomeMessage("Welcome Ad, you are now logged in, you can log out again or you can change your password."));
@@ -56,7 +56,7 @@ public class LoginTest {
 
         // eerst inloggen
         homePage.setUserid("admin");
-        homePage.setPassword("t");
+        homePage.setPassword("Webontwikkeling3");
         homePage.submitLoginButton();
         // kijken of dat login button zichtbaar is
         assertFalse(homePage.loginButtonIsPresent());
@@ -86,7 +86,7 @@ public class LoginTest {
         assertTrue(homePage.loginButtonIsPresent());
         // kijken of dat logout button niet zichtbaar is
         assertFalse(homePage.logOutButtonIsPresent());
-        assertTrue(homePage.hasErrorMessage("No matching user Id and password"));
+        assertTrue(homePage.hasErrorMessage("Wrong password"));
 
     }
 

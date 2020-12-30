@@ -110,6 +110,7 @@ form {
 	width: 100%;
 	margin-bottom: 1em;
 	box-sizing: border-box;
+	margin-top: 10px;
 }
 .alert-danger ul {
 	list-style-type: none;
@@ -124,6 +125,7 @@ form {
 	width: 100%;
 	margin-bottom: 1em;
 	box-sizing: border-box;
+	margin-top: 10px;
 }
 
 .alert-success{
@@ -158,6 +160,9 @@ input,textarea {
 	color: #b94a48;
 	border-color: #b94a48;
 	box-shadow: inset 0px 1px 4px #d59392;
+}
+h4{
+	margin-top: 20px;
 }
 
 

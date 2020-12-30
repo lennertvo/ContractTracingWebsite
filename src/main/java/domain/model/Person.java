@@ -93,13 +93,6 @@ public class Person {
 		if(password.isEmpty() || password.trim().isEmpty()){
 			throw new IllegalArgumentException("No password given");
 		}
-		String PASSWORD_PATTERN = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}";
-		Pattern p = Pattern.compile(PASSWORD_PATTERN);
-		Matcher m = p.matcher(password);
-		if(!m.matches()) {
-			throw new IllegalArgumentException("Password not valid");
-		}
-
 		this.password = password;
 	}
 	public void setPasswordHashed(String password) {

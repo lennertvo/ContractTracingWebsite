@@ -26,7 +26,7 @@
 
 
     <h2>
-        Leave your personal data here
+        Add here the personal data from your contacts
     </h2>
     <main>
 
@@ -61,7 +61,8 @@
 
         <form method="post" action="Controller?command=AddVisitor" novalidate="novalidate">
             <p><label for="firstName">Fistname</label><input type="text" id="firstName" name="firstName"
-                                                             value="<c:out value="${firstNamePreviousValue}"/>" required>
+                                                             value="<c:out value="${firstNamePreviousValue}"/>"
+                                                             required>
                 <span id="errorFor-firstName" class="hidden error"></span></p>
             <p><label for="lastName">Lastname</label><input type="text" id="lastName" name="lastName"
                                                             value="<c:out value="${lastNamePreviousValue}"/>" required>
@@ -161,6 +162,27 @@
     </footer>
 
 </div>
+
+<script>
+    function mySearchFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("search");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
 
 </body>
 </html>

@@ -25,7 +25,7 @@ public class RegisterPositiveTest {
         //driver.get(path);
         HomePage homePage = PageFactory.initElements(driver, HomePage.class);
         homePage.setUserid("admin");
-        homePage.setPassword("t");
+        homePage.setPassword("Webontwikkeling3");
         homePage.submitLoginButton();
 
     }

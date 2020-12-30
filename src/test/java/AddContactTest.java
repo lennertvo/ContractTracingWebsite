@@ -29,7 +29,7 @@ public class AddContactTest {
         driver = new ChromeDriver(options);
         HomePage homePage = PageFactory.initElements(driver, HomePage.class);
         homePage.setUserid("admin");
-        homePage.setPassword("t");
+        homePage.setPassword("Webontwikkeling3");
         homePage.submitLoginButton();
 
 
@@ -47,9 +47,10 @@ public class AddContactTest {
         //Create a contact
         int randomId = (int) (Math.random()*100);
         AddContactPage addContactPage = PageFactory.initElements(driver, AddContactPage.class);
-        addContactPage.setFirstName(randomId+"Jan");
+        addContactPage.setFirstName("Jan");
         addContactPage.setLastName("Janssens");
         addContactPage.setEmail("jan.janssens@hotmail.com");
+        addContactPage.setPhoneNumber("0412345678");
         addContactPage.pressButton();
 
         ContactsPage overview = PageFactory.initElements(driver, ContactsPage.class);

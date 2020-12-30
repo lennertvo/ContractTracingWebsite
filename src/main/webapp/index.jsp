@@ -22,11 +22,9 @@
     </jsp:include>
 
     <main>
-            <c:if test="${notAuthorized != null}">
-               <li class="alert-danger" id="alert-danger">${notAuthorized}</li>
-               </c:if>
-        
-
+        <c:if test="${notAuthorized != null}">
+            <li class="alert-danger" id="alert-danger">${notAuthorized}</li>
+        </c:if>
 
 
         <c:choose>
@@ -34,6 +32,8 @@
             <c:when test="${not empty user}">
                 <h3 id="welcomeMsg">Welcome <c:out value="${user.firstName}"/>, you are now logged in, you can log out
                     again or you can change your password.</h3>
+                <h4>To add your contacts go to the "Contacts" Page</h4>
+
 
                 <c:if test="${not empty success}">
                     <div class="alert-success">
@@ -59,8 +59,8 @@
                 </form>
             </c:when>
             <c:otherwise>
-                <h3>This is a contact tracing app for the cafeteria "in't hofke" located in Putte. Staff members can log
-                    in here. If you are not registered yet, please go to the sign up page first.</h3>
+                <h3>This is a contact tracing app for the cafeteria "in't hofke" located in Putte. Log in here. If you
+                    are not registered yet, please go to the sign up page first.</h3>
                 <c:if test="${not empty success}">
                     <div class="alert-success">
 
@@ -71,16 +71,7 @@
                     </div>
 
                 </c:if>
-                <%--<c:if test="${not empty error1}">
-                    <div class="alert-danger">
 
-                        <ul>
-                            <li><c:out value="${error1}"/></li>
-                        </ul>
-
-                    </div>
-
-                </c:if>--%>
                 <c:if test="${not empty error}">
                     <div class="alert-danger">
 
@@ -107,11 +98,6 @@
                 </c:if>
 
 
-                <%--<c:if test="${not empty error1}">
-
-                    <p class="alert-danger" id="alert-danger1">
-                            ${error1}</p>
-                </c:if>--%>
                 <form novalidate method="post" action="Controller?command=LogIn">
                     <p><label for="useridLogIn">User id</label><input type="text" id="useridLogIn" name="useridLogIn"
                                                                       value="${fn:escapeXml(param.useridLogIn)}"
@@ -139,8 +125,6 @@
         &copy;Lennert Van Oosterwyck
     </footer>
 </div>
-
-
 
 
 </body>

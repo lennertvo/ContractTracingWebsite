@@ -10,7 +10,7 @@
 <jsp:include page="header.jsp"/>
 <main id="container">
 
-   <h1>Something is wrong</h1>
+    <h1>Something is wrong</h1>
     <p>Sorry, we couldn't find the requested page (404 error).</p>
     <p>Go <a href="index.jsp">home</a>.</p>
 

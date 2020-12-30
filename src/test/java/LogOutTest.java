@@ -42,7 +42,7 @@ public class LogOutTest {
         System.out.println("okeeeeeeeeeeeeee");
         // eerst inloggen
         homePage.setUserid("admin");
-        homePage.setPassword("t");
+        homePage.setPassword("Webontwikkeling3");
         homePage.submitLoginButton();
 
         // kijk of je de logout button kan zien
