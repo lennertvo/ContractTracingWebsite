@@ -24,7 +24,7 @@
         <jsp:param name="page" value="Register"/>
     </jsp:include>
     <h2>
-        You can create an account here and after that you can add your contacts.
+        You can create an account here anjjd after that you can add your contacts.
     </h2>
 
     <main>

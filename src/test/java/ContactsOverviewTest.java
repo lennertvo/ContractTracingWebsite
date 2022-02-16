@@ -40,7 +40,7 @@ public class ContactsOverviewTest {
         ContactsPage contactsPage = PageFactory.initElements(driver, ContactsPage.class);
         assertTrue(contactsPage.containsUserWithFirstName("Joske"));
         assertTrue(contactsPage.containsUserWithLastName("Vermeulen"));
-        //assertTrue(contactsPage.containsUserWithDateTime("21/11/2020 15:10"));
+
 
     }
 }
